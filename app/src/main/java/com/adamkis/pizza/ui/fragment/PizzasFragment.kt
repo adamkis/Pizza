@@ -1,6 +1,5 @@
 package com.adamkis.pizza.ui.fragment
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
@@ -13,14 +12,18 @@ import android.widget.LinearLayout
 import com.adamkis.pizza.App
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.logDebug
+import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.PizzasResponse
 import com.adamkis.pizza.network.RestApi
 import com.adamkis.pizza.ui.adapter.PizzasAdapter
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import java.net.UnknownHostException
 import javax.inject.Inject
+
 
 class PizzasFragment : BaseFragment() {
 
@@ -53,7 +56,7 @@ class PizzasFragment : BaseFragment() {
             showLoading(false)
         }
         else{
-            downloadIngredients()
+//            downloadIngredients()
             downloadData(pizzasRecyclerView)
         }
     }
@@ -86,33 +89,99 @@ class PizzasFragment : BaseFragment() {
     }
 
     private fun downloadData(pizzasRecyclerView: RecyclerView){
-        callDisposable = restApi.getPizzas()
+
+//        val search1 = search("RxJava")
+//        val search2 = search("Reactive Extensions")
+//        val search3 = search("Eric Meijer")
+//        Observable.zip(searc1, search2, search3,
+//                object : Func3<Elements, Elements, Elements, Elements>() {
+//                    fun call(result1: Elements, result2: Elements, result3: Elements): Elements {
+//                        // Add all the results together...
+//                        return results
+//                    }
+//                }
+//        ).subscribeOn(Schedulers.io()).subscribe(
+//                { links ->
+//                    links.forEach { link -> out.println(currentThreadName() + "\t" + link.text()) }
+//                    latch.countDown()
+//                },
+//                { e ->
+//                    out.println(currentThreadName() + "\t" + "Failed: " + e.message)
+//                    latch.countDown()
+//                }
+//        )
+
+        val pizzas = restApi.getPizzas()
+        val ingredients = restApi.getIngredients()
+        Observable.zip(ingredients, pizzas,
+                object : BiFunction<Array<Ingredient>, PizzasResponse, Pair<Array<Ingredient>, PizzasResponse>> {
+                    override fun apply(t1: Array<Ingredient>, t2: PizzasResponse): Pair<Array<Ingredient>, PizzasResponse> {
+                        // TODO rename parameters
+                        return Pair(t1, t2)
+                    }
+                })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { showLoading(true) }
             .doAfterTerminate { showLoading(false) }
             .subscribe(
-                {pizzasResponse ->
-                    this@PizzasFragment.pizzasResponse = pizzasResponse
-                    setUpAdapter(pizzasRecyclerView, pizzasResponse)
-                    // TODO remove
-                    logDebug("FIRST RESPONSE")
-                    logDebug(pizzasResponse.basePrice.toString())
-                },
-                {t ->
-                    when(t){
-                        is UnknownHostException -> {
-                            showError(getString(R.string.network_error))
-                        }
-                        is NullPointerException -> {
-                            showError(getString(R.string.could_not_load_data))
-                        }
-                        else -> {
-                            showError(getString(R.string.error))
+                    {responsePair ->
+//                        this@PizzasFragment.pizzasResponse = pizzasResponse
+//                        setUpAdapter(pizzasRecyclerView, pizzasResponse)
+                        // TODO remove
+                        logDebug("Logging responses")
+                        logDebug(responsePair.first.map { it.name }.toString())
+                        logDebug(responsePair.second.pizzas?.map { it.name }.toString())
+                    },
+                    {t ->
+                        when(t){
+                            is UnknownHostException -> {
+                                showError(getString(R.string.network_error))
+                            }
+                            is NullPointerException -> {
+                                showError(getString(R.string.could_not_load_data))
+                            }
+                            else -> {
+                                showError(getString(R.string.error))
+                            }
                         }
                     }
-                }
             )
+
+//        val ingredients = restApi.getIngredients()
+//        val pizzas = restApi.getPizzas()
+//        Observable.zip(ingredients, pizzas, BiFunction {
+//            ingredientsResponse, pizzasResponse ->
+//            sum / BigDecimal.valueOf(count)
+//        })
+
+//        callDisposable = restApi.getPizzas()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSubscribe { showLoading(true) }
+//            .doAfterTerminate { showLoading(false) }
+//            .subscribe(
+//                {pizzasResponse ->
+//                    this@PizzasFragment.pizzasResponse = pizzasResponse
+//                    setUpAdapter(pizzasRecyclerView, pizzasResponse)
+//                    // TODO remove
+//                    logDebug("FIRST RESPONSE")
+//                    logDebug(pizzasResponse.basePrice.toString())
+//                },
+//                {t ->
+//                    when(t){
+//                        is UnknownHostException -> {
+//                            showError(getString(R.string.network_error))
+//                        }
+//                        is NullPointerException -> {
+//                            showError(getString(R.string.could_not_load_data))
+//                        }
+//                        else -> {
+//                            showError(getString(R.string.error))
+//                        }
+//                    }
+//                }
+//            )
     }
 
     private fun setUpAdapter(pizzasRecyclerView: RecyclerView, pizzasResponse: PizzasResponse){
