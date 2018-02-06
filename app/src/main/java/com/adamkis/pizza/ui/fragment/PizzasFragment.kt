@@ -12,7 +12,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.adamkis.pizza.App
 import com.adamkis.pizza.R
-import com.adamkis.pizza.model.PhotosResponse
+import com.adamkis.pizza.helper.logDebug
+import com.adamkis.pizza.model.PizzasResponse
 import com.adamkis.pizza.network.RestApi
 import com.adamkis.pizza.ui.adapter.RecentsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,17 +22,17 @@ import io.reactivex.schedulers.Schedulers
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class RecentsFragment : BaseFragment() {
+class PizzasFragment : BaseFragment() {
 
     @Inject lateinit var restApi: RestApi
     private var clickDisposable: Disposable? = null
     private var callDisposable: Disposable? = null
-    private var photosResponse: PhotosResponse? = null
+    private var pizzasResponse: PizzasResponse? = null
     private val PHOTOS_RESPONSE_KEY = "PHOTOS_RESPONSE_KEY"
 
     companion object {
-        fun newInstance(): RecentsFragment {
-            val fragment = RecentsFragment()
+        fun newInstance(): PizzasFragment {
+            val fragment = PizzasFragment()
             return fragment
         }
     }
@@ -46,9 +47,9 @@ class RecentsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpLoadingAndError(view.findViewById(R.id.loading), view as CoordinatorLayout)
         val recentsRecyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.recents_recycler_view)
-        photosResponse = savedInstanceState?.getParcelable(PHOTOS_RESPONSE_KEY)
-        if(photosResponse != null){
-            setUpAdapter(recentsRecyclerView, photosResponse!!)
+        pizzasResponse = savedInstanceState?.getParcelable(PHOTOS_RESPONSE_KEY)
+        if(pizzasResponse != null){
+            setUpAdapter(recentsRecyclerView, pizzasResponse!!)
             showLoading(false)
         }
         else{
@@ -57,15 +58,17 @@ class RecentsFragment : BaseFragment() {
     }
 
     private fun downloadData(recentsRecyclerView: RecyclerView){
-        callDisposable = restApi.getRecentPhotos()
+        callDisposable = restApi.getPizzas()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { showLoading(true) }
             .doAfterTerminate { showLoading(false) }
             .subscribe(
-                {photosResponse ->
-                    this@RecentsFragment.photosResponse = photosResponse
-                    setUpAdapter(recentsRecyclerView, photosResponse)
+                {pizzasResponse ->
+                    this@PizzasFragment.pizzasResponse = pizzasResponse
+//                    setUpAdapter(recentsRecyclerView, photosResponse)
+                    logDebug("FIRST RESPONSE")
+                    logDebug(pizzasResponse.basePrice.toString())
                 },
                 {t ->
                     when(t){
@@ -83,18 +86,18 @@ class RecentsFragment : BaseFragment() {
             )
     }
 
-    private fun setUpAdapter(recentsRecyclerView: RecyclerView, photosResponse: PhotosResponse){
-        recentsRecyclerView.layoutManager = LinearLayoutManager(this@RecentsFragment.activity, LinearLayout.VERTICAL, false)
-        recentsRecyclerView.adapter = RecentsAdapter(photosResponse.photos!!, activity as Context)
-        clickDisposable = (recentsRecyclerView.adapter as RecentsAdapter).clickEvent
-                .subscribe({
-                    startDetailActivityWithTransition(activity as Activity, it.second.findViewById(R.id.recents_image), it.second.findViewById(R.id.recents_photo_id), it.first)
-                })
+    private fun setUpAdapter(recentsRecyclerView: RecyclerView, pizzasResponse: PizzasResponse){
+//        recentsRecyclerView.layoutManager = LinearLayoutManager(this@PizzasFragment.activity, LinearLayout.VERTICAL, false)
+//        recentsRecyclerView.adapter = RecentsAdapter(pizzasResponse.photos!!, activity as Context)
+//        clickDisposable = (recentsRecyclerView.adapter as RecentsAdapter).clickEvent
+//                .subscribe({
+//                    startDetailActivityWithTransition(activity as Activity, it.second.findViewById(R.id.recents_image), it.second.findViewById(R.id.recents_photo_id), it.first)
+//                })
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(PHOTOS_RESPONSE_KEY, photosResponse)
+        outState.putParcelable(PHOTOS_RESPONSE_KEY, pizzasResponse)
     }
 
     override fun onDestroy() {

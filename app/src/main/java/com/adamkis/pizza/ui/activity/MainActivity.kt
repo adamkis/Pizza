@@ -5,7 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.adamkis.pizza.R
-import com.adamkis.pizza.ui.fragment.RecentsFragment
+import com.adamkis.pizza.ui.fragment.PizzasFragment
 import com.adamkis.pizza.ui.fragment.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         replaceFragment(
             if(savedInstanceState != null) supportFragmentManager.getFragment(savedInstanceState, ACTIVE_FRAGMENT_KEY)
-            else RecentsFragment.newInstance()
+            else PizzasFragment.newInstance()
         )
     }
 
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.navigation_home -> {
                 this@MainActivity.supportActionBar?.title = getString(R.string.title_home)
-                replaceFragment(RecentsFragment.newInstance())
+                replaceFragment(PizzasFragment.newInstance())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_search -> {
@@ -56,3 +56,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+// TODO modify created by...

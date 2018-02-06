@@ -5,9 +5,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * Created by adam on 2017. 01. 14..
+ * Created by adam on 2018. 02. 6.
  */
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class PhotosResponse(var photos: Photos? = null, var stat: String? = null) : Parcelable
+data class PizzasResponse(var basePrice: Int?) : Parcelable

@@ -52,11 +52,11 @@ class App : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-        Timber.tag("Flickr");
+        Timber.tag("Pizza")
         if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
+            return
         }
-        LeakCanary.install(this);
+        LeakCanary.install(this)
     }
 
 }

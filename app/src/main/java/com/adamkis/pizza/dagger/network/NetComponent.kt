@@ -1,7 +1,7 @@
 package com.adamkis.pizza.dagger.network
 
 import com.adamkis.pizza.ui.activity.MainActivity
-import com.adamkis.pizza.ui.fragment.RecentsFragment
+import com.adamkis.pizza.ui.fragment.PizzasFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -19,5 +19,5 @@ import javax.inject.Singleton
         RetrofitModule::class))
 interface NetComponent {
     fun inject(mainActivity: MainActivity)
-    fun inject(recentsFragment: RecentsFragment)
+    fun inject(pizzasFragment: PizzasFragment)
 }

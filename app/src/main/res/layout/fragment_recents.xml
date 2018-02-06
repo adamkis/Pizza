@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.adamkis.pizza.ui.fragment.RecentsFragment">
+    tools:context="com.adamkis.pizza.ui.fragment.PizzasFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recents_recycler_view"

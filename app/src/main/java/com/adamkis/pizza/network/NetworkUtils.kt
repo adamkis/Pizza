@@ -11,7 +11,7 @@ import retrofit2.Response
 import java.io.PrintWriter
 import java.io.StringWriter
 
-val FLICKR_URL_BASE = "https://api.flickr.com/services/rest/"
+val FLICKR_URL_BASE = "https://api.myjson.com/bins/"
 
 fun <T> callback(success: (Response<T>) -> Unit, failure: (t: Throwable) -> Unit): Callback<T>? {
     return object : Callback<T> {
