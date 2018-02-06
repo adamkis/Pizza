@@ -23,22 +23,33 @@
         android:layout_gravity="center"
         android:scaleType="centerCrop" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:paddingTop="@dimen/padding_xl"
-        android:paddingBottom="@dimen/padding_xl"
-        android:background="@color/pizza_item_details_bg">
+        android:padding="@dimen/padding_xl"
+        android:background="@color/pizza_item_details_bg"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/pizza_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
+            android:textStyle="bold"
             android:textColor="@color/text_white"
             android:textSize="@dimen/font_l"
             />
-    </FrameLayout>
+        <TextView
+            android:id="@+id/pizza_ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_m"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/font_m"
+            />
+    </LinearLayout>
 
 </FrameLayout>

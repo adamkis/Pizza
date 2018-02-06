@@ -50,6 +50,7 @@ class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerV
 
         fun bind(pizza: Pizza?){
             itemView.pizza_name.text = pizza?.name
+            itemView.pizza_ingredients.text = pizza?.ingredients?.map { it.toString() }.toString()
             glideReqManager.load(pizza?.imageUrl).into(itemView.findViewById(R.id.pizza_image))
         }
 
