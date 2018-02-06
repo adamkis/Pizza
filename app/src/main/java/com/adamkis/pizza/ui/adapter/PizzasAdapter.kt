@@ -8,49 +8,49 @@ import android.view.ViewGroup
 import com.adamkis.pizza.App
 import com.adamkis.pizza.R
 import com.adamkis.pizza.model.Photo
-import com.adamkis.pizza.model.Photos
+import com.adamkis.pizza.model.Pizza
 import com.bumptech.glide.RequestManager
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.recents_item.view.*
+import kotlinx.android.synthetic.main.pizza_item.view.*
 import javax.inject.Inject
 
 /**
  * Created by adam on 2018. 01. 09..
  */
-class RecentsAdapter(val photos: Photos, val context: Context) : RecyclerView.Adapter<RecentsAdapter.RecentsViewHolder>(){
+class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerView.Adapter<PizzasAdapter.RecentsViewHolder>(){
 
     @Inject lateinit var glideReqManager: RequestManager
-    private val clickSubject = PublishSubject.create<Pair<Photo, View>>()
-    val clickEvent: Observable<Pair<Photo, View>> = clickSubject
+    private val clickSubject = PublishSubject.create<Pair<Pizza, View>>()
+    val clickEvent: Observable<Pair<Pizza, View>> = clickSubject
 
     init {
         App.glideComponent.inject(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecentsViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.recents_item, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.pizza_item, parent, false)
         return RecentsViewHolder(glideReqManager, view, context)
     }
 
     override fun onBindViewHolder(holder: RecentsViewHolder?, position: Int) {
-        holder?.bind(photos.photo?.get(position))
+        holder?.bind(pizzas?.get(position))
     }
 
-    override fun getItemCount(): Int = photos.photo?.size ?: 0
+    override fun getItemCount(): Int = pizzas?.size ?: 0
 
     inner class RecentsViewHolder(val glideReqManager: RequestManager, view: View, val context: Context) : RecyclerView.ViewHolder(view){
 
         init {
             itemView.setOnClickListener {
-                clickSubject.onNext(Pair<Photo, View>(photos.photo!!.get(layoutPosition), view))
+                // TODO: nullcheck
+                clickSubject.onNext(Pair<Pizza, View>(pizzas!!.get(layoutPosition), view))
             }
         }
 
-        fun bind(photo: Photo?){
-            itemView.recents_photo_title.text = photo?.title
-            itemView.recents_photo_id.text = photo?.id
-            glideReqManager.load(photo?.getUrl()).into(itemView.findViewById(R.id.recents_image))
+        fun bind(pizza: Pizza?){
+            itemView.pizza_name.text = pizza?.name
+            glideReqManager.load(pizza?.imageUrl).into(itemView.findViewById(R.id.pizza_image))
         }
 
     }

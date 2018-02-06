@@ -1,7 +1,7 @@
 package com.adamkis.pizza.dagger.glide
 
 import android.support.v7.widget.RecyclerView
-import com.adamkis.pizza.ui.adapter.RecentsAdapter
+import com.adamkis.pizza.ui.adapter.PizzasAdapter
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,5 +13,5 @@ import javax.inject.Singleton
         GlideModule::class))
 interface GlideComponent {
     fun inject(viewHolder: RecyclerView.ViewHolder)
-    fun inject(recentsAdapter: RecentsAdapter)
+    fun inject(pizzasAdapter: PizzasAdapter)
 }

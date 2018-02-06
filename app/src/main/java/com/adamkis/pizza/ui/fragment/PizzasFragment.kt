@@ -15,7 +15,7 @@ import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.PizzasResponse
 import com.adamkis.pizza.network.RestApi
-import com.adamkis.pizza.ui.adapter.RecentsAdapter
+import com.adamkis.pizza.ui.adapter.PizzasAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -28,7 +28,7 @@ class PizzasFragment : BaseFragment() {
     private var clickDisposable: Disposable? = null
     private var callDisposable: Disposable? = null
     private var pizzasResponse: PizzasResponse? = null
-    private val PHOTOS_RESPONSE_KEY = "PHOTOS_RESPONSE_KEY"
+    private val PIZZAS_RESPONSE_KEY = "PIZZAS_RESPONSE_KEY"
 
     companion object {
         fun newInstance(): PizzasFragment {
@@ -46,18 +46,18 @@ class PizzasFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpLoadingAndError(view.findViewById(R.id.loading), view as CoordinatorLayout)
-        val recentsRecyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.recents_recycler_view)
-        pizzasResponse = savedInstanceState?.getParcelable(PHOTOS_RESPONSE_KEY)
+        val pizzasRecyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.pizzas_recycler_view)
+        pizzasResponse = savedInstanceState?.getParcelable(PIZZAS_RESPONSE_KEY)
         if(pizzasResponse != null){
-            setUpAdapter(recentsRecyclerView, pizzasResponse!!)
+            setUpAdapter(pizzasRecyclerView, pizzasResponse!!)
             showLoading(false)
         }
         else{
-            downloadData(recentsRecyclerView)
+            downloadData(pizzasRecyclerView)
         }
     }
 
-    private fun downloadData(recentsRecyclerView: RecyclerView){
+    private fun downloadData(pizzasRecyclerView: RecyclerView){
         callDisposable = restApi.getPizzas()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -66,7 +66,8 @@ class PizzasFragment : BaseFragment() {
             .subscribe(
                 {pizzasResponse ->
                     this@PizzasFragment.pizzasResponse = pizzasResponse
-//                    setUpAdapter(recentsRecyclerView, photosResponse)
+                    setUpAdapter(pizzasRecyclerView, pizzasResponse)
+                    // TODO remove
                     logDebug("FIRST RESPONSE")
                     logDebug(pizzasResponse.basePrice.toString())
                 },
@@ -86,10 +87,10 @@ class PizzasFragment : BaseFragment() {
             )
     }
 
-    private fun setUpAdapter(recentsRecyclerView: RecyclerView, pizzasResponse: PizzasResponse){
-//        recentsRecyclerView.layoutManager = LinearLayoutManager(this@PizzasFragment.activity, LinearLayout.VERTICAL, false)
-//        recentsRecyclerView.adapter = RecentsAdapter(pizzasResponse.photos!!, activity as Context)
-//        clickDisposable = (recentsRecyclerView.adapter as RecentsAdapter).clickEvent
+    private fun setUpAdapter(pizzasRecyclerView: RecyclerView, pizzasResponse: PizzasResponse){
+        pizzasRecyclerView.layoutManager = LinearLayoutManager(this@PizzasFragment.activity, LinearLayout.VERTICAL, false)
+        pizzasRecyclerView.adapter = PizzasAdapter(pizzasResponse.pizzas, activity as Context)
+//        clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
 //                .subscribe({
 //                    startDetailActivityWithTransition(activity as Activity, it.second.findViewById(R.id.recents_image), it.second.findViewById(R.id.recents_photo_id), it.first)
 //                })
@@ -97,7 +98,7 @@ class PizzasFragment : BaseFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(PHOTOS_RESPONSE_KEY, pizzasResponse)
+        outState.putParcelable(PIZZAS_RESPONSE_KEY, pizzasResponse)
     }
 
     override fun onDestroy() {
