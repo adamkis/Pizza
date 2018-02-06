@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.adamkis.pizza.App
 import com.adamkis.pizza.R
+import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Photo
 import com.adamkis.pizza.model.Pizza
 import com.bumptech.glide.RequestManager
@@ -18,7 +19,7 @@ import javax.inject.Inject
 /**
  * Created by adam on 2018. 01. 09..
  */
-class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerView.Adapter<PizzasAdapter.RecentsViewHolder>(){
+class PizzasAdapter(val pizzas: Array<Pizza>?, val ingredientsHM: HashMap<Int?, Ingredient>?, val context: Context) : RecyclerView.Adapter<PizzasAdapter.RecentsViewHolder>(){
 
     @Inject lateinit var glideReqManager: RequestManager
     private val clickSubject = PublishSubject.create<Pair<Pizza, View>>()
@@ -44,13 +45,15 @@ class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerV
         init {
             itemView.setOnClickListener {
                 // TODO: nullcheck
-                clickSubject.onNext(Pair<Pizza, View>(pizzas!!.get(layoutPosition), view))
+                clickSubject.onNext(Pair<Pizza, View>(pizzas!![layoutPosition], view))
             }
         }
 
         fun bind(pizza: Pizza?){
             itemView.pizza_name.text = pizza?.name
-            itemView.pizza_ingredients.text = pizza?.ingredients?.map { it.toString() }.toString()
+            itemView.pizza_ingredients.text = pizza?.ingredients?.
+                    map { ingredientsHM?.get(it)?.name }?.
+                    joinToString(", ")
             glideReqManager.load(pizza?.imageUrl).into(itemView.findViewById(R.id.pizza_image))
         }
 

@@ -11,4 +11,4 @@ import java.util.*
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class Ingredient(var name: String?, var price: Double?, var id: Integer?) : Parcelable
+data class Ingredient(var name: String?, var price: Double?, var id: Int?) : Parcelable
