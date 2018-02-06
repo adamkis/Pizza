@@ -10,6 +10,8 @@ import com.adamkis.pizza.dagger.network.*
 import com.adamkis.pizza.network.FLICKR_URL_BASE
 import com.squareup.leakcanary.LeakCanary
 import timber.log.Timber
+import android.util.DisplayMetrics
+import com.adamkis.pizza.helper.logDebug
 
 
 /**
@@ -57,6 +59,13 @@ class App : Application() {
             return
         }
         LeakCanary.install(this)
+
+        // TODO remove
+        val displayMetrics = this.getResources().getDisplayMetrics()
+        val dpHeight = displayMetrics.heightPixels / displayMetrics.density
+        val dpWidth = displayMetrics.widthPixels / displayMetrics.density
+        logDebug("dpHeight = " + dpHeight)
+        logDebug("dpWidth = " + dpWidth)
     }
 
 }

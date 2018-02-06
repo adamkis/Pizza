@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         replaceFragment(
             if(savedInstanceState != null) supportFragmentManager.getFragment(savedInstanceState, ACTIVE_FRAGMENT_KEY)
             else PizzasFragment.newInstance()
@@ -37,22 +36,6 @@ class MainActivity : AppCompatActivity() {
             is SearchFragment -> getString(R.string.title_search)
             else -> getString(R.string.title_home)
         }
-    }
-
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                this@MainActivity.supportActionBar?.title = getString(R.string.title_home)
-                replaceFragment(PizzasFragment.newInstance())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_search -> {
-                this@MainActivity.supportActionBar?.title = getString(R.string.title_search)
-                replaceFragment(SearchFragment.newInstance())
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
     }
 
 }
