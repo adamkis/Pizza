@@ -53,8 +53,36 @@ class PizzasFragment : BaseFragment() {
             showLoading(false)
         }
         else{
+            downloadIngredients()
             downloadData(pizzasRecyclerView)
         }
+    }
+
+    private fun downloadIngredients(){
+        callDisposable = restApi.getIngredients()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {ingredients ->
+                    logDebug("Ingredients")
+                    for (ingredient in ingredients){
+                        logDebug(ingredient.name)
+                    }
+                },
+                {t ->
+                    when(t){
+                        is UnknownHostException -> {
+                            showError(getString(R.string.network_error))
+                        }
+                        is NullPointerException -> {
+                            showError(getString(R.string.could_not_load_data))
+                        }
+                        else -> {
+                            showError(getString(R.string.error))
+                        }
+                    }
+                }
+            )
     }
 
     private fun downloadData(pizzasRecyclerView: RecyclerView){

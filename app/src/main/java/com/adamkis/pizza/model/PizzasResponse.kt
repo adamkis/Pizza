@@ -11,22 +11,4 @@ import java.util.*
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class PizzasResponse(var basePrice: Int?, var pizzas: Array<Pizza>?) : Parcelable {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as PizzasResponse
-
-        if (basePrice != other.basePrice) return false
-        if (!Arrays.equals(pizzas, other.pizzas)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = basePrice ?: 0
-        result = 31 * result + (pizzas?.let { Arrays.hashCode(it) } ?: 0)
-        return result
-    }
-}
+data class PizzasResponse(var basePrice: Double?, var pizzas: Array<Pizza>?) : Parcelable
