@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
+import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.view.IngredientChooser
@@ -50,6 +51,7 @@ class PizzaDetailFragment : Fragment() {
                 val ingredientChooser = IngredientChooser(activity as Context)
                 ingredientChooser.setName(ingredient.name)
                 ingredientChooser.setPrice(ingredient.price)
+                ingredientChooser.setIngredientSelected(pizza.ingredients?.contains(ingredient.id ?: Int.MAX_VALUE))
                 container.addView(ingredientChooser)
             }
         }

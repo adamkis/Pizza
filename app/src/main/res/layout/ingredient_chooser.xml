@@ -23,6 +23,7 @@
             />
     </LinearLayout>
     <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/ingredient_selected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_l"
