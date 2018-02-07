@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
+import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
+import com.adamkis.pizza.ui.view.IngredientChooser
 import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 
 
@@ -19,11 +21,13 @@ import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 class PizzaDetailFragment : Fragment() {
 
     private var pizza: Pizza? = null
+    private var ingredientsHM: HashMap<Int?, Ingredient>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            pizza = arguments!!.getParcelable(ARG_PIZZA)
+        arguments?.let {
+            pizza = it.getParcelable(ARG_PIZZA)
+            ingredientsHM = it.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
         }
     }
 
@@ -36,41 +40,33 @@ class PizzaDetailFragment : Fragment() {
 
         val bitmap: Bitmap? = FilePersistenceHelper.loadBitmapFromFile(activity as Context)
         header_image.setImageBitmap(bitmap)
-//        fillInfo(view, pizza)
+        showIngredients(container, pizza, ingredientsHM)
     }
 
-//    private fun fillInfo(view: View, photo: Photo?){
-//        if (photo == null) return
-//        recents_photo_id.text = photo?.id
-//        val row1 = view.findViewById<View>(R.id.info_row_1)
-//        val row2 = view.findViewById<View>(R.id.info_row_2)
-//        val row3 = view.findViewById<View>(R.id.info_row_3)
-//        val row4 = view.findViewById<View>(R.id.info_row_4)
-//        val row5 = view.findViewById<View>(R.id.info_row_5)
-//        val row6 = view.findViewById<View>(R.id.info_row_6)
-//        row1.findViewById<TextView>(R.id.info_title).text = photo!!::farm.name
-//        row1.findViewById<TextView>(R.id.info_value).text = photo?.farm
-//        row2.findViewById<TextView>(R.id.info_title).text = photo!!::owner.name
-//        row2.findViewById<TextView>(R.id.info_value).text = photo?.owner
-//        row3.findViewById<TextView>(R.id.info_title).text = photo!!::server.name
-//        row3.findViewById<TextView>(R.id.info_value).text = photo?.server
-//        row4.findViewById<TextView>(R.id.info_title).text = photo!!::isfriend.name
-//        row4.findViewById<TextView>(R.id.info_value).text = photo?.isfriend.toString()
-//        row5.findViewById<TextView>(R.id.info_title).text = photo!!::isfamily.name
-//        row5.findViewById<TextView>(R.id.info_value).text = photo?.isfamily.toString()
-//        row6.findViewById<TextView>(R.id.info_title).text = photo!!::ispublic.name
-//        row6.findViewById<TextView>(R.id.info_value).text = photo?.ispublic.toString()
-//    }
+    private fun showIngredients(container: ViewGroup, pizza: Pizza? , ingredientsHM: HashMap<Int?, Ingredient>?){
+        if (pizza == null) return
+        ingredientsHM?.let {
+            for ( ingredient in ingredientsHM.values){
+                val ingredientChooser = IngredientChooser(activity as Context)
+                ingredientChooser.setName(ingredient.name)
+                ingredientChooser.setPrice(ingredient.price)
+                container.addView(ingredientChooser)
+            }
+        }
+
+    }
 
     companion object {
 
         // TODO use Pizza.TAG
         private val ARG_PIZZA = "ARG_PIZZA"
+        private val ARG_INGREDIENTS = "ARG_INGREDIENTS"
 
-        fun newInstance(pizza: Pizza): PizzaDetailFragment {
+        fun newInstance(pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?): PizzaDetailFragment {
             val fragment = PizzaDetailFragment()
             val args = Bundle()
             args.putParcelable(ARG_PIZZA, pizza)
+            args.putSerializable(ARG_INGREDIENTS, ingredientsHM)
             fragment.arguments = args
             return fragment
         }

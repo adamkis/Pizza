@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
+import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.fragment.PizzaDetailFragment
 import kotlinx.android.synthetic.main.activity_pizza_detail.*
@@ -25,6 +26,7 @@ class PizzaDetailActivity : AppCompatActivity(){
         setContentView(R.layout.activity_pizza_detail)
 
         val pizza: Pizza = intent.getParcelableExtra(Pizza.TAG)
+        val ingredientsHM: HashMap<Int?, Ingredient>? = intent.getSerializableExtra(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
 
 //        var collapsingToolbarLayout: CollapsingToolbarLayout? = null
         val toolbar = findViewById<Toolbar>(R.id.toolbar) as Toolbar
@@ -35,14 +37,20 @@ class PizzaDetailActivity : AppCompatActivity(){
 //        collapsingToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar) as CollapsingToolbarLayout
         pizza_name.text = if (pizza.name.isNullOrBlank()) getString(R.string.pizza_detail) else pizza.name
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza)).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza, ingredientsHM)).commit()
 
     }
 
     companion object {
-        fun getStartIntent(context: Context, pizza: Pizza): Intent {
+        // TODO use Pizza.TAG
+        private val ARG_INGREDIENTS = "ARG_INGREDIENTS"
+
+        fun getStartIntent(context: Context, pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?): Intent {
             return Intent(context, PizzaDetailActivity::class.java)
-                    .apply { putExtra(Pizza.TAG, pizza) }
+                    .apply {
+                        putExtra(Pizza.TAG, pizza)
+                        putExtra(ARG_INGREDIENTS, ingredientsHM)
+                    }
         }
     }
 

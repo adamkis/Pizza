@@ -123,14 +123,15 @@ class PizzasFragment : BaseFragment() {
                     startDetailActivityWithTransition(activity as Activity,
                             it.second.findViewById(R.id.pizza_image),
                             it.second.findViewById(R.id.pizza_name),
-                            it.first)
+                            it.first,
+                            ingredientsHM)
                 })
     }
 
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    protected fun startDetailActivityWithTransition(activity: Activity, firstViewToAnimate: View, secondViewToAnimate: View, pizza: Pizza) {
+    protected fun startDetailActivityWithTransition(activity: Activity, firstViewToAnimate: View, secondViewToAnimate: View, pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?) {
         val animationBundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                 *TransitionHelper.createSafeTransitionParticipants(activity,
                         false,
@@ -144,7 +145,7 @@ class PizzasFragment : BaseFragment() {
             // This happens when the image hasn't loaded yet, not saving is enough
             logThrowable(e)
         }
-        val startIntent = PizzaDetailActivity.getStartIntent(activity, pizza)
+        val startIntent = PizzaDetailActivity.getStartIntent(activity, pizza, ingredientsHM)
         startActivity(startIntent, animationBundle)
     }
 
