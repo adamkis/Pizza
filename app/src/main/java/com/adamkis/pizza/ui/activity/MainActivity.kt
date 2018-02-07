@@ -34,3 +34,4 @@ class MainActivity : AppCompatActivity() {
 }
 
 // TODO modify created by...
+// TODO No pizza image  - handle it
