@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.helper.logDebug
+import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.view.IngredientChooser
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 
 
@@ -42,6 +44,17 @@ class PizzaDetailFragment : Fragment() {
         val bitmap: Bitmap? = FilePersistenceHelper.loadBitmapFromFile(activity as Context)
         header_image.setImageBitmap(bitmap)
         showIngredients(container, pizza, ingredientsHM)
+        add_to_cart.setOnClickListener {
+            addPizzaToCart(pizza)
+        }
+
+    }
+
+    private fun addPizzaToCart(pizza: Pizza?) {
+        var cart: Cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
+        cart.addPizza(pizza)
+        Paper.book().write(FilePersistenceHelper.PAPER_CART_KEY, cart)
+        logDebug("Cart updated: " + cart)
     }
 
     private fun showIngredients(container: ViewGroup, pizza: Pizza? , ingredientsHM: HashMap<Int?, Ingredient>?){

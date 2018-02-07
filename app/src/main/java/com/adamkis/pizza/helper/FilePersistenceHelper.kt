@@ -11,7 +11,7 @@ import android.graphics.BitmapFactory
 
 object FilePersistenceHelper{
 
-    val PAPER_BASKET_KEY = "PAPER_BASKET_KEY"
+    val PAPER_CART_KEY = "PAPER_CART_KEY"
 
     val HEADER_IMAGE_BITMAP_FILENAME = "header_bmp.png"
 

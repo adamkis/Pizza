@@ -9,5 +9,6 @@
     <string name="error">Error</string>
     <string name="could_not_load_data">Could not load data</string>
     <string name="price_with_currency">\$%1$.2f</string>
-    <string name="def_basket_item_count">0</string>
+    <string name="def_cart_item_count">0</string>
+    <string name="ingredients">Ingredients</string>
 </resources>

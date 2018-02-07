@@ -1,41 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/container"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!-- TODO fix scaling -->
-        <FrameLayout
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- TODO fix scaling -->
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/wood_bg_height"
-                android:src="@drawable/bg_wood"
-                android:scaleType="centerCrop" />
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/wood_bg_height"
+                    android:src="@drawable/bg_wood"
+                    android:scaleType="centerCrop" />
 
-            <ImageView
-                android:id="@+id/header_image"
-                android:layout_width="@dimen/pizza_image_size"
-                android:layout_height="@dimen/pizza_image_size"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:transitionName="@string/transition_pizza_image" />
-        </FrameLayout>
+                <ImageView
+                    android:id="@+id/header_image"
+                    android:layout_width="@dimen/pizza_image_size"
+                    android:layout_height="@dimen/pizza_image_size"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:transitionName="@string/transition_pizza_image" />
+            </FrameLayout>
 
-        <TextView
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/ingredients"
+                android:textColor="@color/colorAccent"
+                android:padding="@dimen/padding_l"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/add_to_cart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:background="@color/bg_orange"
+        android:padding="@dimen/padding_xl"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Ingredients"
-            android:textColor="@color/colorAccent"
-            android:padding="@dimen/padding_l"/>
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/cart_icon_size"
+                android:layout_height="@dimen/cart_icon_size"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Add to cart"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorAccent"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>
