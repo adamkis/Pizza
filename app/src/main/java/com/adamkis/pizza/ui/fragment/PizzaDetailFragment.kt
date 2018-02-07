@@ -8,11 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.adamkis.pizza.R
-import com.adamkis.pizza.model.Photo
-import kotlinx.android.synthetic.main.fragment_pizza_detail.*
-import android.widget.TextView
 import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.model.Pizza
+import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 
 
 /**

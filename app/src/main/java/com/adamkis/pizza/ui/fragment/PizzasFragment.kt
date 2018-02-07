@@ -1,28 +1,39 @@
 package com.adamkis.pizza.ui.fragment
 
+import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
+import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import com.adamkis.pizza.App
 import com.adamkis.pizza.R
+import com.adamkis.pizza.helper.FilePersistenceHelper
+import com.adamkis.pizza.helper.TransitionHelper
 import com.adamkis.pizza.helper.logDebug
-import com.adamkis.pizza.helper.whenAllNotNull
+import com.adamkis.pizza.helper.logThrowable
+import com.adamkis.pizza.ui.activity.PizzaDetailActivity
 import com.adamkis.pizza.model.Ingredient
+import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.model.PizzasResponse
 import com.adamkis.pizza.network.RestApi
+import com.adamkis.pizza.network.getStackTrace
 import com.adamkis.pizza.ui.adapter.PizzasAdapter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -109,9 +120,34 @@ class PizzasFragment : BaseFragment() {
         pizzasRecyclerView.adapter = PizzasAdapter(pizzasResponse?.pizzas, ingredientsHM, activity as Context)
         clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
                 .subscribe({
-                    startDetailActivityWithTransition(activity as Activity, it.second.findViewById(R.id.pizza_image), it.second.findViewById(R.id.pizza_name), it.first)
+                    startDetailActivityWithTransition(activity as Activity,
+                            it.second.findViewById(R.id.pizza_image),
+                            it.second.findViewById(R.id.pizza_name),
+                            it.first)
                 })
     }
+
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    protected fun startDetailActivityWithTransition(activity: Activity, firstViewToAnimate: View, secondViewToAnimate: View, pizza: Pizza) {
+        val animationBundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                *TransitionHelper.createSafeTransitionParticipants(activity,
+                        false,
+                        android.support.v4.util.Pair(firstViewToAnimate, activity.getString(R.string.transition_pizza_image)),
+                        android.support.v4.util.Pair(secondViewToAnimate, activity.getString(R.string.transition_pizza_name))
+                ))
+                .toBundle()
+        try {
+            FilePersistenceHelper.writeBitmapToFile(activity, ((firstViewToAnimate as ImageView).drawable as BitmapDrawable).bitmap)
+        } catch (e: TypeCastException) {
+            // This happens when the image hasn't loaded yet, not saving is enough
+            logThrowable(e)
+        }
+        val startIntent = PizzaDetailActivity.getStartIntent(activity, pizza)
+        startActivity(startIntent, animationBundle)
+    }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
