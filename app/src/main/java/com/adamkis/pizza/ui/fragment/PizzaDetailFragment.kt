@@ -1,5 +1,7 @@
 package com.adamkis.pizza.ui.fragment
 
+import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import com.adamkis.pizza.R
 import com.adamkis.pizza.model.Photo
 import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 import android.widget.TextView
+import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.model.Pizza
 
 
@@ -32,6 +35,9 @@ class PizzaDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val bitmap: Bitmap? = FilePersistenceHelper.loadBitmapFromFile(activity as Context)
+        header_image.setImageBitmap(bitmap)
 //        fillInfo(view, pizza)
     }
 

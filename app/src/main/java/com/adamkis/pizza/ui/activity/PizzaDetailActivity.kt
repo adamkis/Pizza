@@ -25,17 +25,15 @@ class PizzaDetailActivity : AppCompatActivity(){
         setContentView(R.layout.activity_pizza_detail)
 
         val pizza: Pizza = intent.getParcelableExtra(Pizza.TAG)
-        val bitmap: Bitmap? = FilePersistenceHelper.loadBitmapFromFile(this)
 
-        var collapsingToolbarLayout: CollapsingToolbarLayout? = null
+//        var collapsingToolbarLayout: CollapsingToolbarLayout? = null
         val toolbar = findViewById<Toolbar>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        collapsingToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar) as CollapsingToolbarLayout
-        collapsingToolbarLayout.title = if (pizza.name.isNullOrBlank()) getString(R.string.pizza_detail) else pizza.name
-        header_image.setImageBitmap(bitmap)
+//        collapsingToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar) as CollapsingToolbarLayout
+        pizza_name.text = if (pizza.name.isNullOrBlank()) getString(R.string.pizza_detail) else pizza.name
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza)).commit()
 
