@@ -1,13 +1,10 @@
 package com.adamkis.pizza.ui.activity
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.adamkis.pizza.R
 import com.adamkis.pizza.ui.fragment.PizzasFragment
-import com.adamkis.pizza.ui.fragment.SearchFragment
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,10 +29,6 @@ class MainActivity : AppCompatActivity() {
     private fun replaceFragment(fragment: Fragment){
         activeFragment = fragment
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, activeFragment).commit()
-        supportActionBar?.title = when ( activeFragment ){
-            is SearchFragment -> getString(R.string.title_search)
-            else -> getString(R.string.title_home)
-        }
     }
 
 }
