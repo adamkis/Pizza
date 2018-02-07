@@ -18,22 +18,24 @@ import android.widget.LinearLayout
 import com.adamkis.pizza.App
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
+import com.adamkis.pizza.helper.FilePersistenceHelper.PAPER_BASKET_KEY
 import com.adamkis.pizza.helper.TransitionHelper
 import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.helper.logThrowable
+import com.adamkis.pizza.model.Basket
 import com.adamkis.pizza.ui.activity.PizzaDetailActivity
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.model.PizzasResponse
 import com.adamkis.pizza.network.RestApi
-import com.adamkis.pizza.network.getStackTrace
 import com.adamkis.pizza.ui.adapter.PizzasAdapter
+import com.pacoworks.rxpaper2.RxPaperBook
 import io.reactivex.Observable
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -60,7 +62,7 @@ class PizzasFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         App.netComponent.inject(this)
-        return inflater.inflate(R.layout.fragment_recents, container, false)
+        return inflater.inflate(R.layout.fragment_pizzas, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,8 +85,8 @@ class PizzasFragment : BaseFragment() {
         val ingredients = restApi.getIngredients().subscribeOn(Schedulers.io())
         Observable.zip(ingredients, pizzas,
                 BiFunction<Array<Ingredient>, PizzasResponse, Pair<Array<Ingredient>, PizzasResponse>> {
-                    ingredients, pizzasResponse ->
-                    Pair(ingredients, pizzasResponse)
+                    ingredientsResponse, pizzasResponse ->
+                    Pair(ingredientsResponse, pizzasResponse)
                 })
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { showLoading(true) }

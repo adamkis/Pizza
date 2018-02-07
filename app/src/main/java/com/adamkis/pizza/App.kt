@@ -12,6 +12,8 @@ import com.squareup.leakcanary.LeakCanary
 import timber.log.Timber
 import android.util.DisplayMetrics
 import com.adamkis.pizza.helper.logDebug
+import com.pacoworks.rxpaper2.RxPaperBook
+import io.paperdb.Paper
 
 
 /**
@@ -50,15 +52,19 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         netComponent = createNetComponent(FLICKR_URL_BASE)
-        glideComponent = createGlideComponent(this)
+        glideComponent = createGlideComponent(applicationContext)
+        // Timber
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
         Timber.tag("Pizza")
-        if (LeakCanary.isInAnalyzerProcess(this)) {
+        // LeakCanary
+        if (LeakCanary.isInAnalyzerProcess(applicationContext)) {
             return
         }
         LeakCanary.install(this)
+        // Paper
+        RxPaperBook.init(applicationContext);
 
         // TODO remove
         val displayMetrics = this.getResources().getDisplayMetrics()

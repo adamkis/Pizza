@@ -48,7 +48,7 @@ class PizzaDetailFragment : Fragment() {
         if (pizza == null) return
         ingredientsHM?.let {
             for ( ingredient in ingredientsHM.values){
-                val ingredientChooser = IngredientChooser(activity as Context)
+                val ingredientChooser = IngredientChooser(context!!)
                 ingredientChooser.setName(ingredient.name)
                 ingredientChooser.setPrice(ingredient.price)
                 ingredientChooser.setIngredientSelected(pizza.ingredients?.contains(ingredient.id ?: Int.MAX_VALUE))

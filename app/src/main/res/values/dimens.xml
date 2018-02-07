@@ -24,5 +24,6 @@
 
     <dimen name="pizza_image_size">350dp</dimen>
     <dimen name="wood_bg_height">400dp</dimen>
+    <dimen name="basket_icon_size">24dp</dimen>
 
 </resources>
