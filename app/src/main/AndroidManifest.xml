@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.adamkis.pizza.ui.activity.PhotoDetailActivity"
+            android:name="com.adamkis.pizza.ui.activity.PizzaDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

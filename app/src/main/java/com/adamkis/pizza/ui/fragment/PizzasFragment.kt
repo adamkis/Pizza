@@ -1,5 +1,6 @@
 package com.adamkis.pizza.ui.fragment
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
@@ -106,10 +107,10 @@ class PizzasFragment : BaseFragment() {
     private fun setUpAdapter(pizzasRecyclerView: RecyclerView, pizzasResponse: PizzasResponse?, ingredientsHM: HashMap<Int?, Ingredient>?){
         pizzasRecyclerView.layoutManager = LinearLayoutManager(this@PizzasFragment.activity, LinearLayout.VERTICAL, false)
         pizzasRecyclerView.adapter = PizzasAdapter(pizzasResponse?.pizzas, ingredientsHM, activity as Context)
-//        clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
-//                .subscribe({
-//                    startDetailActivityWithTransition(activity as Activity, it.second.findViewById(R.id.recents_image), it.second.findViewById(R.id.recents_photo_id), it.first)
-//                })
+        clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
+                .subscribe({
+                    startDetailActivityWithTransition(activity as Activity, it.second.findViewById(R.id.pizza_image), it.second.findViewById(R.id.pizza_name), it.first)
+                })
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

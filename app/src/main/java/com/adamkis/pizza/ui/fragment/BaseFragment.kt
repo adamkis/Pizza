@@ -13,12 +13,11 @@ import android.widget.ImageView
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.helper.TransitionHelper
-import com.adamkis.pizza.model.Photo
 import com.adamkis.pizza.network.getStackTrace
-import com.adamkis.pizza.ui.activity.PhotoDetailActivity
+import com.adamkis.pizza.ui.activity.PizzaDetailActivity
 import timber.log.Timber
 import android.support.design.widget.Snackbar
-
+import com.adamkis.pizza.model.Pizza
 
 
 /**
@@ -30,12 +29,12 @@ abstract class BaseFragment : Fragment(){
     private var coordinatorLayout: CoordinatorLayout? = null
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    protected fun startDetailActivityWithTransition(activity: Activity, firstViewToAnimate: View, secondViewToAnimate: View, photo: Photo) {
+    protected fun startDetailActivityWithTransition(activity: Activity, firstViewToAnimate: View, secondViewToAnimate: View, pizza: Pizza) {
         val animationBundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                 *TransitionHelper.createSafeTransitionParticipants(activity,
                         false,
-                        Pair(firstViewToAnimate, activity.getString(R.string.transition_recents_photo_image)),
-                        Pair(secondViewToAnimate, activity.getString(R.string.transition_recents_photo_id))
+                        Pair(firstViewToAnimate, activity.getString(R.string.transition_pizza_image)),
+                        Pair(secondViewToAnimate, activity.getString(R.string.transition_pizza_name))
                 ))
                 .toBundle()
         try {
@@ -43,7 +42,8 @@ abstract class BaseFragment : Fragment(){
         } catch (e: TypeCastException) {
             Timber.d(getStackTrace(e)) // This happens when the image hasn't loaded yet, not saving is enough
         }
-        val startIntent = PhotoDetailActivity.getStartIntent(activity, photo)
+        // TODO make more generic
+        val startIntent = PizzaDetailActivity.getStartIntent(activity, pizza)
         startActivity(startIntent, animationBundle)
     }
 

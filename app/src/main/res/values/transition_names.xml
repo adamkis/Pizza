@@ -1,4 +1,4 @@
 <resources>
-    <string name="transition_recents_photo_image">transition_recents_photo_image</string>
-    <string name="transition_recents_photo_id">transition_recents_photo_id</string>
+    <string name="transition_pizza_image">transition_pizza_image</string>
+    <string name="transition_pizza_name">transition_pizza_name</string>
 </resources>

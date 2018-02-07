@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.adamkis.pizza.App
 import com.adamkis.pizza.R
 import com.adamkis.pizza.model.Ingredient
-import com.adamkis.pizza.model.Photo
 import com.adamkis.pizza.model.Pizza
 import com.bumptech.glide.RequestManager
 import io.reactivex.Observable

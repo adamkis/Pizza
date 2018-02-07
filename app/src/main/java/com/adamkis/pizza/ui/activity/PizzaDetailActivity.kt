@@ -8,23 +8,23 @@ import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.adamkis.pizza.R
-import com.adamkis.pizza.model.Photo
-import kotlinx.android.synthetic.main.activity_photo_detail.*
 import com.adamkis.pizza.helper.FilePersistenceHelper
-import com.adamkis.pizza.ui.fragment.PhotoDetailFragment
+import com.adamkis.pizza.model.Pizza
+import com.adamkis.pizza.ui.fragment.PizzaDetailFragment
+import kotlinx.android.synthetic.main.activity_pizza_detail.*
 
 
 /**
  * Created by adam on 2018. 01. 11..
  */
-class PhotoDetailActivity : AppCompatActivity(){
+class PizzaDetailActivity : AppCompatActivity(){
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_photo_detail)
+        setContentView(R.layout.activity_pizza_detail)
 
-        val photo: Photo = intent.getParcelableExtra(Photo.TAG)
+        val pizza: Pizza = intent.getParcelableExtra(Pizza.TAG)
         val bitmap: Bitmap? = FilePersistenceHelper.loadBitmapFromFile(this)
 
         var collapsingToolbarLayout: CollapsingToolbarLayout? = null
@@ -34,17 +34,17 @@ class PhotoDetailActivity : AppCompatActivity(){
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         collapsingToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar) as CollapsingToolbarLayout
-        collapsingToolbarLayout.title = if (photo.title.isNullOrBlank()) getString(R.string.photo_detail) else photo.title
+        collapsingToolbarLayout.title = if (pizza.name.isNullOrBlank()) getString(R.string.pizza_detail) else pizza.name
         header_image.setImageBitmap(bitmap)
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PhotoDetailFragment.newInstance(photo)).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza)).commit()
 
     }
 
     companion object {
-        fun getStartIntent(context: Context, photo: Photo): Intent {
-            return Intent(context, PhotoDetailActivity::class.java)
-                    .apply { putExtra(Photo.TAG, photo) }
+        fun getStartIntent(context: Context, pizza: Pizza): Intent {
+            return Intent(context, PizzaDetailActivity::class.java)
+                    .apply { putExtra(Pizza.TAG, pizza) }
         }
     }
 

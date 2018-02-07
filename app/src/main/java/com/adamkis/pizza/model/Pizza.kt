@@ -10,4 +10,10 @@ import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class Pizza(var name: String?, var imageUrl: String?, var ingredients: IntArray?) : Parcelable
+data class Pizza(var name: String?, var imageUrl: String?, var ingredients: IntArray?) : Parcelable{
+
+    companion object {
+        const val TAG = "PIZZA"
+    }
+
+}
