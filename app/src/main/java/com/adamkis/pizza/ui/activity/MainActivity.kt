@@ -1,5 +1,7 @@
 package com.adamkis.pizza.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -12,7 +14,7 @@ import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private var activeFragment: Fragment? = null
     private val ACTIVE_FRAGMENT_KEY = "ACTIVE_FRAGMENT_KEY"
@@ -26,6 +28,9 @@ class MainActivity : AppCompatActivity() {
             if(savedInstanceState != null) supportFragmentManager.getFragment(savedInstanceState, ACTIVE_FRAGMENT_KEY)
             else PizzasFragment.newInstance()
         )
+        cart_button.setOnClickListener {
+            startActivity(Intent(this@MainActivity as Context, CartActivity::class.java))
+        }
     }
 
     override fun onResume() {

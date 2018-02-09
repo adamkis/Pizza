@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_pizza_detail.*
 /**
  * Created by adam on 2018. 01. 11..
  */
-class PizzaDetailActivity : AppCompatActivity(){
+class PizzaDetailActivity : BaseActivity(){
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,17 +28,11 @@ class PizzaDetailActivity : AppCompatActivity(){
         val pizza: Pizza = intent.getParcelableExtra(Pizza.TAG)
         val ingredientsHM: HashMap<Int?, Ingredient>? = intent.getSerializableExtra(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
 
-//        var collapsingToolbarLayout: CollapsingToolbarLayout? = null
-        val toolbar = findViewById<Toolbar>(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+        setupToolbar(R.id.toolbar)
+        setupBackButton()
 
-//        collapsingToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar) as CollapsingToolbarLayout
         pizza_name.text = if (pizza.name.isNullOrBlank()) getString(R.string.pizza_detail) else pizza.name
-
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza, ingredientsHM)).commit()
-
     }
 
     companion object {
@@ -52,11 +46,6 @@ class PizzaDetailActivity : AppCompatActivity(){
                         putExtra(ARG_INGREDIENTS, ingredientsHM)
                     }
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
     }
 
 }

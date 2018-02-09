@@ -16,8 +16,10 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat">
 
         <LinearLayout
+            android:id="@+id/cart_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:foreground="?android:attr/selectableItemBackground"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="0dp"

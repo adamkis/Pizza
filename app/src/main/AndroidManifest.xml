@@ -25,6 +25,8 @@
         </activity>
         <activity
             android:name="com.adamkis.pizza.ui.activity.PizzaDetailActivity"/>
+        <activity
+            android:name="com.adamkis.pizza.ui.activity.CartActivity"/>
     </application>
 
 </manifest>

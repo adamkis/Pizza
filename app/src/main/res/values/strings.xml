@@ -11,4 +11,5 @@
     <string name="price_with_currency">\$%1$.2f</string>
     <string name="def_cart_item_count">0</string>
     <string name="ingredients">Ingredients</string>
+    <string name="cart">Cart</string>
 </resources>
