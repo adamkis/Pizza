@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.cart_item.view.*
 import javax.inject.Inject
 
 
-class CartAdapter(val orderItems: Array<OrderItem>?, val context: Context) : RecyclerView.Adapter<CartAdapter.RecentsViewHolder>(){
+class CartAdapter(val orderItems: MutableList<OrderItem>?, val context: Context) : RecyclerView.Adapter<CartAdapter.RecentsViewHolder>(){
 
 //    private val clickSubject = PublishSubject.create<Pair<Pizza, View>>()
 //    val clickEvent: Observable<Pair<Pizza, View>> = clickSubject
@@ -45,6 +45,10 @@ class CartAdapter(val orderItems: Array<OrderItem>?, val context: Context) : Rec
         fun bind(orderItem: OrderItem?){
             itemView.order_item_name.text = orderItem?.getItemName()
             itemView.order_item_price.text = orderItem?.getItemPrice().toString()
+            itemView.remove_item.setOnClickListener {
+                orderItems?.removeAt(layoutPosition)
+                notifyItemRemoved(layoutPosition)
+            }
         }
 
     }

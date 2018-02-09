@@ -11,14 +11,18 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
+import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.ui.adapter.CartAdapter
 import io.paperdb.Paper
+import kotlinx.android.synthetic.main.fragment_cart.*
 
 /**
  * Created by adam on 2018. 01. 11..
  */
 class CartFragment : Fragment() {
+
+    private var cart: Cart? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_cart, container, false)
@@ -28,15 +32,19 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val cartRecyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.cart_recycler_view)
 
-        var cart: Cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
-        setUpAdapter(cartRecyclerView, cart)
-
+        cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
+        cart?.let {
+            setUpAdapter(cartRecyclerView, it)
+        }
+        checkout_button.setOnClickListener {
+            logDebug("cart: " + cart)
+        }
     }
 
 
     private fun setUpAdapter(cartRecyclerView: RecyclerView, cart: Cart){
-        cartRecyclerView.layoutManager = LinearLayoutManager(this@CartFragment.activity, LinearLayout.VERTICAL, false)
-        cartRecyclerView.adapter = CartAdapter(cart.orderItems.toTypedArray(), activity as Context)
+        cartRecyclerView.layoutManager = LinearLayoutManager(this@CartFragment.activity as Context, LinearLayout.VERTICAL, false)
+        cartRecyclerView.adapter = CartAdapter(cart.orderItems, activity as Context)
 //        clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
 //                .subscribe({
 //                    startDetailActivityWithTransition(activity as Activity,
@@ -47,6 +55,10 @@ class CartFragment : Fragment() {
 //                })
     }
 
+    override fun onPause() {
+        Paper.book().write(FilePersistenceHelper.PAPER_CART_KEY, cart)
+        super.onPause()
+    }
 
 
     companion object {
