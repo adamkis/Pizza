@@ -61,5 +61,7 @@ class MainActivity : BaseActivity() {
 
 }
 
+// TODO reuse bottom bar button
+// TODO reuse iingredient, pizza, drinks elements
 // TODO modify created by...
 // TODO No pizza image  - handle it

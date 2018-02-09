@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar
 import com.adamkis.pizza.R
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
+import com.adamkis.pizza.ui.fragment.CartFragment
 import com.adamkis.pizza.ui.fragment.PizzaDetailFragment
 
 /**
@@ -23,7 +24,7 @@ class CartActivity : BaseActivity(){
         setupToolbar(R.id.toolbar)
         setupBackButton()
 
-//        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza, ingredientsHM)).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CartFragment.newInstance()).commit()
 
     }
 
