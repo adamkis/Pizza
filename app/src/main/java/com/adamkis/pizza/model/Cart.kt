@@ -9,18 +9,14 @@ import kotlinx.android.parcel.Parcelize
  * Created by adam on 2017. 01. 14..
  */
 
-@SuppressLint("ParcelCreator")
-@Parcelize
 data class Cart(var totalPrice: Double? = 0.0,
-                var pizzas: MutableList<Pizza> = ArrayList()
-        ) : Parcelable {
+                var orderItems: MutableList<OrderItem> = ArrayList()){
 
-
-    fun getItemCount() = pizzas.size
+    fun getItemCount() = orderItems.size
 
     fun addPizza(pizza: Pizza?){
         pizza?.let {
-            pizzas.add(it)
+            orderItems.add(it)
         }
     }
 

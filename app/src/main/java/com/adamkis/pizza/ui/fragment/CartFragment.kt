@@ -36,7 +36,7 @@ class CartFragment : Fragment() {
 
     private fun setUpAdapter(cartRecyclerView: RecyclerView, cart: Cart){
         cartRecyclerView.layoutManager = LinearLayoutManager(this@CartFragment.activity, LinearLayout.VERTICAL, false)
-        cartRecyclerView.adapter = CartAdapter(cart.pizzas.toTypedArray(), activity as Context)
+        cartRecyclerView.adapter = CartAdapter(cart.orderItems.toTypedArray(), activity as Context)
 //        clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
 //                .subscribe({
 //                    startDetailActivityWithTransition(activity as Activity,
