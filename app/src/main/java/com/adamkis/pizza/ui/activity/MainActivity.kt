@@ -61,7 +61,11 @@ class MainActivity : BaseActivity() {
 
 }
 
+// TODO make drink and ingredient inherit from new abstract class Product
+// TODO Put Paper into RXJava
 // TODO reuse bottom bar button
 // TODO reuse iingredient, pizza, drinks elements
 // TODO modify created by...
 // TODO No pizza image  - handle it
+// TODO MVVM
+// TODO handle error in CartFragment

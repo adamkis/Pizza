@@ -11,23 +11,12 @@ import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class Pizza(@SerializedName("name") var name: String?,
-                 @SerializedName("imageUrl") var imageUrl: String?,
-                 @SerializedName("ingredients") var ingredients: IntArray?,
-                 var isCustom: Boolean = false
-        ) : OrderItem, Parcelable{
-
+class Drink(var name: String?, var price: Double?, var id: Int?): OrderItem, Parcelable {
     override fun getItemName(): String {
         return name ?: ""
     }
 
     override fun getItemPrice(): Double {
-        // TODO Implement it
-        return 3.14
+        return price ?: 0.0
     }
-
-    companion object {
-        const val TAG = "PIZZA"
-    }
-
 }

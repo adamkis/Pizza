@@ -12,4 +12,5 @@
     <string name="def_cart_item_count">0</string>
     <string name="ingredients">Ingredients</string>
     <string name="cart">Cart</string>
+    <string name="checkout">Checkout</string>
 </resources>
