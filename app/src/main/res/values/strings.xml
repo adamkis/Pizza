@@ -14,4 +14,5 @@
     <string name="cart">Cart</string>
     <string name="checkout">Checkout</string>
     <string name="drinks">Drinks</string>
+    <string name="custom_pizza_name">Custom %1$s</string>
 </resources>

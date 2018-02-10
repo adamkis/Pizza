@@ -14,14 +14,12 @@ import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Cart
-import com.adamkis.pizza.model.Drink
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
-import com.adamkis.pizza.ui.adapter.DrinksAdapter
 import com.adamkis.pizza.ui.adapter.IngredientsAdapter
-import com.adamkis.pizza.ui.view.IngredientChooser
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_pizza_detail.*
+import java.util.*
 
 
 /**
@@ -30,12 +28,14 @@ import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 class PizzaDetailFragment : Fragment() {
 
     private var pizza: Pizza? = null
+    private var originalIngredientIds: TreeSet<Int>? = null
     private var ingredientsHM: HashMap<Int?, Ingredient>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             pizza = it.getParcelable(ARG_PIZZA)
+            originalIngredientIds = TreeSet(pizza?.getIngredientIds())
             ingredientsHM = it.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
         }
     }
@@ -50,7 +50,6 @@ class PizzaDetailFragment : Fragment() {
         val bitmap: Bitmap? = FilePersistenceHelper.loadBitmapFromFile(activity as Context)
         header_image.setImageBitmap(bitmap)
         setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
-//        showIngredients(container, pizza, ingredientsHM)
         add_to_cart.setOnClickListener {
             addPizzaToCart(pizza)
         }
@@ -58,29 +57,18 @@ class PizzaDetailFragment : Fragment() {
     }
 
     private fun setUpAdapter(ingredientsRecyclerView: RecyclerView, pizza: Pizza?, ingredientsAvailable: List<Ingredient>?) {
-        ingredientsRecyclerView.layoutManager = LinearLayoutManager(this@PizzaDetailFragment.activity as Context, LinearLayout.VERTICAL, false)
+        ingredientsRecyclerView.layoutManager = LinearLayoutManager(activity as Context, LinearLayout.VERTICAL, false)
         ingredientsRecyclerView.adapter = IngredientsAdapter(pizza, ingredientsAvailable, activity as Context)
     }
 
     private fun addPizzaToCart(pizza: Pizza?) {
+        if(pizza?.getIngredientIds()?.equals(originalIngredientIds) != true){
+            pizza?.name = activity?.getString(R.string.custom_pizza_name, pizza?.name)
+        }
         var cart: Cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
         cart.addOrderItem(pizza)
         Paper.book().write(FilePersistenceHelper.PAPER_CART_KEY, cart)
         logDebug("Cart updated: " + cart)
-    }
-
-    private fun showIngredients(container: ViewGroup, pizza: Pizza? , ingredientsHM: HashMap<Int?, Ingredient>?){
-        if (pizza == null) return
-        ingredientsHM?.let {
-            for ( ingredient in ingredientsHM.values){
-                val ingredientChooser = IngredientChooser(context!!)
-                ingredientChooser.setName(ingredient.name)
-                ingredientChooser.setPrice(ingredient.price)
-                ingredientChooser.setIngredientSelected(pizza.getIngredientIds()?.contains(ingredient.id ?: Int.MAX_VALUE))
-                container.addView(ingredientChooser)
-            }
-        }
-
     }
 
     companion object {
