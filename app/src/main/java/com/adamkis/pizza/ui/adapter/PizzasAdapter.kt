@@ -18,7 +18,7 @@ import javax.inject.Inject
 /**
  * Created by adam on 2018. 01. 09..
  */
-class PizzasAdapter(val pizzas: Array<Pizza>?, val ingredientsHM: HashMap<Int?, Ingredient>?, val context: Context) : RecyclerView.Adapter<PizzasAdapter.RecentsViewHolder>(){
+class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerView.Adapter<PizzasAdapter.RecentsViewHolder>(){
 
     @Inject lateinit var glideReqManager: RequestManager
     private val clickSubject = PublishSubject.create<Pair<Pizza, View>>()
@@ -50,9 +50,11 @@ class PizzasAdapter(val pizzas: Array<Pizza>?, val ingredientsHM: HashMap<Int?, 
 
         fun bind(pizza: Pizza?){
             itemView.pizza_name.text = pizza?.name
-            itemView.pizza_ingredients.text = pizza?.ingredientIds?.
-                    map { ingredientsHM?.get(it)?.name }?.
+
+            itemView.pizza_ingredients.text = pizza?.ingredientObjs?.
+                    map { it.name }?.
                     joinToString(", ")
+
             glideReqManager.load(pizza?.imageUrl).into(itemView.findViewById(R.id.pizza_image))
         }
 

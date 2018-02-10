@@ -119,7 +119,7 @@ class PizzasFragment : BaseFragment() {
 
     private fun setUpAdapter(pizzasRecyclerView: RecyclerView, pizzasResponse: PizzasResponse?, ingredientsHM: HashMap<Int?, Ingredient>?){
         pizzasRecyclerView.layoutManager = LinearLayoutManager(this@PizzasFragment.activity, LinearLayout.VERTICAL, false)
-        pizzasRecyclerView.adapter = PizzasAdapter(pizzasResponse?.pizzas, ingredientsHM, activity as Context)
+        pizzasRecyclerView.adapter = PizzasAdapter(pizzasResponse?.pizzas, activity as Context)
         clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
                 .subscribe({
                     startDetailActivityWithTransition(activity as Activity,
