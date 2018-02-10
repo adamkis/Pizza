@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.adamkis.pizza.R
+import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Drink
 import com.adamkis.pizza.model.Ingredient
@@ -37,18 +38,16 @@ class IngredientsAdapter(val pizza: Pizza?, val ingredientsAvailable: List<Ingre
         fun bind(ingredient: Ingredient?){
             itemView.ingredient_name.text = ingredient?.name
             itemView.ingredient_price.text = ingredient?.price.toString()
-            // TODO fix reuse not checked issue
             itemView.ingredient_selected.isChecked = pizza?.getIngredientIds()?.contains(ingredient?.id) ?: false
-            itemView.ingredient_selected.setOnCheckedChangeListener {
-                buttonView, isChecked ->
-                    if (isChecked){
-                        pizza?.addIngredient(ingredient)
-                        pizza?.addIngredientId(ingredient?.id)
-                    }
-                    else{
-                        pizza?.removeIngredient(ingredient)
-                        pizza?.removeIngredientId(ingredient?.id)
-                    }
+            itemView.ingredient_selected.setOnClickListener {
+                if( itemView.ingredient_selected.isChecked ){
+                    pizza?.addIngredient(ingredient)
+                    pizza?.addIngredientId(ingredient?.id)
+                }
+                else{
+                    pizza?.removeIngredient(ingredient)
+                    pizza?.removeIngredientId(ingredient?.id)
+                }
             }
         }
 
