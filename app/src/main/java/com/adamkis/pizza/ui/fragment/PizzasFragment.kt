@@ -79,7 +79,7 @@ class PizzasFragment : BaseFragment() {
     private fun downloadData(pizzasRecyclerView: RecyclerView){
         val pizzas = restApi.getPizzas().subscribeOn(Schedulers.io())
         val ingredients = restApi.getIngredients().subscribeOn(Schedulers.io())
-        Observable.zip(ingredients, pizzas,
+        callDisposable = Observable.zip(ingredients, pizzas,
                 BiFunction<Array<Ingredient>, PizzasResponse, Pair<Array<Ingredient>, PizzasResponse>> {
                     ingredientsResponse, pizzasResponse ->
                     Pair(ingredientsResponse, pizzasResponse)
@@ -155,9 +155,9 @@ class PizzasFragment : BaseFragment() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         clickDisposable?.dispose()
         callDisposable?.dispose()
+        super.onDestroy()
     }
 
 }

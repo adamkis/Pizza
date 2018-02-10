@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_cart.*
 /**
  * Created by adam on 2018. 01. 11..
  */
-class CartFragment : Fragment() {
+class CartFragment : BaseFragment() {
 
     private var cart: Cart? = null
 

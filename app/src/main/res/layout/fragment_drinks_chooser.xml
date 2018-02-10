@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    tools:context="com.adamkis.pizza.ui.fragment.PizzasFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drinks_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:padding="0dp"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true" />
+
 
     <LinearLayout
         android:id="@+id/checkout_button"
@@ -25,7 +33,6 @@
         android:padding="@dimen/padding_xl"
         android:layout_gravity="bottom"
         android:gravity="center"
-        android:visibility="gone"
         >
 
         <LinearLayout
@@ -48,4 +55,5 @@
 
     </LinearLayout>
 
-</FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

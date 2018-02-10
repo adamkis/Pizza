@@ -1,5 +1,6 @@
 package com.adamkis.pizza.network
 
+import com.adamkis.pizza.model.Drink
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.PizzasResponse
 import io.reactivex.Observable
@@ -15,5 +16,8 @@ interface RestApi {
 
     @GET("ozt3z")
     fun getIngredients(): Observable<Array<Ingredient>>
+
+    @GET("150da7")
+    fun getDrinks(): Observable<Array<Drink>>
 
 }
