@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import org.json.JSONArray
 import org.json.JSONObject
-
+import java.util.TreeSet
 
 
 /**
@@ -17,8 +17,8 @@ import org.json.JSONObject
 @Parcelize
 data class Pizza(@SerializedName("name") var name: String?,
                  @SerializedName("imageUrl") var imageUrl: String?,
-                 @SerializedName("ingredients") var ingredientIds: IntArray?,
-                 var ingredientObjs: ArrayList<Ingredient>,
+                 @SerializedName("ingredients") private var ingredientIds: TreeSet<Int>?,
+                 private var ingredientObjs: ArrayList<Ingredient>?,
                  var basePrice: Double? = 0.0
         ) : OrderItem, Parcelable{
 
@@ -28,8 +28,10 @@ data class Pizza(@SerializedName("name") var name: String?,
 
     override fun getItemPrice(): Double {
         var price: Double = 0.0
-        for (ingredient in ingredientObjs){
-            price += ingredient.price ?: 0.0
+        ingredientObjs?.let {
+            for (ingredient in it) {
+                price += ingredient.price ?: 0.0
+            }
         }
         price += basePrice ?: 0.0
         return price
@@ -38,9 +40,30 @@ data class Pizza(@SerializedName("name") var name: String?,
     fun addIngredient(ingredient: Ingredient?){
         // TODO change instantiation
         if (ingredientObjs == null) ingredientObjs = ArrayList()
-        ingredient?.let { ingredientObjs.add(it) }
+        ingredient?.let { ingredientObjs?.add(it) }
     }
 
+    fun removeIngredient(ingredient: Ingredient?){
+        ingredient?.let { ingredientObjs?.remove(ingredient) }
+    }
+
+    // TODO two methods are not needed!
+    fun addIngredientId(ingredientId: Int?){
+        ingredientId?.let { ingredientIds?.add(it) }
+    }
+
+    // TODO two methods are not needed!
+    fun removeIngredientId(ingredientId: Int?){
+        ingredientId?.let { ingredientIds?.remove(ingredientId) }
+    }
+
+    fun getIngredients(): ArrayList<Ingredient>?{
+        return ingredientObjs
+    }
+
+    fun getIngredientIds(): TreeSet<Int>?{
+        return ingredientIds
+    }
 
     companion object {
         const val TAG = "PIZZA"

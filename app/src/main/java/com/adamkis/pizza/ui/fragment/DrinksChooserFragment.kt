@@ -12,7 +12,6 @@ import android.widget.LinearLayout
 import com.adamkis.pizza.App
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
-import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Drink
 import com.adamkis.pizza.network.RestApi
@@ -55,7 +54,7 @@ class DrinksChooserFragment : BaseFragment() {
     }
 
 
-    private fun downloadData(recentsRecyclerView: RecyclerView){
+    private fun downloadData(drinksRecyclerView: RecyclerView){
         callDisposable = restApi.getDrinks()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -64,7 +63,7 @@ class DrinksChooserFragment : BaseFragment() {
                 .subscribe(
                         {drinksResponse ->
 //                            this@DrinksChooserFragment.photosResponse = photosResponse
-                            setUpAdapter(recentsRecyclerView, cart!!, drinksResponse)
+                            setUpAdapter(drinksRecyclerView, cart!!, drinksResponse)
 
                         },
                         {t ->

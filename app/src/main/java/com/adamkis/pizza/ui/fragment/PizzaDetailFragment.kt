@@ -4,15 +4,21 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Cart
+import com.adamkis.pizza.model.Drink
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
+import com.adamkis.pizza.ui.adapter.DrinksAdapter
+import com.adamkis.pizza.ui.adapter.IngredientsAdapter
 import com.adamkis.pizza.ui.view.IngredientChooser
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_pizza_detail.*
@@ -40,14 +46,20 @@ class PizzaDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val ingredientsRecyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.ingredients_recycler_view)
         val bitmap: Bitmap? = FilePersistenceHelper.loadBitmapFromFile(activity as Context)
         header_image.setImageBitmap(bitmap)
-        showIngredients(container, pizza, ingredientsHM)
+        setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
+//        showIngredients(container, pizza, ingredientsHM)
         add_to_cart.setOnClickListener {
             addPizzaToCart(pizza)
         }
 
+    }
+
+    private fun setUpAdapter(ingredientsRecyclerView: RecyclerView, pizza: Pizza?, ingredientsAvailable: List<Ingredient>?) {
+        ingredientsRecyclerView.layoutManager = LinearLayoutManager(this@PizzaDetailFragment.activity as Context, LinearLayout.VERTICAL, false)
+        ingredientsRecyclerView.adapter = IngredientsAdapter(pizza, ingredientsAvailable, activity as Context)
     }
 
     private fun addPizzaToCart(pizza: Pizza?) {
@@ -64,7 +76,7 @@ class PizzaDetailFragment : Fragment() {
                 val ingredientChooser = IngredientChooser(context!!)
                 ingredientChooser.setName(ingredient.name)
                 ingredientChooser.setPrice(ingredient.price)
-                ingredientChooser.setIngredientSelected(pizza.ingredientIds?.contains(ingredient.id ?: Int.MAX_VALUE))
+                ingredientChooser.setIngredientSelected(pizza.getIngredientIds()?.contains(ingredient.id ?: Int.MAX_VALUE))
                 container.addView(ingredientChooser)
             }
         }

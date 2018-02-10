@@ -51,7 +51,7 @@ class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerV
         fun bind(pizza: Pizza?){
             itemView.pizza_name.text = pizza?.name
 
-            itemView.pizza_ingredients.text = pizza?.ingredientObjs?.
+            itemView.pizza_ingredients.text = pizza?.getIngredients()?.
                     map { it.name }?.
                     joinToString(", ")
 

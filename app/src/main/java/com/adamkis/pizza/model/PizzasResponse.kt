@@ -23,7 +23,7 @@ data class PizzasResponse(var basePrice: Double?, var pizzas: Array<Pizza>?) : P
 
     fun fillPizzaIngredients(ingredientsHM: HashMap<Int?, Ingredient>?){
         pizzas?.forEach {
-            pizza -> pizza.ingredientIds?.forEach {
+            pizza -> pizza.getIngredientIds()?.forEach {
                 ingredientId -> pizza.addIngredient(ingredientsHM?.get(ingredientId))
             }
         }

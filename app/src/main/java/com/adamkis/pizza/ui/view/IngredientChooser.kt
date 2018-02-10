@@ -4,9 +4,7 @@ import android.content.Context
 import android.support.v7.widget.AppCompatCheckBox
 import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.adamkis.pizza.R
 
@@ -33,7 +31,7 @@ class IngredientChooser : FrameLayout {
     }
 
     private fun initView() {
-        val view = View.inflate(context, R.layout.ingredient_chooser, null)
+        val view = View.inflate(context, R.layout.ingredient_item, null)
         ingredientName = view.findViewById(R.id.ingredient_name)
         ingredientPrice = view.findViewById(R.id.ingredient_price)
         ingredientSelected = view.findViewById(R.id.ingredient_selected)
