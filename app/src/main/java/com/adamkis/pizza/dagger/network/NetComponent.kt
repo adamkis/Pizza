@@ -1,6 +1,7 @@
 package com.adamkis.pizza.dagger.network
 
 import com.adamkis.pizza.ui.activity.MainActivity
+import com.adamkis.pizza.ui.fragment.CartFragment
 import com.adamkis.pizza.ui.fragment.DrinksChooserFragment
 import com.adamkis.pizza.ui.fragment.PizzasFragment
 import dagger.Component
@@ -22,4 +23,5 @@ interface NetComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(pizzasFragment: PizzasFragment)
     fun inject(drinksChooserFragment: DrinksChooserFragment)
+    fun inject(cartFragment: CartFragment)
 }

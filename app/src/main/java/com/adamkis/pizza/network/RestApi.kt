@@ -1,9 +1,12 @@
 package com.adamkis.pizza.network
 
+import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Drink
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.PizzasResponse
 import io.reactivex.Observable
+import okhttp3.Response
+import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.http.*
 
@@ -27,9 +30,10 @@ interface RestApi {
     @GET("150da7")
     fun getDrinks(): Observable<Array<Drink>>
 
-    @Headers("Content-Type: application/x-www-form-urlencoded")
-    @FormUrlEncoded
+//    @POST
+//    fun order(@Body body: JSONObject, @Url url: String = PIZZA_ORDER_POST_URL): Observable<ResponseBody>
+
     @POST
-    fun order(@Url url: String = PIZZA_ORDER_POST_URL, @Body body: JSONObject): Observable<String>
+    fun order(@Body order: Cart.Order, @Url url: String = PIZZA_ORDER_POST_URL): Observable<ResponseBody>
 
 }

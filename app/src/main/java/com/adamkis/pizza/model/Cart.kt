@@ -20,4 +20,19 @@ data class Cart(var totalPrice: Double? = 0.0,
         }
     }
 
+    fun getOrder(): Order{
+        var pizzas = ArrayList<Pizza>()
+        var drinkIds = ArrayList<Int>()
+        for ( orderItem in orderItems ){
+            when( orderItem ){
+                is Pizza -> pizzas.add(orderItem)
+                // TODO null check
+                is Drink -> drinkIds.add(orderItem.id!!)
+            }
+        }
+        return Order(pizzas, drinkIds)
+    }
+
+    class Order(val pizzas: ArrayList<Pizza>, val drinks: ArrayList<Int>)
+
 }
