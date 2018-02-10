@@ -23,10 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.adamkis.pizza.ui.activity.PizzaDetailActivity"/>
-        <activity
-            android:name="com.adamkis.pizza.ui.activity.CartActivity"/>
+        <activity android:name="com.adamkis.pizza.ui.activity.PizzaDetailActivity"/>
+        <activity android:name="com.adamkis.pizza.ui.activity.CartActivity"/>
+        <activity android:name="com.adamkis.pizza.ui.activity.DrinksChooserActivity"/>
     </application>
 
 </manifest>
