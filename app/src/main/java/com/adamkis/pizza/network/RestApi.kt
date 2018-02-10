@@ -30,9 +30,6 @@ interface RestApi {
     @GET("150da7")
     fun getDrinks(): Observable<Array<Drink>>
 
-//    @POST
-//    fun order(@Body body: JSONObject, @Url url: String = PIZZA_ORDER_POST_URL): Observable<ResponseBody>
-
     @POST
     fun order(@Body order: Cart.Order, @Url url: String = PIZZA_ORDER_POST_URL): Observable<ResponseBody>
 

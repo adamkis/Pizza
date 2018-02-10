@@ -77,8 +77,9 @@ class PizzasFragment : BaseFragment() {
     }
 
     private fun downloadData(pizzasRecyclerView: RecyclerView){
-        val pizzas = restApi.getPizzas().subscribeOn(Schedulers.io())
         val ingredients = restApi.getIngredients().subscribeOn(Schedulers.io())
+        val pizzas = restApi.getPizzas().subscribeOn(Schedulers.io())
+        // Using zip, so the two calls are parallel, and steps forward when both returned
         callDisposable = Observable.zip(ingredients, pizzas,
                 BiFunction<Array<Ingredient>, PizzasResponse, Pair<Array<Ingredient>, PizzasResponse>> {
                     ingredientsResponse, pizzasResponse ->
@@ -89,8 +90,9 @@ class PizzasFragment : BaseFragment() {
             .doAfterTerminate { showLoading(false) }
             .subscribe(
                 {responsePair ->
-                    this@PizzasFragment.ingredientsHM = HashMap(responsePair.first.associateBy { it.id })
-                    this@PizzasFragment.pizzasResponse = responsePair.second
+                    ingredientsHM = HashMap(responsePair.first.associateBy { it.id })
+                    pizzasResponse = responsePair.second
+                    pizzasResponse?.let{it.updatePizzaPrices(it.basePrice)}
                     setUpAdapter(pizzasRecyclerView, responsePair.second, ingredientsHM)
                     // TODO remove logging
                     logDebug("Logging responses")

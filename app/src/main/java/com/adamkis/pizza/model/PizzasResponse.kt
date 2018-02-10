@@ -11,4 +11,12 @@ import java.util.*
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class PizzasResponse(var basePrice: Double?, var pizzas: Array<Pizza>?) : Parcelable
+data class PizzasResponse(var basePrice: Double?, var pizzas: Array<Pizza>?) : Parcelable{
+
+    fun updatePizzaPrices(basePrice: Double?){
+        pizzas?.forEach {
+            it.basePrice = basePrice
+        }
+    }
+
+}

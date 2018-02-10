@@ -61,6 +61,7 @@ class MainActivity : BaseActivity() {
 
 }
 
+// TODO check why app size is big
 // TODO refactor toolbars
 // TODO make drink and ingredient inherit from new abstract class Product
 // TODO Put Paper into RXJava

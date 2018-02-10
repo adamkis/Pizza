@@ -17,7 +17,8 @@ import org.json.JSONObject
 @Parcelize
 data class Pizza(@SerializedName("name") var name: String?,
                  @SerializedName("imageUrl") var imageUrl: String?,
-                 @SerializedName("ingredients") var ingredients: IntArray?
+                 @SerializedName("ingredients") var ingredients: IntArray?,
+                 var basePrice: Double? = 0.0
         ) : OrderItem, Parcelable{
 
     override fun getItemName(): String {
