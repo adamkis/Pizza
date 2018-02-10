@@ -13,9 +13,13 @@ import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Cart
+import com.adamkis.pizza.model.Drink
+import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.adapter.CartAdapter
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_cart.*
+import org.json.JSONArray
+import org.json.JSONObject
 
 /**
  * Created by adam on 2018. 01. 11..
@@ -41,7 +45,21 @@ class CartFragment : BaseFragment() {
             setUpAdapter(cartRecyclerView, it)
         }
         checkout_button.setOnClickListener {
-            logDebug("cart: " + cart)
+            // TODO Put it into cart object
+            var orderJson = JSONObject()
+            var pizzas = JSONArray()
+            var drinks = JSONArray()
+            // TODO null check
+            for ( orderItem in cart!!.orderItems ){
+                when( orderItem ){
+                    is Pizza -> pizzas.put(orderItem.toJSON())
+                    // TODO null check
+                    is Drink -> drinks.put(orderItem.id!!)
+                }
+            }
+            orderJson.put("pizzas", pizzas)
+            orderJson.put("drinks", drinks)
+            logDebug("cart: " + orderJson.toString())
         }
     }
 

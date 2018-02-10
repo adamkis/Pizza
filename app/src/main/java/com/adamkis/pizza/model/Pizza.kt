@@ -4,6 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import org.json.JSONArray
+import org.json.JSONObject
+
+
 
 /**
  * Created by adam on 2017. 01. 14..
@@ -24,6 +28,16 @@ data class Pizza(@SerializedName("name") var name: String?,
     override fun getItemPrice(): Double {
         // TODO Implement it
         return 3.14
+    }
+
+    fun toJSON(): JSONObject {
+        val jo = JSONObject()
+        jo.put("name", name)
+        jo.put("imageUrl", imageUrl)
+        var ingredientsJSONArray = JSONArray()
+        ingredients?.forEach { id -> ingredientsJSONArray.put(id) }
+        jo.put("ingredients", ingredientsJSONArray)
+        return jo
     }
 
     companion object {

@@ -1,24 +1,10 @@
 package com.adamkis.pizza.ui.fragment
 
-import android.annotation.TargetApi
-import android.app.Activity
-import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
-import android.os.Build
 import android.support.design.widget.CoordinatorLayout
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.Fragment
-import android.support.v4.util.Pair
-import android.view.View
-import android.widget.ImageView
-import com.adamkis.pizza.R
-import com.adamkis.pizza.helper.FilePersistenceHelper
-import com.adamkis.pizza.helper.TransitionHelper
-import com.adamkis.pizza.network.getStackTrace
-import timber.log.Timber
 import android.support.design.widget.Snackbar
-import com.adamkis.pizza.model.Pizza
-import com.adamkis.pizza.ui.activity.PizzaDetailActivity
+import android.support.v4.app.Fragment
+import android.view.View
+import com.adamkis.pizza.R
 
 
 /**

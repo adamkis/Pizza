@@ -8,7 +8,7 @@ import com.adamkis.pizza.dagger.glide.GlideComponent
 import com.adamkis.pizza.dagger.glide.GlideModule
 import com.adamkis.pizza.dagger.network.*
 import com.adamkis.pizza.helper.logDebug
-import com.adamkis.pizza.network.FLICKR_URL_BASE
+import com.adamkis.pizza.network.RestApi.Companion.PIZZA_URL_BASE
 import com.squareup.leakcanary.LeakCanary
 import io.paperdb.Paper
 import timber.log.Timber
@@ -49,7 +49,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        netComponent = createNetComponent(FLICKR_URL_BASE)
+        netComponent = createNetComponent(PIZZA_URL_BASE)
         glideComponent = createGlideComponent(applicationContext)
         // Timber
         if (BuildConfig.DEBUG) {

@@ -11,7 +11,7 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import com.adamkis.pizza.dagger.*
 import com.adamkis.pizza.dagger.network.*
-import com.adamkis.pizza.network.FLICKR_URL_BASE
+import com.adamkis.pizza.network.PIZZA_URL_BASE
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -36,7 +36,7 @@ class MainActivityMockDaggerRestClientTest {
                 .gsonConverterFactoryModule(GsonConverterFactoryModule())
                 .loggingInterceptorModule(LoggingInterceptorModule())
                 .restApiModule(RestApiModule())
-                .retrofitModule(RetrofitModule(FLICKR_URL_BASE))
+                .retrofitModule(RetrofitModule(PIZZA_URL_BASE))
                 .build()
         app.setNetComponent(mockNetComponent)
         activityRule.launchActivity(Intent())
