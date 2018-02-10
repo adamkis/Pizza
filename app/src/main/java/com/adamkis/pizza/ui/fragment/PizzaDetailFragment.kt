@@ -52,7 +52,7 @@ class PizzaDetailFragment : Fragment() {
 
     private fun addPizzaToCart(pizza: Pizza?) {
         var cart: Cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
-        cart.addPizza(pizza)
+        cart.addOrderItem(pizza)
         Paper.book().write(FilePersistenceHelper.PAPER_CART_KEY, cart)
         logDebug("Cart updated: " + cart)
     }

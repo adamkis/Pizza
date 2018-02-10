@@ -1,17 +1,22 @@
 package com.adamkis.pizza.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.adamkis.pizza.App
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Cart
+import com.adamkis.pizza.model.Drink
 import com.adamkis.pizza.network.RestApi
+import com.adamkis.pizza.ui.adapter.DrinksAdapter
 import io.paperdb.Paper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -40,13 +45,13 @@ class DrinksChooserFragment : BaseFragment() {
         setUpLoadingAndError(view.findViewById(R.id.loading), view as CoordinatorLayout)
 
         cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
-        cart?.let {
-            setUpAdapter(drinksRecyclerView, it)
+        if (cart == null) {
+            showError(getString(R.string.error))
+            showLoading(false)
         }
-        downloadData(drinksRecyclerView)
-//        checkout_button.setOnClickListener {
-//            logDebug("cart: " + cart)
-//        }
+        else{
+            downloadData(drinksRecyclerView)
+        }
     }
 
 
@@ -59,10 +64,8 @@ class DrinksChooserFragment : BaseFragment() {
                 .subscribe(
                         {drinksResponse ->
 //                            this@DrinksChooserFragment.photosResponse = photosResponse
-//                            setUpAdapter(recentsRecyclerView, photosResponse)
-                            for (drink in drinksResponse){
-                                logDebug(drink.name)
-                            }
+                            setUpAdapter(recentsRecyclerView, cart!!, drinksResponse)
+
                         },
                         {t ->
                             when(t){
@@ -82,10 +85,10 @@ class DrinksChooserFragment : BaseFragment() {
 
 
 
-    private fun setUpAdapter(cartRecyclerView: RecyclerView, cart: Cart){
+    private fun setUpAdapter(cartRecyclerView: RecyclerView, cart: Cart, drinksResponse: Array<Drink>){
 
-//        cartRecyclerView.layoutManager = LinearLayoutManager(this@DrinksChooserFragment.activity as Context, LinearLayout.VERTICAL, false)
-//        cartRecyclerView.adapter = CartAdapter(cart.orderItems, activity as Context)
+        cartRecyclerView.layoutManager = LinearLayoutManager(this@DrinksChooserFragment.activity as Context, LinearLayout.VERTICAL, false)
+        cartRecyclerView.adapter = DrinksAdapter(cart, drinksResponse, activity as Context)
 
 //        clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
 //                .subscribe({

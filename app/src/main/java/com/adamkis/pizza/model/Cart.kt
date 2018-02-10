@@ -14,8 +14,8 @@ data class Cart(var totalPrice: Double? = 0.0,
 
     fun getItemCount() = orderItems.size
 
-    fun addPizza(pizza: Pizza?){
-        pizza?.let {
+    fun addOrderItem(orderItem: OrderItem?){
+        orderItem?.let {
             orderItems.add(it)
         }
     }

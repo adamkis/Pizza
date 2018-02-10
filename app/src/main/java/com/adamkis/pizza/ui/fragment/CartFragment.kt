@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_cart.*
 class CartFragment : BaseFragment() {
 
     private var cart: Cart? = null
+    lateinit var cartRecyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_cart, container, false)
@@ -30,8 +31,11 @@ class CartFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val cartRecyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.cart_recycler_view)
+        cartRecyclerView = view.findViewById<RecyclerView>(R.id.cart_recycler_view)
+    }
 
+    override fun onResume() {
+        super.onResume()
         cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
         cart?.let {
             setUpAdapter(cartRecyclerView, it)
