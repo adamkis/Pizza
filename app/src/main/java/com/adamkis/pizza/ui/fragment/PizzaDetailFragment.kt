@@ -64,7 +64,7 @@ class PizzaDetailFragment : Fragment() {
                 val ingredientChooser = IngredientChooser(context!!)
                 ingredientChooser.setName(ingredient.name)
                 ingredientChooser.setPrice(ingredient.price)
-                ingredientChooser.setIngredientSelected(pizza.ingredients?.contains(ingredient.id ?: Int.MAX_VALUE))
+                ingredientChooser.setIngredientSelected(pizza.ingredientIds?.contains(ingredient.id ?: Int.MAX_VALUE))
                 container.addView(ingredientChooser)
             }
         }

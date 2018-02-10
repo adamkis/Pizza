@@ -93,6 +93,7 @@ class PizzasFragment : BaseFragment() {
                     ingredientsHM = HashMap(responsePair.first.associateBy { it.id })
                     pizzasResponse = responsePair.second
                     pizzasResponse?.let{it.updatePizzaPrices(it.basePrice)}
+                    pizzasResponse?.let{it.fillPizzaIngredients(ingredientsHM)}
                     setUpAdapter(pizzasRecyclerView, responsePair.second, ingredientsHM)
                     // TODO remove logging
                     logDebug("Logging responses")
@@ -111,6 +112,7 @@ class PizzasFragment : BaseFragment() {
                             showError(getString(R.string.error))
                         }
                     }
+                    logThrowable(t)
                 }
             )
     }

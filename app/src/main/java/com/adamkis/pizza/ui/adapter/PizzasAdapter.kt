@@ -50,7 +50,7 @@ class PizzasAdapter(val pizzas: Array<Pizza>?, val ingredientsHM: HashMap<Int?, 
 
         fun bind(pizza: Pizza?){
             itemView.pizza_name.text = pizza?.name
-            itemView.pizza_ingredients.text = pizza?.ingredients?.
+            itemView.pizza_ingredients.text = pizza?.ingredientIds?.
                     map { ingredientsHM?.get(it)?.name }?.
                     joinToString(", ")
             glideReqManager.load(pizza?.imageUrl).into(itemView.findViewById(R.id.pizza_image))

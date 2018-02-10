@@ -17,7 +17,8 @@ import org.json.JSONObject
 @Parcelize
 data class Pizza(@SerializedName("name") var name: String?,
                  @SerializedName("imageUrl") var imageUrl: String?,
-                 @SerializedName("ingredients") var ingredients: IntArray?,
+                 @SerializedName("ingredients") var ingredientIds: IntArray?,
+                 var ingredientObjs: ArrayList<Ingredient>,
                  var basePrice: Double? = 0.0
         ) : OrderItem, Parcelable{
 
@@ -26,9 +27,20 @@ data class Pizza(@SerializedName("name") var name: String?,
     }
 
     override fun getItemPrice(): Double {
-        // TODO Implement it
-        return 3.14
+        var price: Double = 0.0
+        for (ingredient in ingredientObjs){
+            price += ingredient.price ?: 0.0
+        }
+        price += basePrice ?: 0.0
+        return price
     }
+
+    fun addIngredient(ingredient: Ingredient?){
+        // TODO change instantiation
+        if (ingredientObjs == null) ingredientObjs = ArrayList()
+        ingredient?.let { ingredientObjs.add(it) }
+    }
+
 
     companion object {
         const val TAG = "PIZZA"
