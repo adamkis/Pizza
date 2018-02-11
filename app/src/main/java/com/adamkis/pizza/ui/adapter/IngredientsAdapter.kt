@@ -6,34 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.adamkis.pizza.R
-import com.adamkis.pizza.helper.logDebug
-import com.adamkis.pizza.model.Cart
-import com.adamkis.pizza.model.Drink
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.ingredient_item.view.*
 
-class IngredientsAdapter(val pizza: Pizza?, val ingredientsAvailable: List<Ingredient>?, val context: Context) : RecyclerView.Adapter<IngredientsAdapter.RecentsViewHolder>(){
+class IngredientsAdapter(val pizza: Pizza?, val ingredientsAvailable: List<Ingredient>?, val context: Context) : RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecentsViewHolder {
+    private val clickSubject = PublishSubject.create<Double>()
+    val clickEvent: Observable<Double> = clickSubject
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): IngredientsViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.ingredient_item, parent, false)
-        return RecentsViewHolder(view, context)
+        return IngredientsViewHolder(view, context)
     }
 
-    override fun onBindViewHolder(holder: RecentsViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: IngredientsViewHolder?, position: Int) {
         holder?.bind(ingredientsAvailable?.get(position))
     }
 
     override fun getItemCount(): Int = ingredientsAvailable?.size ?: 0
 
-    inner class RecentsViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view){
-
-        init {
-//            itemView.setOnClickListener {
-//                // TODO: nullcheck
-//                clickSubject.onNext(Pair<Pizza, View>(pizzas!![layoutPosition], view))
-//            }
-        }
+    inner class IngredientsViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view){
 
         fun bind(ingredient: Ingredient?){
             itemView.ingredient_name.text = ingredient?.name
@@ -48,6 +43,7 @@ class IngredientsAdapter(val pizza: Pizza?, val ingredientsAvailable: List<Ingre
                     pizza?.removeIngredient(ingredient)
                     pizza?.removeIngredientId(ingredient?.id)
                 }
+                clickSubject.onNext(pizza?.getItemPrice() ?: 0.0)
             }
         }
 

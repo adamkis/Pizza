@@ -1,5 +1,6 @@
 package com.adamkis.pizza.ui.fragment
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -17,13 +18,13 @@ import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.adapter.IngredientsAdapter
+import com.adamkis.pizza.ui.adapter.PizzasAdapter
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 import kotlinx.android.synthetic.main.header_pizza_detail.*
 import java.util.*
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
-
-
+import io.reactivex.disposables.Disposable
 
 
 /**
@@ -34,6 +35,7 @@ class PizzaDetailFragment : Fragment() {
     private var pizza: Pizza? = null
     private var originalIngredientIds: TreeSet<Int>? = null
     private var ingredientsHM: HashMap<Int?, Ingredient>? = null
+    private var clickDisposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,14 +69,20 @@ class PizzaDetailFragment : Fragment() {
         header_image.setImageBitmap(bitmap)
 
         setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
-        item_price.text = (activity as Context).getString(R.string.item_price, pizza?.getItemPrice())
+        updateItemPrice(pizza?.getItemPrice())
         add_to_cart.setOnClickListener {
             addPizzaToCart(pizza)
         }
     }
 
+    fun updateItemPrice(price: Double?){
+        item_price.text = (activity as Context).getString(R.string.item_price, price)
+    }
+
     private fun setUpAdapter(ingredientsRecyclerView: RecyclerView, pizza: Pizza?, ingredientsAvailable: List<Ingredient>?) {
         ingredientsRecyclerView.adapter = IngredientsAdapter(pizza, ingredientsAvailable, activity as Context)
+        clickDisposable = (ingredientsRecyclerView.adapter as IngredientsAdapter).clickEvent
+                .subscribe({ updateItemPrice(it) })
     }
 
     private fun addPizzaToCart(pizza: Pizza?) {
@@ -92,6 +100,11 @@ class PizzaDetailFragment : Fragment() {
         outState.putSerializable(ARG_INGREDIENTS, ingredientsHM)
         outState.putSerializable(ARG_ORIGINAL_INGREDIENTS, originalIngredientIds)
         super.onSaveInstanceState(outState)
+    }
+
+    override fun onDestroy() {
+        clickDisposable?.dispose()
+        super.onDestroy()
     }
 
     companion object {
