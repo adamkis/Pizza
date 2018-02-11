@@ -3,9 +3,7 @@ package com.adamkis.pizza.ui.view
 import android.content.Context
 import android.os.Handler
 import android.support.annotation.DrawableRes
-import android.support.annotation.IdRes
 import android.support.annotation.StringRes
-import android.support.v7.widget.AppCompatCheckBox
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
@@ -22,6 +20,7 @@ class WideButtonView : FrameLayout {
     lateinit private var text_main: TextView
     lateinit private var text_price: TextView
     lateinit private var container: View
+    lateinit private var parent: View
     lateinit private var color: Color
 
     enum class Color { ORANGE, RED }
@@ -45,6 +44,11 @@ class WideButtonView : FrameLayout {
         text_price = view.findViewById(R.id.text_price)
         container = view.findViewById(R.id.container)
         addView(view)
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        parent = container.parent as View
     }
 
     fun setIcon(@DrawableRes drawableId: Int){
@@ -91,18 +95,28 @@ class WideButtonView : FrameLayout {
     fun showAddedToCartFlash(){
         val textMainBefore = text_main.text
         val colorBefore = this.color
+        val iconVisibilityBefore = icon.visibility
+        val priceVisibilityBefore = text_price.visibility
 
-        text_main.text = context.getString(R.string.added_to_cart)
-        hidePrice()
-        hideIcon()
-        setColor(Color.RED)
+        showAddedItemToCart()
 
         Handler().postDelayed({
             text_main.text =textMainBefore
-            showPrice()
-            showIcon()
             setColor(colorBefore)
+            if( priceVisibilityBefore == View.VISIBLE ) showPrice()
+            if( iconVisibilityBefore == View.VISIBLE ) showIcon()
+            parent.isClickable = true
+            parent.isFocusable = true
         }, 1000)
+    }
+
+    fun showAddedItemToCart(){
+        text_main.text = context.getString(R.string.added_to_cart)
+        setColor(Color.RED)
+        hidePrice()
+        hideIcon()
+        parent.isClickable = false
+        parent.isFocusable = false
     }
 
 }
