@@ -13,30 +13,23 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.cart_item.view.*
 
 
-class CartAdapter(val cart: Cart, val context: Context) : RecyclerView.Adapter<CartAdapter.RecentsViewHolder>(){
+class CartAdapter(val cart: Cart, val context: Context) : RecyclerView.Adapter<CartAdapter.CartItemViewHolder>(){
 
     private val clickSubject = PublishSubject.create<Double>()
     val clickEvent: Observable<Double> = clickSubject
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecentsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CartItemViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.cart_item, parent, false)
-        return RecentsViewHolder(view, context)
+        return CartItemViewHolder(view, context)
     }
 
-    override fun onBindViewHolder(holder: RecentsViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: CartItemViewHolder?, position: Int) {
         holder?.bind(cart.orderItems[position])
     }
 
     override fun getItemCount(): Int = cart.orderItems.size
 
-    inner class RecentsViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view){
-
-        init {
-//            itemView.setOnClickListener {
-//                // TODO: nullcheck
-//                clickSubject.onNext(Pair<Pizza, View>(pizzas!![layoutPosition], view))
-//            }
-        }
+    inner class CartItemViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view){
 
         fun bind(orderItem: OrderItem?){
             itemView.order_item_name.text = orderItem?.getItemName()

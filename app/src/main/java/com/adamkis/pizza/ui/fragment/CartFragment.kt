@@ -22,16 +22,12 @@ import com.adamkis.pizza.ui.activity.BaseActivity
 import com.adamkis.pizza.ui.activity.DrinksChooserActivity
 import com.adamkis.pizza.ui.adapter.CartAdapter
 import io.paperdb.Paper
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_cart.*
 import java.net.UnknownHostException
-import java.util.*
 import javax.inject.Inject
-import android.os.AsyncTask
-
 
 
 /**
