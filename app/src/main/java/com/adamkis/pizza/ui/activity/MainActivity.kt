@@ -62,7 +62,7 @@ class MainActivity : BaseActivity() {
 }
 
 // TODO Item layout names should start with item
-// TODO Purge ingredientsHashMap wherever it's possible
+// TODO Purge ingredientsHashMap wherever it's possible - rename to IngredientsAvailable
 // TODO check why app size is big
 // TODO refactor toolbars
 // TODO make drink and ingredient inherit from new abstract class Product

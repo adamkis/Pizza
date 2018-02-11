@@ -2,7 +2,6 @@ package com.adamkis.pizza.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -15,18 +14,14 @@ import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.helper.logThrowable
 import com.adamkis.pizza.model.Cart
-import com.adamkis.pizza.model.Drink
-import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.network.RestApi
 import com.adamkis.pizza.ui.adapter.CartAdapter
+import com.adamkis.pizza.ui.view.WideButtonView
 import io.paperdb.Paper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_cart.*
-import org.json.JSONArray
-import org.json.JSONObject
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 /**
@@ -56,6 +51,11 @@ class CartFragment : BaseFragment() {
         cart?.let {
             setUpAdapter(cartRecyclerView, it)
         }
+
+        checkout_button.setColor(WideButtonView.Color.RED)
+        checkout_button.hideIcon()
+        checkout_button.setTextMain(R.string.checkout)
+        checkout_button.setTextPrice(cart?.totalPrice)
         checkout_button.setOnClickListener {
             sendOrder(cart!!.getOrder())
         }

@@ -17,6 +17,7 @@ import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.adapter.IngredientsAdapter
+import com.adamkis.pizza.ui.view.WideButtonView
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
 import io.paperdb.Paper
 import io.reactivex.disposables.Disposable
@@ -71,7 +72,8 @@ class PizzaDetailFragment : Fragment() {
         updateItemPrice(pizza?.getItemPrice())
 
         add_to_cart.setIcon(R.drawable.cart_small)
-        add_to_cart.setTextMain((activity as Context).getString(R.string.add_to_cart))
+        add_to_cart.setTextMain(R.string.add_to_cart)
+        add_to_cart.setColor(WideButtonView.Color.ORANGE)
         add_to_cart.setOnClickListener {
             addPizzaToCart(pizza)
         }
