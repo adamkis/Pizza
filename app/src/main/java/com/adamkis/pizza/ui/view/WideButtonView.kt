@@ -16,12 +16,12 @@ import com.adamkis.pizza.R
  */
 open class WideButtonView : FrameLayout {
 
-    lateinit protected var icon: ImageView
-    lateinit protected var text_main: TextView
-    lateinit protected var text_price: TextView
+    lateinit private var icon: ImageView
+    lateinit private var text_main: TextView
+    lateinit private var text_price: TextView
     lateinit private var container: View
-    lateinit protected var parent: View
-    lateinit protected var colorWideButton: Color
+    lateinit private var parent: View
+    lateinit private var colorWideButton: Color
 
     enum class Color { ORANGE, RED }
 
@@ -79,6 +79,17 @@ open class WideButtonView : FrameLayout {
         text_price.text = context.getString(R.string.item_price, price)
     }
 
+    fun setClickableWideButton(clickable: Boolean){
+        if( clickable ){
+            parent.isClickable = true
+            parent.isFocusable = true
+        }
+        else{
+            parent.isClickable = false
+            parent.isFocusable = false
+        }
+    }
+
     fun setColor(color: Color){
         when( color ){
             Color.ORANGE -> {
@@ -97,8 +108,7 @@ open class WideButtonView : FrameLayout {
         setColor(Color.RED)
         hidePrice()
         hideIcon()
-        parent.isClickable = false
-        parent.isFocusable = false
+        setClickableWideButton(false)
     }
 
 }

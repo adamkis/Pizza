@@ -38,20 +38,13 @@ class AddToCartView : WideButtonView {
     }
 
     fun showAddedToCartFlash(){
-        val textMainBefore = text_main.text
-        val colorBefore = this.colorWideButton
-        val iconVisibilityBefore = icon.visibility
-        val priceVisibilityBefore = text_price.visibility
-
         showAddedItemToCart()
-
         Handler().postDelayed({
-            text_main.text =textMainBefore
-            setColor(colorBefore)
-            if( priceVisibilityBefore == View.VISIBLE) showPrice()
-            if( iconVisibilityBefore == View.VISIBLE) showIcon()
-            parent.isClickable = true
-            parent.isFocusable = true
+            setTextMain(R.string.add_to_cart)
+            setColor(WideButtonView.Color.ORANGE)
+            showPrice()
+            showIcon()
+            setClickableWideButton(true)
         }, 1000)
     }
 
