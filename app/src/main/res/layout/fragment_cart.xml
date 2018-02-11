@@ -19,44 +19,8 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_height="@dimen/height_xl"
-                    android:minHeight="@dimen/height_xl"
-                    android:layout_width="match_parent"
-                    android:background="?attr/colorPrimary"
-                    android:elevation="4dp"
-                    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="@color/colorAccent"
-                            android:textStyle="bold"
-                            android:text="@string/cart"
-                            android:layout_gravity="center_vertical"
-                            android:textSize="@dimen/font_l"
-                            android:ellipsize="end"/>
-
-                        <ImageView
-                            android:id="@+id/drinks_button"
-                            android:layout_width="@dimen/cart_icon_size"
-                            android:layout_height="@dimen/cart_icon_size"
-                            android:layout_marginRight="@dimen/padding_l"
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/ic_launcher"/>
-
-                    </LinearLayout>
-
-
-                </android.support.v7.widget.Toolbar>
+                <include layout="@layout/toolbar_cart"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/cart_recycler_view"
