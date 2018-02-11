@@ -9,8 +9,7 @@ import kotlinx.android.parcel.Parcelize
  * Created by adam on 2017. 01. 14..
  */
 
-data class Cart(var totalPrice: Double? = 0.0,
-                var orderItems: MutableList<OrderItem> = ArrayList()){
+data class Cart(var orderItems: MutableList<OrderItem> = ArrayList()){
 
     fun getItemCount() = orderItems.size
 
@@ -20,19 +19,21 @@ data class Cart(var totalPrice: Double? = 0.0,
         }
     }
 
+    fun getTotalPrice(): Double = orderItems.sumByDouble { it.getItemPrice() }
+
+    class Order(val pizzas: ArrayList<Pizza>, val drinks: ArrayList<Int>)
+
     fun getOrder(): Order{
         var pizzas = ArrayList<Pizza>()
         var drinkIds = ArrayList<Int>()
         for ( orderItem in orderItems ){
             when( orderItem ){
                 is Pizza -> pizzas.add(orderItem)
-                // TODO null check
+            // TODO null check
                 is Drink -> drinkIds.add(orderItem.id!!)
             }
         }
         return Order(pizzas, drinkIds)
     }
-
-    class Order(val pizzas: ArrayList<Pizza>, val drinks: ArrayList<Int>)
 
 }

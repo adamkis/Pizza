@@ -16,7 +16,6 @@ import com.adamkis.pizza.helper.logThrowable
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.network.RestApi
 import com.adamkis.pizza.ui.adapter.CartAdapter
-import com.adamkis.pizza.ui.view.WideButtonView
 import io.paperdb.Paper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -52,10 +51,7 @@ class CartFragment : BaseFragment() {
             setUpAdapter(cartRecyclerView, it)
         }
 
-        checkout_button.setColor(WideButtonView.Color.RED)
-        checkout_button.hideIcon()
-        checkout_button.setTextMain(R.string.checkout)
-        checkout_button.setTextPrice(cart?.totalPrice)
+        checkout_button.setPriceText(cart?.getTotalPrice())
         checkout_button.setOnClickListener {
             sendOrder(cart!!.getOrder())
         }

@@ -1,14 +1,13 @@
 package com.adamkis.pizza.ui.view
 
 import android.content.Context
-import android.os.Handler
 import android.util.AttributeSet
 import com.adamkis.pizza.R
 
 /**
  * Created by adam on 2018. 02. 07..
  */
-class AddToCartView : WideButtonView {
+class CheckoutView : WideButtonView {
 
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
@@ -26,20 +25,9 @@ class AddToCartView : WideButtonView {
 
     override fun initView() {
         super.initView()
-        setIcon(R.drawable.cart_small)
-        setMainText(R.string.add_to_cart)
-        setColor(WideButtonView.Color.ORANGE)
-    }
-
-    fun showAddedToCartFlash(){
-        showAddedItemToCart()
-        Handler().postDelayed({
-            setMainText(R.string.add_to_cart)
-            setColor(WideButtonView.Color.ORANGE)
-            showPrice()
-            showIcon()
-            setClickableWB(true)
-        }, 1000)
+        setColor(WideButtonView.Color.RED)
+        hideIcon()
+        setMainText(R.string.checkout)
     }
 
 }

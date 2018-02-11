@@ -17,13 +17,11 @@ import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.adapter.IngredientsAdapter
-import com.adamkis.pizza.ui.view.WideButtonView
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
 import io.paperdb.Paper
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 import kotlinx.android.synthetic.main.header_pizza_detail.*
-import kotlinx.android.synthetic.main.view_wide_button.*
 import java.util.*
 
 
@@ -69,8 +67,8 @@ class PizzaDetailFragment : Fragment() {
         header_image.setImageBitmap(bitmap)
 
         setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
-        updateItemPrice(pizza?.getItemPrice())
 
+        add_to_cart.setPriceText(pizza?.getItemPrice())
         add_to_cart.setOnClickListener {
             addPizzaToCart(pizza)
             add_to_cart.showAddedToCartFlash()
@@ -78,14 +76,10 @@ class PizzaDetailFragment : Fragment() {
 
     }
 
-    fun updateItemPrice(price: Double?){
-        add_to_cart.setTextPrice(price)
-    }
-
     private fun setUpAdapter(ingredientsRecyclerView: RecyclerView, pizza: Pizza?, ingredientsAvailable: List<Ingredient>?) {
         ingredientsRecyclerView.adapter = IngredientsAdapter(pizza, ingredientsAvailable, activity as Context)
         clickDisposable = (ingredientsRecyclerView.adapter as IngredientsAdapter).clickEvent
-                .subscribe({ updateItemPrice(it) })
+                .subscribe({ add_to_cart.setPriceText(it) })
     }
 
     private fun addPizzaToCart(pizza: Pizza?) {

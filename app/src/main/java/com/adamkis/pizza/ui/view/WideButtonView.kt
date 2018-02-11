@@ -70,11 +70,11 @@ open class WideButtonView : FrameLayout {
         text_price.visibility = VISIBLE
     }
 
-    fun setTextMain(@StringRes stringId: Int){
+    fun setMainText(@StringRes stringId: Int){
         text_main.text = context.getString(stringId)
     }
 
-    fun setTextPrice(price: Double?){
+    fun setPriceText(price: Double?){
         text_price.text = context.getString(R.string.item_price, price)
     }
 
