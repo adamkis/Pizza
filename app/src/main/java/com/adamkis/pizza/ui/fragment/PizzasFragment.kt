@@ -27,6 +27,7 @@ import com.adamkis.pizza.model.PizzasResponse
 import com.adamkis.pizza.network.RestApi
 import com.adamkis.pizza.ui.activity.PizzaDetailActivity
 import com.adamkis.pizza.ui.adapter.PizzasAdapter
+import io.paperdb.Paper
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -139,11 +140,11 @@ class PizzasFragment : BaseFragment() {
                         android.support.v4.util.Pair(firstViewToAnimate, activity.getString(R.string.transition_pizza_image))
                 ))
                 .toBundle()
-        try {
-            FilePersistenceHelper.writeBitmapToFile(activity, ((firstViewToAnimate as ImageView).drawable as BitmapDrawable).bitmap)
-        } catch (e: TypeCastException) {
-            // This happens when the image hasn't loaded yet, not saving is enough
-            logThrowable(e)
+        if( (firstViewToAnimate as ImageView).drawable == null ){
+            Paper.book().delete(FilePersistenceHelper.HEADER_IMAGE_KEY)
+        }
+        else{
+            Paper.book().write(FilePersistenceHelper.HEADER_IMAGE_KEY, ((firstViewToAnimate as ImageView).drawable as BitmapDrawable).bitmap)
         }
         val startIntent = PizzaDetailActivity.getStartIntent(activity, pizza, ingredientsHM)
         startActivity(startIntent, animationBundle)
