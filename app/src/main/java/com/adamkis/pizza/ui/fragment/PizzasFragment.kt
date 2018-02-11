@@ -124,7 +124,6 @@ class PizzasFragment : BaseFragment() {
                 .subscribe({
                     startDetailActivityWithTransition(activity as Activity,
                             it.second.findViewById(R.id.pizza_image),
-                            it.second.findViewById(R.id.pizza_name),
                             it.first,
                             ingredientsHM)
                 })
@@ -133,12 +132,11 @@ class PizzasFragment : BaseFragment() {
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    protected fun startDetailActivityWithTransition(activity: Activity, firstViewToAnimate: View, secondViewToAnimate: View, pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?) {
+    protected fun startDetailActivityWithTransition(activity: Activity, firstViewToAnimate: View, pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?) {
         val animationBundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                 *TransitionHelper.createSafeTransitionParticipants(activity,
                         false,
-                        android.support.v4.util.Pair(firstViewToAnimate, activity.getString(R.string.transition_pizza_image)),
-                        android.support.v4.util.Pair(secondViewToAnimate, activity.getString(R.string.transition_pizza_name))
+                        android.support.v4.util.Pair(firstViewToAnimate, activity.getString(R.string.transition_pizza_image))
                 ))
                 .toBundle()
         try {
