@@ -32,7 +32,9 @@ class PizzaDetailActivity : BaseActivity(){
         setupBackButton()
 
         pizza_name.text = if (pizza.name.isNullOrBlank()) getString(R.string.pizza_detail) else pizza.name
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza, ingredientsHM)).commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza, ingredientsHM)).commit()
+        }
     }
 
     companion object {

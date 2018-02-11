@@ -20,6 +20,7 @@ import com.adamkis.pizza.ui.adapter.IngredientsAdapter
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -33,10 +34,17 @@ class PizzaDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            pizza = it.getParcelable(ARG_PIZZA)
-            originalIngredientIds = TreeSet(pizza?.getIngredientIds())
-            ingredientsHM = it.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
+        if( savedInstanceState != null ){
+            pizza = savedInstanceState.getParcelable(ARG_PIZZA)
+            ingredientsHM = savedInstanceState.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
+            originalIngredientIds = savedInstanceState.getSerializable(ARG_ORIGINAL_INGREDIENTS) as TreeSet<Int>?
+        }
+        else {
+            arguments?.let {
+                pizza = it.getParcelable(ARG_PIZZA)
+                originalIngredientIds = TreeSet(pizza?.getIngredientIds())
+                ingredientsHM = it.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
+            }
         }
     }
 
@@ -53,7 +61,6 @@ class PizzaDetailFragment : Fragment() {
         add_to_cart.setOnClickListener {
             addPizzaToCart(pizza)
         }
-
     }
 
     private fun setUpAdapter(ingredientsRecyclerView: RecyclerView, pizza: Pizza?, ingredientsAvailable: List<Ingredient>?) {
@@ -71,11 +78,19 @@ class PizzaDetailFragment : Fragment() {
         logDebug("Cart updated: " + cart)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelable(ARG_PIZZA, pizza)
+        outState.putSerializable(ARG_INGREDIENTS, ingredientsHM)
+        outState.putSerializable(ARG_ORIGINAL_INGREDIENTS, originalIngredientIds)
+        super.onSaveInstanceState(outState)
+    }
+
     companion object {
 
         // TODO use Pizza.TAG
         private val ARG_PIZZA = "ARG_PIZZA"
         private val ARG_INGREDIENTS = "ARG_INGREDIENTS"
+        private val ARG_ORIGINAL_INGREDIENTS = "ARG_ORIGINAL_INGREDIENTS"
 
         fun newInstance(pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?): PizzaDetailFragment {
             val fragment = PizzaDetailFragment()
