@@ -17,15 +17,21 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.adamkis.pizza.ui.activity.MainActivity"
-            android:label="@string/main_title">
+            android:label="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.adamkis.pizza.ui.activity.PizzaDetailActivity"/>
-        <activity android:name="com.adamkis.pizza.ui.activity.CartActivity"/>
-        <activity android:name="com.adamkis.pizza.ui.activity.DrinksActivity"/>
+        <activity
+            android:name="com.adamkis.pizza.ui.activity.PizzaDetailActivity"
+            android:label=""/>
+        <activity
+            android:name="com.adamkis.pizza.ui.activity.CartActivity"
+            android:label=""/>
+        <activity
+            android:name="com.adamkis.pizza.ui.activity.DrinksActivity"
+            android:label=""/>
     </application>
 
 </manifest>

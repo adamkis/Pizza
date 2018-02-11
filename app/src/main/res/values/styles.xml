@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -14,13 +14,13 @@
         <item name="android:minHeight">@dimen/height_56</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:elevation">4dp</item>
+        <item name="android:elevation" tools:ignore="NewApi">4dp</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
-        <item name="android:popupTheme">@style/ThemeOverlay.AppCompat</item>
+        <item name="android:popupTheme" tools:ignore="NewApi">@style/ThemeOverlay.AppCompat</item>
     </style>
 
     <style name="title_toolbar">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorAccent</item>

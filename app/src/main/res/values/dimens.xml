@@ -1,5 +1,4 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="padding_xs">2dp</dimen>
     <dimen name="padding_s">4dp</dimen>
     <dimen name="padding_m">8dp</dimen>
@@ -8,13 +7,12 @@
     <dimen name="padding_xxl">20dp</dimen>
     <dimen name="padding_xxxl">24dp</dimen>
 
-    <!--<dimen name="font_xs">14sp</dimen>-->
-    <!--<dimen name="font_s">16sp</dimen>-->
+    <dimen name="padding_16">16dp</dimen>
+
     <dimen name="font_m">18sp</dimen>
     <dimen name="font_l">20sp</dimen>
-    <!--<dimen name="font_xl">26dp</dimen>-->
-    <!--<dimen name="font_xxl">30dp</dimen>-->
 
+    <dimen name="font_14">14sp</dimen>
     <dimen name="font_16">16sp</dimen>
     <dimen name="font_20">20sp</dimen>
     <dimen name="font_46">46sp</dimen>
@@ -24,6 +22,7 @@
 
     <dimen name="pizza_image_size">350dp</dimen>
     <dimen name="wood_bg_height">400dp</dimen>
-    <dimen name="cart_icon_size">22dp</dimen>
+    <dimen name="cart_icon_size">24dp</dimen>
+    <dimen name="bg_size_cart_item_count">19dp</dimen>
 
 </resources>

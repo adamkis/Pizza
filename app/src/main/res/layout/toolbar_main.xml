@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    style="@style/toolbar">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            style="@style/title_toolbar"
+            android:text="@string/main_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/cart_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_16"
+            android:paddingRight="@dimen/padding_16"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/bg_size_cart_item_count"
+                    android:layout_height="@dimen/bg_size_cart_item_count"
+                    android:src="@drawable/circle_filled_red"
+                    android:scaleType="centerInside"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/cart_item_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_white"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/font_14"
+                    android:ellipsize="end"/>
+
+            </FrameLayout>
+
+            <ImageView
+                android:layout_width="@dimen/cart_icon_size"
+                android:layout_height="@dimen/cart_icon_size"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/cart"/>
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.Toolbar>
+

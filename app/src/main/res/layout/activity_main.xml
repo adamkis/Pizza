@@ -1,58 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_height="@dimen/height_xl"
-        android:minHeight="@dimen/height_xl"
-        android:layout_width="match_parent"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat">
-
-        <LinearLayout
-            android:id="@+id/cart_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:text="@string/main_title"
-                android:layout_gravity="center_vertical"
-                android:textSize="@dimen/font_l"
-                android:ellipsize="end"/>
-
-            <TextView
-                android:id="@+id/cart_item_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="@dimen/padding_m"
-                android:textColor="@color/colorAccent"
-                android:layout_gravity="center_vertical"
-                android:textSize="@dimen/font_l"
-                android:text="@string/def_cart_item_count"
-                android:ellipsize="end"/>
-
-            <ImageView
-                android:layout_width="@dimen/cart_icon_size"
-                android:layout_height="@dimen/cart_icon_size"
-                android:paddingRight="@dimen/padding_l"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/ic_launcher"/>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/toolbar_main"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"

@@ -4,14 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.ui.fragment.PizzasFragment
 import io.paperdb.Paper
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar_main.*
 
 
 class MainActivity : BaseActivity() {
