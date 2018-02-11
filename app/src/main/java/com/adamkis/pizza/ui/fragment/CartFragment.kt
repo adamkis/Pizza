@@ -19,7 +19,7 @@ import com.adamkis.pizza.helper.logThrowable
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.network.RestApi
 import com.adamkis.pizza.ui.activity.BaseActivity
-import com.adamkis.pizza.ui.activity.DrinksChooserActivity
+import com.adamkis.pizza.ui.activity.DrinksActivity
 import com.adamkis.pizza.ui.adapter.CartAdapter
 import io.paperdb.Paper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -54,7 +54,7 @@ class CartFragment : BaseFragment() {
         cartRecyclerView = view.findViewById<RecyclerView>(R.id.cart_recycler_view)
 
         drinks_button.setOnClickListener {
-            startActivity(Intent(activity, DrinksChooserActivity::class.java))
+            startActivity(Intent(activity, DrinksActivity::class.java))
         }
     }
 

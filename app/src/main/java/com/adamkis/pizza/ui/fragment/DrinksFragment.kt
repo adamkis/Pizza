@@ -26,7 +26,7 @@ import javax.inject.Inject
 /**
  * Created by adam on 2018. 01. 11..
  */
-class DrinksChooserFragment : BaseFragment() {
+class DrinksFragment : BaseFragment() {
 
     private var cart: Cart? = null
 
@@ -35,7 +35,7 @@ class DrinksChooserFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         App.netComponent.inject(this)
-        return inflater.inflate(R.layout.fragment_drinks_chooser, container, false)
+        return inflater.inflate(R.layout.fragment_drinks, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,7 +62,7 @@ class DrinksChooserFragment : BaseFragment() {
                 .doAfterTerminate { showLoading(false) }
                 .subscribe(
                         {drinksResponse ->
-//                            this@DrinksChooserFragment.photosResponse = photosResponse
+//                            this@DrinksFragment.photosResponse = photosResponse
                             setUpAdapter(drinksRecyclerView, cart!!, drinksResponse)
 
                         },
@@ -86,7 +86,7 @@ class DrinksChooserFragment : BaseFragment() {
 
     private fun setUpAdapter(cartRecyclerView: RecyclerView, cart: Cart, drinksResponse: Array<Drink>){
 
-        cartRecyclerView.layoutManager = LinearLayoutManager(this@DrinksChooserFragment.activity as Context, LinearLayout.VERTICAL, false)
+        cartRecyclerView.layoutManager = LinearLayoutManager(this@DrinksFragment.activity as Context, LinearLayout.VERTICAL, false)
         cartRecyclerView.adapter = DrinksAdapter(cart, drinksResponse, activity as Context)
 
 //        clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
@@ -106,8 +106,8 @@ class DrinksChooserFragment : BaseFragment() {
 
 
     companion object {
-        fun newInstance(): DrinksChooserFragment {
-            return DrinksChooserFragment()
+        fun newInstance(): DrinksFragment {
+            return DrinksFragment()
         }
     }
 
