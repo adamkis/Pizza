@@ -17,12 +17,13 @@ import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.adapter.IngredientsAdapter
-import io.paperdb.Paper
-import kotlinx.android.synthetic.main.header_pizza_detail.*
-import java.util.*
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
+import io.paperdb.Paper
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.fragment_pizza_detail.*
+import kotlinx.android.synthetic.main.header_pizza_detail.*
 import kotlinx.android.synthetic.main.view_wide_button.*
+import java.util.*
 
 
 /**
@@ -68,13 +69,17 @@ class PizzaDetailFragment : Fragment() {
 
         setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
         updateItemPrice(pizza?.getItemPrice())
+
+        add_to_cart.setIcon(R.drawable.cart_small)
+        add_to_cart.setTextMain((activity as Context).getString(R.string.add_to_cart))
         add_to_cart.setOnClickListener {
             addPizzaToCart(pizza)
         }
+
     }
 
     fun updateItemPrice(price: Double?){
-        item_price.text = (activity as Context).getString(R.string.item_price, price)
+        add_to_cart.setTextPrice(price)
     }
 
     private fun setUpAdapter(ingredientsRecyclerView: RecyclerView, pizza: Pizza?, ingredientsAvailable: List<Ingredient>?) {

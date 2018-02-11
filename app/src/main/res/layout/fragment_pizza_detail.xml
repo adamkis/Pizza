@@ -25,8 +25,9 @@
 
     </FrameLayout>
 
-    <include
+    <com.adamkis.pizza.ui.view.WideButtonView
         android:id="@+id/add_to_cart"
-        layout="@layout/view_wide_button"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

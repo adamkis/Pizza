@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/add_to_cart"
     style="@style/wide_button_orange">
 
     <LinearLayout
@@ -10,16 +9,16 @@
         android:orientation="horizontal"
         android:layout_gravity="center">
         <ImageView
+            android:id="@+id/icon"
             android:layout_width="@dimen/cart_icon_size"
             android:layout_height="@dimen/cart_icon_size"
-            android:layout_marginRight="@dimen/padding_m"
-            android:src="@drawable/cart_small"/>
+            android:layout_marginRight="@dimen/padding_m"/>
         <TextView
+            android:id="@+id/text_main"
             style="@style/text_wide_button_bold"
-            android:layout_marginRight="@dimen/padding_m"
-            android:text="@string/add_to_cart"/>
+            android:layout_marginRight="@dimen/padding_m"/>
         <TextView
-            android:id="@+id/item_price"
+            android:id="@+id/text_price"
             style="@style/text_wide_button_bold_italic"/>
     </LinearLayout>
 
