@@ -32,7 +32,7 @@ class DrinksAdapter(val cart: Cart, val drinksResponse: Array<Drink>, val contex
 
         fun bind(drink: Drink){
             itemView.drink_name.text = drink?.name
-            itemView.drink_price.text = drink?.price.toString()
+            itemView.drink_price.text = context.getString(R.string.price_with_currency, drink?.price)
             itemView.add_item.setOnClickListener {
                 cart.addOrderItem(drink)
                 clickSubject.onNext(drink)
