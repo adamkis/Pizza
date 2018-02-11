@@ -3,12 +3,13 @@ package com.adamkis.pizza.ui.view
 import android.content.Context
 import android.os.Handler
 import android.util.AttributeSet
+import android.view.View
 import com.adamkis.pizza.R
 
 /**
  * Created by adam on 2018. 02. 07..
  */
-class AddToCartView : WideButtonView {
+class AddedToCartView : WideButtonView {
 
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
@@ -26,20 +27,21 @@ class AddToCartView : WideButtonView {
 
     override fun initView() {
         super.initView()
-        setIcon(R.drawable.cart_small)
-        setMainText(R.string.add_to_cart)
-        setColor(WideButtonView.Color.ORANGE)
+        showAddedItemToCart()
     }
 
-    fun showAddedToCartFlash(){
-        showAddedItemToCart()
-        setClickableWB(false)
+    fun hide(){
+        this.visibility = GONE
+    }
+
+    fun show(){
+        this.visibility = View.VISIBLE
+    }
+
+    fun showFlash(){
+        show()
         Handler().postDelayed({
-            setMainText(R.string.add_to_cart)
-            setColor(WideButtonView.Color.ORANGE)
-            showPrice()
-            showIcon()
-            setClickableWB(true)
+            hide()
         }, 1000)
     }
 

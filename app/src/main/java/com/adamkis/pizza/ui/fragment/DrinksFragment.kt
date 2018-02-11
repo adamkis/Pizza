@@ -20,6 +20,7 @@ import io.paperdb.Paper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_drinks.*
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -32,6 +33,7 @@ class DrinksFragment : BaseFragment() {
 
     @Inject lateinit var restApi: RestApi
     private var callDisposable: Disposable? = null
+    private var clickDisposable: Disposable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         App.netComponent.inject(this)
@@ -42,7 +44,7 @@ class DrinksFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         val drinksRecyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.drinks_recycler_view)
         setUpLoadingAndError(view.findViewById(R.id.loading), view as CoordinatorLayout)
-
+        added_to_cart.hide()
         cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
         if (cart == null) {
             showError(getString(R.string.error))
@@ -56,47 +58,38 @@ class DrinksFragment : BaseFragment() {
 
     private fun downloadData(drinksRecyclerView: RecyclerView){
         callDisposable = restApi.getDrinks()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { showLoading(true) }
-                .doAfterTerminate { showLoading(false) }
-                .subscribe(
-                        {drinksResponse ->
-//                            this@DrinksFragment.photosResponse = photosResponse
-                            setUpAdapter(drinksRecyclerView, cart!!, drinksResponse)
-
-                        },
-                        {t ->
-                            when(t){
-                                is UnknownHostException -> {
-                                    showError(getString(R.string.network_error))
-                                }
-                                is NullPointerException -> {
-                                    showError(getString(R.string.could_not_load_data))
-                                }
-                                else -> {
-                                    showError(getString(R.string.error))
-                                }
-                            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { showLoading(true) }
+            .doAfterTerminate { showLoading(false) }
+            .subscribe(
+                {drinksResponse ->
+                    setUpAdapter(drinksRecyclerView, cart!!, drinksResponse)
+                },
+                {t ->
+                    when(t){
+                        is UnknownHostException -> {
+                            showError(getString(R.string.network_error))
                         }
-                )
+                        is NullPointerException -> {
+                            showError(getString(R.string.could_not_load_data))
+                        }
+                        else -> {
+                            showError(getString(R.string.error))
+                        }
+                    }
+                }
+            )
     }
 
 
 
-    private fun setUpAdapter(cartRecyclerView: RecyclerView, cart: Cart, drinksResponse: Array<Drink>){
+    private fun setUpAdapter(drinksRecyclerView: RecyclerView, cart: Cart, drinksResponse: Array<Drink>){
 
-        cartRecyclerView.layoutManager = LinearLayoutManager(this@DrinksFragment.activity as Context, LinearLayout.VERTICAL, false)
-        cartRecyclerView.adapter = DrinksAdapter(cart, drinksResponse, activity as Context)
-
-//        clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
-//                .subscribe({
-//                    startDetailActivityWithTransition(activity as Activity,
-//                            it.second.findViewById(R.id.pizza_image),
-//                            it.second.findViewById(R.id.pizza_name),
-//                            it.first,
-//                            ingredientsHM)
-//                })
+        drinksRecyclerView.layoutManager = LinearLayoutManager(this@DrinksFragment.activity as Context, LinearLayout.VERTICAL, false)
+        drinksRecyclerView.adapter = DrinksAdapter(cart, drinksResponse, activity as Context)
+        clickDisposable = (drinksRecyclerView.adapter as DrinksAdapter).clickEvent
+                .subscribe({ added_to_cart.showFlash() })
     }
 
     override fun onPause() {
@@ -113,6 +106,7 @@ class DrinksFragment : BaseFragment() {
 
 
     override fun onDestroy() {
+        clickDisposable?.dispose()
         callDisposable?.dispose()
         super.onDestroy()
     }

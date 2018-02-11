@@ -107,7 +107,6 @@ open class WideButtonView : FrameLayout {
         setColor(Color.RED)
         hidePrice()
         hideIcon()
-        setClickableWB(false)
     }
 
 }

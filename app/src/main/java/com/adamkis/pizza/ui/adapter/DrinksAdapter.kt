@@ -8,40 +8,34 @@ import android.view.ViewGroup
 import com.adamkis.pizza.R
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Drink
-import com.adamkis.pizza.model.OrderItem
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.drink_item.view.*
 
-class DrinksAdapter(val cart: Cart, val drinksResponse: Array<Drink>, val context: Context) : RecyclerView.Adapter<DrinksAdapter.RecentsViewHolder>(){
+class DrinksAdapter(val cart: Cart, val drinksResponse: Array<Drink>, val context: Context) : RecyclerView.Adapter<DrinksAdapter.DrinksViewHolder>(){
 
-//    private val clickSubject = PublishSubject.create<Pair<Pizza, View>>()
-//    val clickEvent: Observable<Pair<Pizza, View>> = clickSubject
+    private val clickSubject = PublishSubject.create<Drink>()
+    val clickEvent: Observable<Drink> = clickSubject
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecentsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DrinksViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.drink_item, parent, false)
-        return RecentsViewHolder(view, context)
+        return DrinksViewHolder(view, context)
     }
 
-    override fun onBindViewHolder(holder: RecentsViewHolder?, position: Int) {
-        holder?.bind(drinksResponse?.get(position))
+    override fun onBindViewHolder(holder: DrinksViewHolder?, position: Int) {
+        holder?.bind(drinksResponse[position])
     }
 
-    override fun getItemCount(): Int = drinksResponse?.size
+    override fun getItemCount(): Int = drinksResponse.size
 
-    inner class RecentsViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view){
+    inner class DrinksViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view){
 
-        init {
-//            itemView.setOnClickListener {
-//                // TODO: nullcheck
-//                clickSubject.onNext(Pair<Pizza, View>(pizzas!![layoutPosition], view))
-//            }
-        }
-
-        fun bind(drink: Drink?){
+        fun bind(drink: Drink){
             itemView.drink_name.text = drink?.name
             itemView.drink_price.text = drink?.price.toString()
             itemView.add_item.setOnClickListener {
                 cart.addOrderItem(drink)
-                // TODO show notification on the bottom
+                clickSubject.onNext(drink)
             }
         }
 
