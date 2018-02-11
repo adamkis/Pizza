@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
-import com.adamkis.pizza.R
 
 /**
  * Created by adam on 2018. 02. 07..
@@ -34,7 +33,7 @@ class AddedToCartView : WideButtonView {
         this.visibility = GONE
     }
 
-    fun show(){
+    private fun show(){
         this.visibility = View.VISIBLE
     }
 

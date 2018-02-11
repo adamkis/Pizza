@@ -7,24 +7,10 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_height="@dimen/height_xl"
-        android:minHeight="@dimen/height_xl"
-        android:layout_width="match_parent"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat">
-
+        style="@style/toolbar">
         <TextView
             android:id="@+id/pizza_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:transitionName="@string/transition_pizza_name"
-            android:textStyle="bold"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/font_l"
-            android:ellipsize="end"/>
-
+            style="@style/title_toolbar"/>
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout
