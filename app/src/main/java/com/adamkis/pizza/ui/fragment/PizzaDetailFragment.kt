@@ -19,8 +19,11 @@ import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.adapter.IngredientsAdapter
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_pizza_detail.*
+import kotlinx.android.synthetic.main.header_pizza_detail.*
 import java.util.*
-import kotlin.collections.ArrayList
+import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
+
+
 
 
 /**
@@ -54,7 +57,13 @@ class PizzaDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val ingredientsRecyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.ingredients_recycler_view)
+
+        val header: RecyclerViewHeader = view.findViewById<RecyclerViewHeader>(R.id.header) as RecyclerViewHeader
+        val ingredientsRecyclerView: RecyclerView = view.findViewById(R.id.ingredients_recycler_view)
+        ingredientsRecyclerView.layoutManager = LinearLayoutManager(activity as Context, LinearLayout.VERTICAL, false)
+        header.attachTo(ingredientsRecyclerView)
+
+        ingredientsRecyclerView.isNestedScrollingEnabled = false
         val bitmap: Bitmap? = FilePersistenceHelper.loadBitmapFromFile(activity as Context)
         header_image.setImageBitmap(bitmap)
         setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
@@ -64,7 +73,6 @@ class PizzaDetailFragment : Fragment() {
     }
 
     private fun setUpAdapter(ingredientsRecyclerView: RecyclerView, pizza: Pizza?, ingredientsAvailable: List<Ingredient>?) {
-        ingredientsRecyclerView.layoutManager = LinearLayoutManager(activity as Context, LinearLayout.VERTICAL, false)
         ingredientsRecyclerView.adapter = IngredientsAdapter(pizza, ingredientsAvailable, activity as Context)
     }
 

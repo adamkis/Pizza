@@ -71,7 +71,8 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.6.0'
     //Paper
     compile 'io.paperdb:paperdb:2.6'
-//    compile 'com.github.pakoito:RxPaper2:1.2.0'
+    // RecycleView Header
+    compile 'com.bartoszlipinski:recyclerviewheader2:2.0.1'
     // Testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

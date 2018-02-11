@@ -7,49 +7,24 @@
     android:orientation="vertical"
     >
 
-    <LinearLayout
-        android:id="@+id/container"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <!-- TODO fix scaling -->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/pizza_image_size"
-                android:src="@drawable/bg_wood"
-                android:scaleType="centerCrop" />
-
-            <ImageView
-                android:id="@+id/header_image"
-                android:layout_width="@dimen/pizza_image_size"
-                android:layout_height="@dimen/pizza_image_size"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:transitionName="@string/transition_pizza_image" />
-        </FrameLayout>
-
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="@string/ingredients"
-            android:textColor="@color/colorAccent"
-            android:padding="@dimen/padding_l"/>
-
-
+        android:layout_weight="1">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/ingredients_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             />
 
-    </LinearLayout>
+        <include
+            layout="@layout/header_pizza_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"/>
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/add_to_cart"
