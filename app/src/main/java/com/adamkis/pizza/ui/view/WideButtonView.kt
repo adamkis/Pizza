@@ -1,6 +1,7 @@
 package com.adamkis.pizza.ui.view
 
 import android.content.Context
+import android.os.Handler
 import android.support.annotation.DrawableRes
 import android.support.annotation.IdRes
 import android.support.annotation.StringRes
@@ -21,6 +22,7 @@ class WideButtonView : FrameLayout {
     lateinit private var text_main: TextView
     lateinit private var text_price: TextView
     lateinit private var container: View
+    lateinit private var color: Color
 
     enum class Color { ORANGE, RED }
 
@@ -53,8 +55,16 @@ class WideButtonView : FrameLayout {
         icon.visibility = GONE
     }
 
+    fun showIcon(){
+        icon.visibility = VISIBLE
+    }
+
     fun hidePrice(){
         text_price.visibility = GONE
+    }
+
+    fun showPrice(){
+        text_price.visibility = VISIBLE
     }
 
     fun setTextMain(@StringRes stringId: Int){
@@ -67,9 +77,32 @@ class WideButtonView : FrameLayout {
 
     fun setColor(color: Color){
         when( color ){
-            Color.ORANGE -> container.setBackgroundResource(R.color.bg_orange)
-            Color.RED -> container.setBackgroundResource(R.color.colorAccent)
+            Color.ORANGE -> {
+                container.setBackgroundResource(R.color.bg_orange)
+                this.color = Color.ORANGE
+            }
+            Color.RED -> {
+                container.setBackgroundResource(R.color.colorAccent)
+                this.color = Color.RED
+            }
         }
+    }
+
+    fun showAddedToCartFlash(){
+        val textMainBefore = text_main.text
+        val colorBefore = this.color
+
+        text_main.text = context.getString(R.string.added_to_cart)
+        hidePrice()
+        hideIcon()
+        setColor(Color.RED)
+
+        Handler().postDelayed({
+            text_main.text =textMainBefore
+            showPrice()
+            showIcon()
+            setColor(colorBefore)
+        }, 1000)
     }
 
 }

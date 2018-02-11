@@ -76,6 +76,7 @@ class PizzaDetailFragment : Fragment() {
         add_to_cart.setColor(WideButtonView.Color.ORANGE)
         add_to_cart.setOnClickListener {
             addPizzaToCart(pizza)
+            add_to_cart.showAddedToCartFlash()
         }
 
     }
