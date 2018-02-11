@@ -1,6 +1,5 @@
 package com.adamkis.pizza.ui.fragment
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -18,13 +17,12 @@ import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.adapter.IngredientsAdapter
-import com.adamkis.pizza.ui.adapter.PizzasAdapter
 import io.paperdb.Paper
-import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 import kotlinx.android.synthetic.main.header_pizza_detail.*
 import java.util.*
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.view_wide_button.*
 
 
 /**
