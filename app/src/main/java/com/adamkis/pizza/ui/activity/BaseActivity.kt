@@ -16,12 +16,12 @@ import com.adamkis.pizza.ui.fragment.PizzaDetailFragment
  */
 abstract class BaseActivity : AppCompatActivity(){
 
-    protected fun setupToolbar(@IdRes toolbarId: Int){
+    fun setupToolbar(@IdRes toolbarId: Int){
         val toolbar = findViewById<Toolbar>(toolbarId) as Toolbar
         setSupportActionBar(toolbar)
     }
 
-    protected fun setupBackButton(){
+    fun setupBackButton(){
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }

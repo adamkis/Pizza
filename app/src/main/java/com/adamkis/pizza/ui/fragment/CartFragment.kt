@@ -1,8 +1,10 @@
 package com.adamkis.pizza.ui.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -17,6 +19,8 @@ import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.helper.logThrowable
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.network.RestApi
+import com.adamkis.pizza.ui.activity.BaseActivity
+import com.adamkis.pizza.ui.activity.DrinksChooserActivity
 import com.adamkis.pizza.ui.adapter.CartAdapter
 import io.paperdb.Paper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -48,6 +52,16 @@ class CartFragment : BaseFragment() {
         setUpLoadingAndError(view.findViewById(R.id.loading), view as CoordinatorLayout)
         showLoading(false)
         cartRecyclerView = view.findViewById<RecyclerView>(R.id.cart_recycler_view)
+
+        drinks_button.setOnClickListener {
+            startActivity(Intent(activity, DrinksChooserActivity::class.java))
+        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (activity as BaseActivity).setupToolbar(R.id.toolbar)
+        (activity as BaseActivity).setupBackButton()
     }
 
     override fun onResume() {
@@ -72,6 +86,7 @@ class CartFragment : BaseFragment() {
                     logDebug("Response to Order")
                     logDebug(response.string())
                     showBackToHome()
+//                    Paper.book().write(FilePersistenceHelper.PAPER_CART_KEY, Cart())
                 },
                 {t ->
                     when(t){
@@ -90,7 +105,7 @@ class CartFragment : BaseFragment() {
             )
     }
 
-    fun showBackToHome(){
+    private fun showBackToHome(){
         checkout_button.showBackToHome()
         checkout_button.setOnClickListener {
             this@CartFragment.activity?.finish()

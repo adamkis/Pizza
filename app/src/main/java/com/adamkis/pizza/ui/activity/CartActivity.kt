@@ -15,16 +15,7 @@ class CartActivity : BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
-
-        setupToolbar(R.id.toolbar)
-        setupBackButton()
-
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CartFragment.newInstance()).commit()
-
-        drinks_button.setOnClickListener {
-            startActivity(Intent(this@CartActivity, DrinksChooserActivity::class.java))
-        }
-
     }
 
 }

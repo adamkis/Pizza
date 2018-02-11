@@ -61,6 +61,7 @@ class MainActivity : BaseActivity() {
 
 }
 
+// TODO chack for savedInstancestate in every activity before replacing fragment
 // TODO Item layout names should start with item
 // TODO Purge ingredientsHashMap wherever it's possible - rename to IngredientsAvailable
 // TODO check why app size is big
