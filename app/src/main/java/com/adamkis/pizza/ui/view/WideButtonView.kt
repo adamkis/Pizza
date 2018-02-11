@@ -1,7 +1,6 @@
 package com.adamkis.pizza.ui.view
 
 import android.content.Context
-import android.os.Handler
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import android.util.AttributeSet
@@ -21,7 +20,7 @@ open class WideButtonView : FrameLayout {
     lateinit private var text_price: TextView
     lateinit private var container: View
     lateinit private var parent: View
-    lateinit private var colorWideButton: Color
+    lateinit private var colorWB: Color
 
     enum class Color { ORANGE, RED }
 
@@ -79,7 +78,7 @@ open class WideButtonView : FrameLayout {
         text_price.text = context.getString(R.string.item_price, price)
     }
 
-    fun setClickableWideButton(clickable: Boolean){
+    fun setClickableWB(clickable: Boolean){
         if( clickable ){
             parent.isClickable = true
             parent.isFocusable = true
@@ -94,11 +93,11 @@ open class WideButtonView : FrameLayout {
         when( color ){
             Color.ORANGE -> {
                 container.setBackgroundResource(R.color.bg_orange)
-                this.colorWideButton = Color.ORANGE
+                this.colorWB = Color.ORANGE
             }
             Color.RED -> {
                 container.setBackgroundResource(R.color.colorAccent)
-                this.colorWideButton = Color.RED
+                this.colorWB = Color.RED
             }
         }
     }
@@ -108,7 +107,7 @@ open class WideButtonView : FrameLayout {
         setColor(Color.RED)
         hidePrice()
         hideIcon()
-        setClickableWideButton(false)
+        setClickableWB(false)
     }
 
 }

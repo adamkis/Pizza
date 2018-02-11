@@ -2,13 +2,7 @@ package com.adamkis.pizza.ui.view
 
 import android.content.Context
 import android.os.Handler
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
 import android.util.AttributeSet
-import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
 import com.adamkis.pizza.R
 
 /**
@@ -44,7 +38,7 @@ class AddToCartView : WideButtonView {
             setColor(WideButtonView.Color.ORANGE)
             showPrice()
             showIcon()
-            setClickableWideButton(true)
+            setClickableWB(true)
         }, 1000)
     }
 
