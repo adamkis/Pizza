@@ -33,7 +33,7 @@ class CartAdapter(val cart: Cart, val context: Context) : RecyclerView.Adapter<C
 
         fun bind(orderItem: OrderItem?){
             itemView.order_item_name.text = orderItem?.getItemName()
-            itemView.order_item_price.text = orderItem?.getItemPrice().toString()
+            itemView.order_item_price.text = context.getString(R.string.price_with_currency, orderItem?.getItemPrice())
             itemView.remove_item.setOnClickListener {
                 cart.orderItems.removeAt(layoutPosition)
                 notifyItemRemoved(layoutPosition)

@@ -7,6 +7,8 @@
     <dimen name="padding_xxl">20dp</dimen>
     <dimen name="padding_xxxl">24dp</dimen>
 
+    <dimen name="padding_3">3dp</dimen>
+    <dimen name="padding_9">9dp</dimen>
     <dimen name="padding_16">16dp</dimen>
 
     <dimen name="font_m">18sp</dimen>
@@ -22,8 +24,10 @@
 
     <dimen name="pizza_image_size">350dp</dimen>
     <dimen name="wood_bg_height">400dp</dimen>
-    <dimen name="cart_icon_size">24dp</dimen>
     <dimen name="bg_size_cart_item_count">19dp</dimen>
+
+    <dimen name="cart_icon_size">24dp</dimen>
     <dimen name="drinks_icon_size">24dp</dimen>
+    <dimen name="list_action_icon_size">24dp</dimen>
 
 </resources>

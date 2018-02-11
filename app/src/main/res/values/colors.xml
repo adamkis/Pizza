@@ -6,6 +6,8 @@
 
     <color name="pizza_item_details_bg">#40000000</color>
     <color name="text_white">#FFFFFF</color>
+    <color name="text_grey_dark">#87000000</color>
+    <color name="text_grey_light">#54000000</color>
     <color name="bg_white">#FFFFFF</color>
     <color name="bg_orange">#FFCD2B</color>
 </resources>
