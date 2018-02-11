@@ -33,6 +33,7 @@ class CartFragment : BaseFragment() {
 
     @Inject lateinit var restApi: RestApi
     private var callDisposable: Disposable? = null
+    private var clickDisposable: Disposable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         App.netComponent.inject(this)
@@ -47,13 +48,11 @@ class CartFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
-        cart?.let {
-            setUpAdapter(cartRecyclerView, it)
-        }
+        cart?.let { setUpAdapter(cartRecyclerView, it) }
 
         checkout_button.setPriceText(cart?.getTotalPrice())
         checkout_button.setOnClickListener {
-            sendOrder(cart!!.getOrder())
+            cart?.let { sendOrder(it.getOrder()) }
         }
     }
 
@@ -88,23 +87,16 @@ class CartFragment : BaseFragment() {
     }
 
     private fun setUpAdapter(cartRecyclerView: RecyclerView, cart: Cart){
-        cartRecyclerView.layoutManager = LinearLayoutManager(this@CartFragment.activity as Context, LinearLayout.VERTICAL, false)
-        cartRecyclerView.adapter = CartAdapter(cart.orderItems, activity as Context)
-//        clickDisposable = (pizzasRecyclerView.adapter as PizzasAdapter).clickEvent
-//                .subscribe({
-//                    startDetailActivityWithTransition(activity as Activity,
-//                            it.second.findViewById(R.id.pizza_image),
-//                            it.second.findViewById(R.id.pizza_name),
-//                            it.first,
-//                            ingredientsHM)
-//                })
+        cartRecyclerView.layoutManager = LinearLayoutManager(activity as Context, LinearLayout.VERTICAL, false)
+        cartRecyclerView.adapter = CartAdapter(cart, activity as Context)
+        clickDisposable = (cartRecyclerView.adapter as CartAdapter).clickEvent
+                .subscribe({ checkout_button.setPriceText(it) })
     }
 
     override fun onPause() {
         Paper.book().write(FilePersistenceHelper.PAPER_CART_KEY, cart)
         super.onPause()
     }
-
 
     companion object {
         fun newInstance(): CartFragment {
@@ -114,8 +106,8 @@ class CartFragment : BaseFragment() {
 
     override fun onDestroy() {
         callDisposable?.dispose()
+        clickDisposable?.dispose()
         super.onDestroy()
     }
-
 
 }
