@@ -63,7 +63,6 @@ class PizzaDetailFragment : Fragment() {
         val ingredientsRecyclerView: RecyclerView = view.findViewById(R.id.ingredients_recycler_view)
         ingredientsRecyclerView.layoutManager = LinearLayoutManager(activity as Context, LinearLayout.VERTICAL, false)
         header.attachTo(ingredientsRecyclerView)
-//        val bitmap: Bitmap? = FilePersistenceHelper.loadBitmapFromFile(activity as Context)
         val bitmap: Bitmap? = Paper.book().read(FilePersistenceHelper.HEADER_IMAGE_KEY)
         header_image.setImageBitmap(bitmap)
 
