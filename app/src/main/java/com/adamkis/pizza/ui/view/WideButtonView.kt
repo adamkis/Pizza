@@ -14,14 +14,14 @@ import com.adamkis.pizza.R
 /**
  * Created by adam on 2018. 02. 07..
  */
-class WideButtonView : FrameLayout {
+open class WideButtonView : FrameLayout {
 
-    lateinit private var icon: ImageView
-    lateinit private var text_main: TextView
-    lateinit private var text_price: TextView
+    lateinit protected var icon: ImageView
+    lateinit protected var text_main: TextView
+    lateinit protected var text_price: TextView
     lateinit private var container: View
-    lateinit private var parent: View
-    lateinit private var color: Color
+    lateinit protected var parent: View
+    lateinit protected var colorWideButton: Color
 
     enum class Color { ORANGE, RED }
 
@@ -37,7 +37,7 @@ class WideButtonView : FrameLayout {
         initView()
     }
 
-    private fun initView() {
+    protected open fun initView() {
         val view = View.inflate(context, R.layout.view_wide_button, null)
         icon = view.findViewById(R.id.icon)
         text_main = view.findViewById(R.id.text_main)
@@ -83,31 +83,13 @@ class WideButtonView : FrameLayout {
         when( color ){
             Color.ORANGE -> {
                 container.setBackgroundResource(R.color.bg_orange)
-                this.color = Color.ORANGE
+                this.colorWideButton = Color.ORANGE
             }
             Color.RED -> {
                 container.setBackgroundResource(R.color.colorAccent)
-                this.color = Color.RED
+                this.colorWideButton = Color.RED
             }
         }
-    }
-
-    fun showAddedToCartFlash(){
-        val textMainBefore = text_main.text
-        val colorBefore = this.color
-        val iconVisibilityBefore = icon.visibility
-        val priceVisibilityBefore = text_price.visibility
-
-        showAddedItemToCart()
-
-        Handler().postDelayed({
-            text_main.text =textMainBefore
-            setColor(colorBefore)
-            if( priceVisibilityBefore == View.VISIBLE ) showPrice()
-            if( iconVisibilityBefore == View.VISIBLE ) showIcon()
-            parent.isClickable = true
-            parent.isFocusable = true
-        }, 1000)
     }
 
     fun showAddedItemToCart(){

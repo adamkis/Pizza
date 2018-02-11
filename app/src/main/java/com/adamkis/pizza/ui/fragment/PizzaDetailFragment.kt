@@ -71,9 +71,6 @@ class PizzaDetailFragment : Fragment() {
         setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
         updateItemPrice(pizza?.getItemPrice())
 
-        add_to_cart.setIcon(R.drawable.cart_small)
-        add_to_cart.setTextMain(R.string.add_to_cart)
-        add_to_cart.setColor(WideButtonView.Color.ORANGE)
         add_to_cart.setOnClickListener {
             addPizzaToCart(pizza)
             add_to_cart.showAddedToCartFlash()
