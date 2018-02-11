@@ -16,6 +16,7 @@
     <!--<dimen name="font_xxl">30dp</dimen>-->
 
     <dimen name="font_16">16sp</dimen>
+    <dimen name="font_46">46sp</dimen>
 
     <dimen name="height_xxs">24dp</dimen>
     <dimen name="height_xs">30dp</dimen>

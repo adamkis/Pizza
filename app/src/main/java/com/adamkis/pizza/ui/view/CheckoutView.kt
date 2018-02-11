@@ -30,4 +30,9 @@ class CheckoutView : WideButtonView {
         setMainText(R.string.checkout)
     }
 
+    fun showBackToHome(){
+        setMainText(R.string.back_to_home)
+        hidePrice()
+    }
+
 }
