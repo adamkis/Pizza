@@ -8,4 +8,33 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="wide_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:padding">@dimen/padding_xl</item>
+    </style>
+
+    <style name="wide_button_orange" parent="wide_button">
+        <item name="android:background">@color/bg_orange</item>
+    </style>
+
+    <style name="text_wide_button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/font_16</item>
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="text_wide_button_bold" parent="text_wide_button">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text_wide_button_bold_italic" parent="text_wide_button">
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
 </resources>

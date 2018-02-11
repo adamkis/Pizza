@@ -15,4 +15,6 @@
     <string name="checkout">Checkout</string>
     <string name="drinks">Drinks</string>
     <string name="custom_pizza_name">Custom %1$s</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="item_price">(\$%1$.2f)</string>
 </resources>

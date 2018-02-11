@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -26,36 +25,29 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/add_to_cart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:background="@color/bg_orange"
-        android:padding="@dimen/padding_xl"
-        android:gravity="center">
+        style="@style/wide_button_orange">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center">
             <ImageView
                 android:layout_width="@dimen/cart_icon_size"
                 android:layout_height="@dimen/cart_icon_size"
-                android:src="@mipmap/ic_launcher"/>
-
+                android:layout_marginRight="@dimen/padding_m"
+                android:src="@drawable/cart_small"/>
             <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Add to cart"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/colorAccent"/>
+                style="@style/text_wide_button_bold"
+                android:layout_marginRight="@dimen/padding_m"
+                android:text="@string/add_to_cart"/>
+            <TextView
+                android:id="@+id/item_price"
+                style="@style/text_wide_button_bold_italic"/>
         </LinearLayout>
 
-
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

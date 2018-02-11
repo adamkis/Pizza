@@ -58,15 +58,16 @@ class PizzaDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Setting up RecyclerView and header
         val header: RecyclerViewHeader = view.findViewById<RecyclerViewHeader>(R.id.header) as RecyclerViewHeader
         val ingredientsRecyclerView: RecyclerView = view.findViewById(R.id.ingredients_recycler_view)
         ingredientsRecyclerView.layoutManager = LinearLayoutManager(activity as Context, LinearLayout.VERTICAL, false)
         header.attachTo(ingredientsRecyclerView)
-
-        ingredientsRecyclerView.isNestedScrollingEnabled = false
         val bitmap: Bitmap? = FilePersistenceHelper.loadBitmapFromFile(activity as Context)
         header_image.setImageBitmap(bitmap)
+
         setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
+        item_price.text = (activity as Context).getString(R.string.item_price, pizza?.getItemPrice())
         add_to_cart.setOnClickListener {
             addPizzaToCart(pizza)
         }
