@@ -10,6 +10,7 @@
     <dimen name="padding_3">3dp</dimen>
     <dimen name="padding_9">9dp</dimen>
     <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_19">19dp</dimen>
 
     <dimen name="font_m">18sp</dimen>
     <dimen name="font_l">20sp</dimen>

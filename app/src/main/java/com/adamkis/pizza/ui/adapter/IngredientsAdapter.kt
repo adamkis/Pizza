@@ -32,7 +32,7 @@ class IngredientsAdapter(val pizza: Pizza?, val ingredientsAvailable: List<Ingre
 
         fun bind(ingredient: Ingredient?){
             itemView.ingredient_name.text = ingredient?.name
-            itemView.ingredient_price.text = ingredient?.price.toString()
+            itemView.ingredient_price.text = context.getString(R.string.price_with_currency, ingredient?.price)
             itemView.ingredient_selected.isChecked = pizza?.getIngredientIds()?.contains(ingredient?.id) ?: false
             itemView.ingredient_selected.setOnClickListener {
                 if( itemView.ingredient_selected.isChecked ){

@@ -34,7 +34,8 @@
             android:layout_width="match_parent"
             android:text="@string/ingredients"
             android:textColor="@color/colorAccent"
-            android:padding="@dimen/padding_l"/>
+            android:textSize="@dimen/font_14"
+            android:padding="@dimen/padding_16"/>
 
     </LinearLayout>
 
