@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -23,12 +22,17 @@ import com.adamkis.pizza.ui.activity.BaseActivity
 import com.adamkis.pizza.ui.activity.DrinksChooserActivity
 import com.adamkis.pizza.ui.adapter.CartAdapter
 import io.paperdb.Paper
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_cart.*
 import java.net.UnknownHostException
+import java.util.*
 import javax.inject.Inject
+import android.os.AsyncTask
+
+
 
 /**
  * Created by adam on 2018. 01. 11..
@@ -83,10 +87,8 @@ class CartFragment : BaseFragment() {
             .doAfterTerminate { showLoading(false) }
             .subscribe(
                 {response ->
-                    logDebug("Response to Order")
                     logDebug(response.string())
-                    showBackToHome()
-//                    Paper.book().write(FilePersistenceHelper.PAPER_CART_KEY, Cart())
+                    showFinishScreen()
                 },
                 {t ->
                     when(t){
@@ -105,12 +107,13 @@ class CartFragment : BaseFragment() {
             )
     }
 
-    private fun showBackToHome(){
+    private fun showFinishScreen(){
         checkout_button.showBackToHome()
         checkout_button.setOnClickListener {
             this@CartFragment.activity?.finish()
         }
         thank_you_for_your_order.visibility = VISIBLE
+        cart = Cart()
     }
 
     private fun setUpAdapter(cartRecyclerView: RecyclerView, cart: Cart){
