@@ -33,7 +33,6 @@ class PizzaDetailActivity : BaseActivity(){
     }
 
     companion object {
-        // TODO use Pizza.TAG
         private val ARG_INGREDIENTS = "ARG_INGREDIENTS"
 
         fun getStartIntent(context: Context, pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?): Intent {

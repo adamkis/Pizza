@@ -37,14 +37,14 @@ class PizzaDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if( savedInstanceState != null ){
-            pizza = savedInstanceState.getParcelable(ARG_PIZZA)
+            pizza = savedInstanceState.getParcelable(Pizza.TAG)
             ingredientsHM = savedInstanceState.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
             originalIngredientIds = savedInstanceState.getSerializable(ARG_ORIGINAL_INGREDIENTS) as ArrayList<Int>?
         }
         else {
             arguments?.let {
                 arguments ->
-                    pizza = arguments.getParcelable(ARG_PIZZA)
+                    pizza = arguments.getParcelable(Pizza.TAG)
                     pizza?.let { pizza -> originalIngredientIds = ArrayList(pizza?.getIngredientIds()) }
                     ingredientsHM = arguments.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
             }
@@ -100,7 +100,7 @@ class PizzaDetailFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putParcelable(ARG_PIZZA, pizza)
+        outState.putParcelable(Pizza.TAG, pizza)
         outState.putSerializable(ARG_INGREDIENTS, ingredientsHM)
         outState.putSerializable(ARG_ORIGINAL_INGREDIENTS, originalIngredientIds)
         super.onSaveInstanceState(outState)
@@ -112,16 +112,13 @@ class PizzaDetailFragment : Fragment() {
     }
 
     companion object {
-
-        // TODO use Pizza.TAG
-        private val ARG_PIZZA = "ARG_PIZZA"
         private val ARG_INGREDIENTS = "ARG_INGREDIENTS"
         private val ARG_ORIGINAL_INGREDIENTS = "ARG_ORIGINAL_INGREDIENTS"
 
         fun newInstance(pizza: Pizza?, ingredientsHM: HashMap<Int?, Ingredient>?): PizzaDetailFragment {
             val fragment = PizzaDetailFragment()
             val args = Bundle()
-            args.putParcelable(ARG_PIZZA, pizza)
+            args.putParcelable(Pizza.TAG, pizza)
             args.putSerializable(ARG_INGREDIENTS, ingredientsHM)
             fragment.arguments = args
             return fragment
