@@ -12,6 +12,7 @@ import android.support.test.espresso.matcher.ViewMatchers.withText
 import com.adamkis.pizza.dagger.*
 import com.adamkis.pizza.dagger.network.*
 import com.adamkis.pizza.network.PIZZA_URL_BASE
+import com.adamkis.pizza.network.RestApi.Companion.PIZZA_URL_BASE
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -32,7 +33,6 @@ class MainActivityMockDaggerRestClientTest {
     fun setUp() {
         val mockNetComponent =  DaggerMockNetComponent.builder()
                 .mockOkHttpModule(MockOkHttpModule())
-                .formatInterceptorModule(FormatInterceptorModule())
                 .gsonConverterFactoryModule(GsonConverterFactoryModule())
                 .loggingInterceptorModule(LoggingInterceptorModule())
                 .restApiModule(RestApiModule())

@@ -32,8 +32,6 @@ class App : Application() {
     fun createNetComponent(baseUrl: String): NetComponent {
         return DaggerNetComponent.builder()
                 .okHttpModule(OkHttpModule())
-                .formatInterceptorModule(FormatInterceptorModule())
-                .apiKeyInterceptorModule(ApiKeyInterceptorModule())
                 .gsonConverterFactoryModule(GsonConverterFactoryModule())
                 .loggingInterceptorModule(LoggingInterceptorModule())
                 .restApiModule(RestApiModule())

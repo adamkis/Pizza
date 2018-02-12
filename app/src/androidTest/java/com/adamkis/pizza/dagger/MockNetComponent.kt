@@ -11,7 +11,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(
         MockOkHttpModule::class,
-        FormatInterceptorModule::class,
         GsonConverterFactoryModule::class,
         LoggingInterceptorModule::class,
         RestApiModule::class,

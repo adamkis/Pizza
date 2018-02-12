@@ -17,10 +17,8 @@ import javax.inject.Named
 class OkHttpModule() {
     @Provides
     @Singleton
-    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor, @Named("format") formatInterceptor: Interceptor, @Named("apiKey") apiKeyInterceptor: Interceptor): OkHttpClient {
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         var builder = OkHttpClient.Builder()
-                .addInterceptor(formatInterceptor)
-                .addInterceptor(apiKeyInterceptor)
         if (BuildConfig.DEBUG){
             builder = builder.addInterceptor(httpLoggingInterceptor)
         }

@@ -13,8 +13,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(
         OkHttpModule::class,
-        FormatInterceptorModule::class,
-        ApiKeyInterceptorModule::class,
         GsonConverterFactoryModule::class,
         LoggingInterceptorModule::class,
         RestApiModule::class,

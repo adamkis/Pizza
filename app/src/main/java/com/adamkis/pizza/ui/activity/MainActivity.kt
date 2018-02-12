@@ -56,17 +56,13 @@ class MainActivity : BaseActivity() {
 
 }
 
-// TODO Item layout names should start with item
-// TODO Purge ingredientsHashMap wherever it's possible - rename to IngredientsAvailable
 // TODO check why app size is big
 // TODO refactor toolbars
 // TODO make drink and ingredient inherit from new abstract class Product
 // TODO remove all interceptors
+
 // TODO Put Paper into RXJava
-// TODO reuse bottom bar button
-// TODO reuse iingredient, pizza, drinks elements - layout or adapter too
 // TODO modify created by...
-// TODO No pizza image  - handle it
+// TODO Purge ingredientsHashMap wherever it's possible - rename to IngredientsAvailable
 // TODO MVVM
-// TODO handle error in CartFragment
 // TODO make drinksActivity not download when orientation changes
