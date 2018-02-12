@@ -40,23 +40,20 @@ data class Pizza(@SerializedName("name") var name: String?,
     }
 
     fun addIngredientObject(ingredient: Ingredient?){
-        // TODO change instantiation
         if (ingredientObjects == null) ingredientObjects = ArrayList()
-        ingredient?.let { ingredientObjects?.add(it) }
+        ingredient?.let {
+            ingredient ->
+                ingredientObjects?.add(ingredient)
+                ingredient.id?.let { id -> ingredientIds?.add(id) }
+        }
     }
 
     fun removeIngredientObject(ingredient: Ingredient?){
-        ingredient?.let { ingredientObjects?.remove(ingredient) }
-    }
-
-    // TODO two methods are not needed!
-    fun addIngredientId(ingredientId: Int?){
-        ingredientId?.let { ingredientIds?.add(it) }
-    }
-
-    // TODO two methods are not needed!
-    fun removeIngredientId(ingredientId: Int?){
-        ingredientId?.let { ingredientIds?.removeAll(Arrays.asList(ingredientId)) }
+        ingredient?.let {
+            ingredient ->
+                ingredientObjects?.remove(ingredient)
+                ingredient.id?.let { id -> ingredientIds?.removeAll(Arrays.asList(id)) }
+        }
     }
 
     fun getIngredients(): ArrayList<Ingredient>?{
@@ -68,8 +65,12 @@ data class Pizza(@SerializedName("name") var name: String?,
     }
 
     fun initIngredientObjects(ingredientsHM: HashMap<Int?, Ingredient>?){
+        if (ingredientObjects == null) ingredientObjects = ArrayList()
         ingredientIds?.forEach {
-            ingredientId -> addIngredientObject(ingredientsHM?.get(ingredientId))
+            ingredientId ->
+            ingredientsHM?.get(ingredientId)?.let {
+                ingredient ->ingredientObjects?.add(ingredient)
+            }
         }
     }
 
