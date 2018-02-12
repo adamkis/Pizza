@@ -7,7 +7,6 @@ import com.adamkis.pizza.dagger.glide.DaggerGlideComponent
 import com.adamkis.pizza.dagger.glide.GlideComponent
 import com.adamkis.pizza.dagger.glide.GlideModule
 import com.adamkis.pizza.dagger.network.*
-import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.network.RestApi.Companion.PIZZA_URL_BASE
 import com.squareup.leakcanary.LeakCanary
 import io.paperdb.Paper
@@ -60,15 +59,8 @@ class App : Application() {
         }
         LeakCanary.install(this)
         // Paper
-//        RxPaperBook.init(applicationContext);
         Paper.init(applicationContext);
 
-        // TODO remove
-        val displayMetrics = this.getResources().getDisplayMetrics()
-        val dpHeight = displayMetrics.heightPixels / displayMetrics.density
-        val dpWidth = displayMetrics.widthPixels / displayMetrics.density
-        logDebug("dpHeight = " + dpHeight)
-        logDebug("dpWidth = " + dpWidth)
     }
 
 }

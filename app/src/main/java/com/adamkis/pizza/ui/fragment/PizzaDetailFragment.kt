@@ -1,7 +1,6 @@
 package com.adamkis.pizza.ui.fragment
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
-import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
@@ -99,7 +97,6 @@ class PizzaDetailFragment : Fragment() {
         var cart: Cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
         cart.addOrderItem(pizza)
         Paper.book().write(FilePersistenceHelper.PAPER_CART_KEY, cart)
-        logDebug("Cart updated: " + cart)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

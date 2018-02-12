@@ -19,7 +19,6 @@ import com.adamkis.pizza.App
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.helper.TransitionHelper
-import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.helper.logThrowable
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
@@ -97,10 +96,6 @@ class PizzasFragment : BaseFragment() {
                     pizzasResponse?.let{it.updatePizzaPrices(it.basePrice)}
                     pizzasResponse?.let{it.fillPizzaIngredients(ingredientsHM)}
                     setUpAdapter(pizzasRecyclerView, responsePair.second, ingredientsHM)
-                    // TODO remove logging
-                    logDebug("Logging responses")
-                    logDebug(responsePair.first.map { it.name }.toString())
-                    logDebug(responsePair.second.pizzas?.map { it.name }.toString())
                 },
                 {t ->
                     when(t){
