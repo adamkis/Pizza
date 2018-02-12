@@ -21,4 +21,6 @@
     <dimen name="drinks_icon_size">24dp</dimen>
     <dimen name="list_action_icon_size">24dp</dimen>
     <dimen name="fab_size">56dp</dimen>
+    <dimen name="pizzas_recyclerview_bottom_padding">88dp</dimen>
+    <dimen name="fab_elevation">6dp</dimen>
 </resources>

@@ -1,14 +1,16 @@
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.adamkis.pizza.ui.fragment.PizzasFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pizzas_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/pizzas_recyclerview_bottom_padding"
+        android:clipToPadding="false"
         />
 
     <ProgressBar
@@ -27,8 +29,10 @@
         android:layout_margin="@dimen/padding_16"
         android:layout_gravity="bottom|right"
         android:src="@drawable/floating"
+        android:background="@drawable/circle_filled_red"
+        android:foreground="?attr/selectableItemBackground"
         android:scaleType="centerInside"
-        android:elevation="2dp"
+        android:elevation="@dimen/fab_elevation"
         />
 
 </android.support.design.widget.CoordinatorLayout>
