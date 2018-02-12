@@ -10,7 +10,7 @@ import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.ingredient_item.view.*
+import kotlinx.android.synthetic.main.item_ingredient.view.*
 
 class IngredientsAdapter(val pizza: Pizza?, val ingredientsAvailable: List<Ingredient>?, val context: Context) : RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>(){
 
@@ -18,7 +18,7 @@ class IngredientsAdapter(val pizza: Pizza?, val ingredientsAvailable: List<Ingre
     val clickEvent: Observable<Double> = clickSubject
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): IngredientsViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.ingredient_item, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_ingredient, parent, false)
         return IngredientsViewHolder(view, context)
     }
 

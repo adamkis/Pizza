@@ -10,7 +10,7 @@ import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.OrderItem
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.cart_item.view.*
+import kotlinx.android.synthetic.main.item_cart.view.*
 
 
 class CartAdapter(val cart: Cart, val context: Context) : RecyclerView.Adapter<CartAdapter.CartItemViewHolder>(){
@@ -19,7 +19,7 @@ class CartAdapter(val cart: Cart, val context: Context) : RecyclerView.Adapter<C
     val clickEvent: Observable<Double> = clickSubject
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CartItemViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.cart_item, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_cart, parent, false)
         return CartItemViewHolder(view, context)
     }
 

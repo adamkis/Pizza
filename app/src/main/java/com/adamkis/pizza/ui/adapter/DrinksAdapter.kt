@@ -10,7 +10,7 @@ import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Drink
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.drink_item.view.*
+import kotlinx.android.synthetic.main.item_drink.view.*
 
 class DrinksAdapter(val cart: Cart, val drinksResponse: Array<Drink>, val context: Context) : RecyclerView.Adapter<DrinksAdapter.DrinksViewHolder>(){
 
@@ -18,7 +18,7 @@ class DrinksAdapter(val cart: Cart, val drinksResponse: Array<Drink>, val contex
     val clickEvent: Observable<Drink> = clickSubject
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DrinksViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.drink_item, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_drink, parent, false)
         return DrinksViewHolder(view, context)
     }
 

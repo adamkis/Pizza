@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.adamkis.pizza.App
 import com.adamkis.pizza.R
-import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.bumptech.glide.RequestManager
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.pizza_item.view.*
+import kotlinx.android.synthetic.main.item_pizza.view.*
 import javax.inject.Inject
 
 /**
@@ -29,7 +28,7 @@ class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerV
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecentsViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.pizza_item, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_pizza, parent, false)
         return RecentsViewHolder(glideReqManager, view, context)
     }
 
