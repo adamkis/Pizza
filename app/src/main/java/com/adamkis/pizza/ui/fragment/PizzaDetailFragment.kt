@@ -23,6 +23,7 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_pizza_detail.*
 import kotlinx.android.synthetic.main.header_pizza_detail.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -44,9 +45,10 @@ class PizzaDetailFragment : Fragment() {
         }
         else {
             arguments?.let {
-                pizza = it.getParcelable(ARG_PIZZA)
-                originalIngredientIds = TreeSet(pizza?.getIngredientIds())
-                ingredientsHM = it.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
+                arguments ->
+                    pizza = arguments.getParcelable(ARG_PIZZA)
+                    pizza?.let { pizza -> originalIngredientIds = TreeSet(pizza?.getIngredientIds()) }
+                    ingredientsHM = arguments.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
             }
         }
     }
@@ -63,8 +65,14 @@ class PizzaDetailFragment : Fragment() {
         val ingredientsRecyclerView: RecyclerView = view.findViewById(R.id.ingredients_recycler_view)
         ingredientsRecyclerView.layoutManager = LinearLayoutManager(activity as Context, LinearLayout.VERTICAL, false)
         header.attachTo(ingredientsRecyclerView)
-        val bitmap: Bitmap? = Paper.book().read(FilePersistenceHelper.HEADER_IMAGE_KEY)
-        header_image.setImageBitmap(bitmap)
+
+        if( pizza != null ){
+            header_image.setImageBitmap(Paper.book().read(FilePersistenceHelper.HEADER_IMAGE_KEY))
+        }
+        else{
+            Paper.book().delete(FilePersistenceHelper.HEADER_IMAGE_KEY)
+            pizza = Pizza("", null, TreeSet(), ArrayList())
+        }
 
         setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
 
@@ -111,7 +119,7 @@ class PizzaDetailFragment : Fragment() {
         private val ARG_INGREDIENTS = "ARG_INGREDIENTS"
         private val ARG_ORIGINAL_INGREDIENTS = "ARG_ORIGINAL_INGREDIENTS"
 
-        fun newInstance(pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?): PizzaDetailFragment {
+        fun newInstance(pizza: Pizza?, ingredientsHM: HashMap<Int?, Ingredient>?): PizzaDetailFragment {
             val fragment = PizzaDetailFragment()
             val args = Bundle()
             args.putParcelable(ARG_PIZZA, pizza)

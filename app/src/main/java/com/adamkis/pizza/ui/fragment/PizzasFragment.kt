@@ -33,6 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_pizzas.*
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -51,8 +52,7 @@ class PizzasFragment : BaseFragment() {
 
     companion object {
         fun newInstance(): PizzasFragment {
-            val fragment = PizzasFragment()
-            return fragment
+            return PizzasFragment()
         }
     }
 
@@ -75,6 +75,7 @@ class PizzasFragment : BaseFragment() {
         else{
             downloadData(pizzasRecyclerView)
         }
+        setupNewPizzaFab()
     }
 
     private fun downloadData(pizzasRecyclerView: RecyclerView){
@@ -130,8 +131,6 @@ class PizzasFragment : BaseFragment() {
                 })
     }
 
-
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected fun startDetailActivityWithTransition(activity: Activity, firstViewToAnimate: View, pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?) {
         val animationBundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
@@ -150,6 +149,11 @@ class PizzasFragment : BaseFragment() {
         startActivity(startIntent, animationBundle)
     }
 
+    private fun setupNewPizzaFab() {
+        new_pizza.setOnClickListener {
+            startActivity(PizzaDetailActivity.getStartIntentNewPizza(activity as Context, ingredientsHM))
+        }
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

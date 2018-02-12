@@ -2,13 +2,8 @@ package com.adamkis.pizza.ui.activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import com.adamkis.pizza.R
-import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.fragment.PizzaDetailFragment
@@ -25,13 +20,13 @@ class PizzaDetailActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pizza_detail)
 
-        val pizza: Pizza = intent.getParcelableExtra(Pizza.TAG)
+        val pizza: Pizza? = intent.getParcelableExtra(Pizza.TAG)
         val ingredientsHM: HashMap<Int?, Ingredient>? = intent.getSerializableExtra(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
 
         setupToolbar(R.id.toolbar)
         setupBackButton()
 
-        pizza_name.text = if (pizza.name.isNullOrBlank()) getString(R.string.pizza_detail) else pizza.name
+        pizza_name.text = if (pizza?.name.isNullOrBlank()) getString(R.string.custom_pizza) else pizza?.name
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza, ingredientsHM)).commit()
         }
@@ -48,6 +43,12 @@ class PizzaDetailActivity : BaseActivity(){
                         putExtra(ARG_INGREDIENTS, ingredientsHM)
                     }
         }
+
+        fun getStartIntentNewPizza(context: Context, ingredientsHM: HashMap<Int?, Ingredient>?): Intent {
+            return Intent(context, PizzaDetailActivity::class.java)
+                    .apply { putExtra(ARG_INGREDIENTS, ingredientsHM) }
+        }
+
     }
 
 }
