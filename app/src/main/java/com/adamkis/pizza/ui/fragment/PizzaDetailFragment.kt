@@ -26,7 +26,7 @@ import kotlin.collections.ArrayList
 class PizzaDetailFragment : Fragment() {
 
     private var pizza: Pizza? = null
-    private var originalIngredientIds: ArrayList<Int>? = null
+    private var originalIngredientIds: ArrayList<Int>? = ArrayList()
     private var ingredientsHM: HashMap<Int?, Ingredient>? = null
     private var clickDisposable: Disposable? = null
 
@@ -60,12 +60,15 @@ class PizzaDetailFragment : Fragment() {
         ingredientsRecyclerView.layoutManager = LinearLayoutManager(activity as Context, LinearLayout.VERTICAL, false)
         header.attachTo(ingredientsRecyclerView)
 
-        if( pizza != null ){
-            header_image.setImageBitmap(Paper.book().read(FilePersistenceHelper.HEADER_IMAGE_KEY))
-        }
-        else{
+        if( pizza == null ){
             Paper.book().delete(FilePersistenceHelper.HEADER_IMAGE_KEY)
             pizza = Pizza("", null, ArrayList(), ArrayList())
+        }
+        else{
+            header_image.setImageBitmap(Paper.book().read(FilePersistenceHelper.HEADER_IMAGE_KEY))
+        }
+        if( pizza?.name.isNullOrEmpty() ){
+            header_image.setImageResource(R.drawable.custom)
         }
 
         setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
@@ -87,7 +90,8 @@ class PizzaDetailFragment : Fragment() {
     private fun addPizzaToCart(pizza: Pizza?) {
         Collections.sort(pizza?.getIngredientIds())
         Collections.sort(originalIngredientIds)
-        if(pizza?.getIngredientIds()?.equals(originalIngredientIds!!) != true){
+        if( pizza?.getIngredientIds()?.equals(originalIngredientIds) != true &&
+                pizza?.name?.contains(activity?.getString(R.string.custom) ?: "") != true ){
             pizza?.name = activity?.getString(R.string.custom_pizza_name, pizza?.name)
         }
         var cart: Cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
