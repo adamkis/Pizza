@@ -17,7 +17,7 @@ import javax.inject.Inject
 /**
  * Created by adam on 2018. 01. 09..
  */
-class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerView.Adapter<PizzasAdapter.RecentsViewHolder>(){
+class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerView.Adapter<PizzasAdapter.PizzasViewHolder>(){
 
     @Inject lateinit var glideReqManager: RequestManager
     private val clickSubject = PublishSubject.create<Pair<Pizza, View>>()
@@ -27,18 +27,18 @@ class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerV
         App.glideComponent.inject(this)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecentsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): PizzasViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_pizza, parent, false)
-        return RecentsViewHolder(glideReqManager, view, context)
+        return PizzasViewHolder(glideReqManager, view, context)
     }
 
-    override fun onBindViewHolder(holder: RecentsViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: PizzasViewHolder?, position: Int) {
         holder?.bind(pizzas?.get(position))
     }
 
     override fun getItemCount(): Int = pizzas?.size ?: 0
 
-    inner class RecentsViewHolder(val glideReqManager: RequestManager, view: View, val context: Context) : RecyclerView.ViewHolder(view){
+    inner class PizzasViewHolder(val glideReqManager: RequestManager, view: View, val context: Context) : RecyclerView.ViewHolder(view){
 
         init {
             itemView.setOnClickListener {
