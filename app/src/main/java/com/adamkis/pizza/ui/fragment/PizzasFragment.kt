@@ -46,13 +46,15 @@ class PizzasFragment : BaseFragment() {
     private var pizzasResponse: PizzasResponse? = null
     private var ingredientsHM: HashMap<Int?, Ingredient>?  = null
 
-    private val PIZZAS_RESPONSE_KEY = "PIZZAS_RESPONSE_KEY"
-    private val INGREDIENTS_HM_KEY = "INGREDIENTS_HM_KEY"
-
     companion object {
+
+        private val ARG_PIZZAS_RESPONSE = "ARG_PIZZAS_RESPONSE"
+        private val ARG_INGREDIENTS = "ARG_INGREDIENTS"
+
         fun newInstance(): PizzasFragment {
             return PizzasFragment()
         }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -65,8 +67,8 @@ class PizzasFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpLoadingAndError(view.findViewById(R.id.loading), view as CoordinatorLayout)
         val pizzasRecyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.pizzas_recycler_view)
-        pizzasResponse = savedInstanceState?.getParcelable(PIZZAS_RESPONSE_KEY)
-        ingredientsHM = savedInstanceState?.getSerializable(INGREDIENTS_HM_KEY) as? HashMap<Int?, Ingredient>
+        pizzasResponse = savedInstanceState?.getParcelable(ARG_PIZZAS_RESPONSE)
+        ingredientsHM = savedInstanceState?.getSerializable(ARG_INGREDIENTS) as? HashMap<Int?, Ingredient>
         if(null != pizzasResponse && null != ingredientsHM) {
             setUpAdapter(pizzasRecyclerView, pizzasResponse, ingredientsHM)
             showLoading(false)
@@ -152,8 +154,8 @@ class PizzasFragment : BaseFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(PIZZAS_RESPONSE_KEY, pizzasResponse)
-        outState.putSerializable(INGREDIENTS_HM_KEY, ingredientsHM)
+        outState.putParcelable(ARG_PIZZAS_RESPONSE, pizzasResponse)
+        outState.putSerializable(ARG_INGREDIENTS, ingredientsHM)
     }
 
     override fun onDestroy() {

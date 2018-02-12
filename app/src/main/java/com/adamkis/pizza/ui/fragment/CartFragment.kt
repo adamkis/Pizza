@@ -43,6 +43,12 @@ class CartFragment : BaseFragment() {
     private var callDisposable: Disposable? = null
     private var clickDisposable: Disposable? = null
 
+    companion object {
+        fun newInstance(): CartFragment {
+            return CartFragment()
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         App.netComponent.inject(this)
         return inflater.inflate(R.layout.fragment_cart, container, false)
@@ -123,12 +129,6 @@ class CartFragment : BaseFragment() {
     override fun onPause() {
         Paper.book().write(FilePersistenceHelper.PAPER_CART_KEY, cart)
         super.onPause()
-    }
-
-    companion object {
-        fun newInstance(): CartFragment {
-            return CartFragment()
-        }
     }
 
     override fun onDestroy() {

@@ -35,6 +35,12 @@ class DrinksFragment : BaseFragment() {
     private var callDisposable: Disposable? = null
     private var clickDisposable: Disposable? = null
 
+    companion object {
+        fun newInstance(): DrinksFragment {
+            return DrinksFragment()
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         App.netComponent.inject(this)
         return inflater.inflate(R.layout.fragment_drinks, container, false)
@@ -95,14 +101,6 @@ class DrinksFragment : BaseFragment() {
         Paper.book().write(FilePersistenceHelper.PAPER_CART_KEY, cart)
         super.onPause()
     }
-
-
-    companion object {
-        fun newInstance(): DrinksFragment {
-            return DrinksFragment()
-        }
-    }
-
 
     override fun onDestroy() {
         clickDisposable?.dispose()

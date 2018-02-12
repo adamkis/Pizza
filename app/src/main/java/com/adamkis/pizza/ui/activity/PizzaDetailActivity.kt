@@ -20,7 +20,7 @@ class PizzaDetailActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pizza_detail)
 
-        val pizza: Pizza? = intent.getParcelableExtra(Pizza.TAG)
+        val pizza: Pizza? = intent.getParcelableExtra(ARG_PIZZA)
         val ingredientsHM: HashMap<Int?, Ingredient>? = intent.getSerializableExtra(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
 
         setupToolbar(R.id.toolbar)
@@ -33,12 +33,14 @@ class PizzaDetailActivity : BaseActivity(){
     }
 
     companion object {
+
         private val ARG_INGREDIENTS = "ARG_INGREDIENTS"
+        private val ARG_PIZZA = "ARG_PIZZA"
 
         fun getStartIntent(context: Context, pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?): Intent {
             return Intent(context, PizzaDetailActivity::class.java)
                     .apply {
-                        putExtra(Pizza.TAG, pizza)
+                        putExtra(ARG_PIZZA, pizza)
                         putExtra(ARG_INGREDIENTS, ingredientsHM)
                     }
         }

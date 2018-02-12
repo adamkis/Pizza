@@ -20,10 +20,6 @@ data class Pizza(@SerializedName("name") var name: String?,
                  var basePrice: Double? = 0.0
         ) : OrderItem, Parcelable{
 
-    companion object {
-        const val TAG = "PIZZA"
-    }
-
     override fun getItemName(): String {
         return name ?: ""
     }
