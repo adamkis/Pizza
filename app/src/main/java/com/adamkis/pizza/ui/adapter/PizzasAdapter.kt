@@ -43,8 +43,7 @@ class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerV
 
         init {
             itemView.setOnClickListener {
-                // TODO: nullcheck
-                clickSubject.onNext(Pair<Pizza, View>(pizzas!![layoutPosition], view))
+                pizzas?.let { clickSubject.onNext(Pair<Pizza, View>(it[layoutPosition], view)) }
             }
         }
 

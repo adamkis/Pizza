@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.TreeSet
+import java.util.*
 
 
 /**
@@ -17,7 +17,7 @@ import java.util.TreeSet
 @Parcelize
 data class Pizza(@SerializedName("name") var name: String?,
                  @SerializedName("imageUrl") var imageUrl: String?,
-                 @SerializedName("ingredients") private var ingredientIds: TreeSet<Int>?,
+                 @SerializedName("ingredients") private var ingredientIds: ArrayList<Int>?,
                  private var ingredientObjs: ArrayList<Ingredient>?,
                  var basePrice: Double? = 0.0
         ) : OrderItem, Parcelable{
@@ -54,14 +54,14 @@ data class Pizza(@SerializedName("name") var name: String?,
 
     // TODO two methods are not needed!
     fun removeIngredientId(ingredientId: Int?){
-        ingredientId?.let { ingredientIds?.remove(ingredientId) }
+        ingredientId?.let { ingredientIds?.removeAll(Arrays.asList(ingredientId)) }
     }
 
     fun getIngredients(): ArrayList<Ingredient>?{
         return ingredientObjs
     }
 
-    fun getIngredientIds(): TreeSet<Int>?{
+    fun getIngredientIds(): ArrayList<Int>?{
         return ingredientIds
     }
 

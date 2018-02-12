@@ -32,7 +32,7 @@ import kotlin.collections.ArrayList
 class PizzaDetailFragment : Fragment() {
 
     private var pizza: Pizza? = null
-    private var originalIngredientIds: TreeSet<Int>? = null
+    private var originalIngredientIds: ArrayList<Int>? = null
     private var ingredientsHM: HashMap<Int?, Ingredient>? = null
     private var clickDisposable: Disposable? = null
 
@@ -41,13 +41,13 @@ class PizzaDetailFragment : Fragment() {
         if( savedInstanceState != null ){
             pizza = savedInstanceState.getParcelable(ARG_PIZZA)
             ingredientsHM = savedInstanceState.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
-            originalIngredientIds = savedInstanceState.getSerializable(ARG_ORIGINAL_INGREDIENTS) as TreeSet<Int>?
+            originalIngredientIds = savedInstanceState.getSerializable(ARG_ORIGINAL_INGREDIENTS) as ArrayList<Int>?
         }
         else {
             arguments?.let {
                 arguments ->
                     pizza = arguments.getParcelable(ARG_PIZZA)
-                    pizza?.let { pizza -> originalIngredientIds = TreeSet(pizza?.getIngredientIds()) }
+                    pizza?.let { pizza -> originalIngredientIds = ArrayList(pizza?.getIngredientIds()) }
                     ingredientsHM = arguments.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
             }
         }
@@ -71,7 +71,7 @@ class PizzaDetailFragment : Fragment() {
         }
         else{
             Paper.book().delete(FilePersistenceHelper.HEADER_IMAGE_KEY)
-            pizza = Pizza("", null, TreeSet(), ArrayList())
+            pizza = Pizza("", null, ArrayList(), ArrayList())
         }
 
         setUpAdapter(ingredientsRecyclerView, pizza, ingredientsHM?.map { it.value })
@@ -91,7 +91,9 @@ class PizzaDetailFragment : Fragment() {
     }
 
     private fun addPizzaToCart(pizza: Pizza?) {
-        if(pizza?.getIngredientIds()?.equals(originalIngredientIds) != true){
+        Collections.sort(pizza?.getIngredientIds())
+        Collections.sort(originalIngredientIds)
+        if(pizza?.getIngredientIds()?.equals(originalIngredientIds!!) != true){
             pizza?.name = activity?.getString(R.string.custom_pizza_name, pizza?.name)
         }
         var cart: Cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
