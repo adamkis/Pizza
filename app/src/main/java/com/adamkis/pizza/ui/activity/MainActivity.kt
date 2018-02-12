@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.adamkis.pizza.R
 import com.adamkis.pizza.helper.FilePersistenceHelper
-import com.adamkis.pizza.helper.logDebug
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.ui.fragment.PizzasFragment
 import io.paperdb.Paper
@@ -17,8 +16,6 @@ class MainActivity : BaseActivity() {
 
     private var activeFragment: Fragment? = null
     private val ACTIVE_FRAGMENT_KEY = "ACTIVE_FRAGMENT_KEY"
-
-    private var cart: Cart?  = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +37,7 @@ class MainActivity : BaseActivity() {
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        supportFragmentManager.putFragment(outState, ACTIVE_FRAGMENT_KEY, activeFragment);
+        supportFragmentManager.putFragment(outState, ACTIVE_FRAGMENT_KEY, activeFragment)
     }
 
     private fun replaceFragment(fragment: Fragment){
@@ -52,15 +49,13 @@ class MainActivity : BaseActivity() {
         return Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
     }
 
-    fun updateCart(cart: Cart){
-        logDebug("Cart updated" + cart.toString())
+    private fun updateCart(cart: Cart){
         cart_item_count.text = cart.getItemCount().toString()
     }
 
 
 }
 
-// TODO chack for savedInstancestate in every activity before replacing fragment
 // TODO Item layout names should start with item
 // TODO Purge ingredientsHashMap wherever it's possible - rename to IngredientsAvailable
 // TODO check why app size is big
@@ -74,3 +69,4 @@ class MainActivity : BaseActivity() {
 // TODO No pizza image  - handle it
 // TODO MVVM
 // TODO handle error in CartFragment
+// TODO make drinksActivity not download when orientation changes

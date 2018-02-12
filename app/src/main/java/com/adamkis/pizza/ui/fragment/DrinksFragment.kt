@@ -85,7 +85,6 @@ class DrinksFragment : BaseFragment() {
 
 
     private fun setUpAdapter(drinksRecyclerView: RecyclerView, cart: Cart, drinksResponse: Array<Drink>){
-
         drinksRecyclerView.layoutManager = LinearLayoutManager(this@DrinksFragment.activity as Context, LinearLayout.VERTICAL, false)
         drinksRecyclerView.adapter = DrinksAdapter(cart, drinksResponse, activity as Context)
         clickDisposable = (drinksRecyclerView.adapter as DrinksAdapter).clickEvent

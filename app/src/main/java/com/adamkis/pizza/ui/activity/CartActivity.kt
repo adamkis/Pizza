@@ -15,7 +15,9 @@ class CartActivity : BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CartFragment.newInstance()).commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CartFragment.newInstance()).commit()
+        }
     }
 
 }

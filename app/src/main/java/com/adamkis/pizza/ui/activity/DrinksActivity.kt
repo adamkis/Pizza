@@ -13,12 +13,11 @@ class DrinksActivity : BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drinks)
-
         setupToolbar(R.id.toolbar)
         setupBackButton()
-
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DrinksFragment.newInstance()).commit()
-
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DrinksFragment.newInstance()).commit()
+        }
     }
 
 }
