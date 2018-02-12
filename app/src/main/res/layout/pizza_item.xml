@@ -19,7 +19,7 @@
         android:id="@+id/pizza_image"
         android:layout_width="@dimen/pizza_image_size"
         android:layout_height="@dimen/pizza_image_size"
-        android:layout_margin="@dimen/padding_xl"
+        android:layout_margin="@dimen/padding_16"
         android:layout_gravity="center"
         android:scaleType="centerCrop" />
 
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:padding="@dimen/padding_xl"
+        android:padding="@dimen/padding_16"
         android:background="@color/pizza_item_details_bg"
         android:orientation="vertical">
         <TextView
@@ -38,17 +38,17 @@
             android:ellipsize="end"
             android:textStyle="bold"
             android:textColor="@color/text_white"
-            android:textSize="@dimen/font_l"
+            android:textSize="@dimen/font_24"
             />
         <TextView
             android:id="@+id/pizza_ingredients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_m"
+            android:layout_marginTop="@dimen/padding_9"
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/text_white"
-            android:textSize="@dimen/font_m"
+            android:textSize="@dimen/font_13"
             />
     </LinearLayout>
 

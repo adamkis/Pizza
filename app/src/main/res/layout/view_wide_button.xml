@@ -13,11 +13,11 @@
             android:id="@+id/icon"
             android:layout_width="@dimen/cart_icon_size"
             android:layout_height="@dimen/cart_icon_size"
-            android:layout_marginRight="@dimen/padding_m"/>
+            android:layout_marginRight="@dimen/padding_9"/>
         <TextView
             android:id="@+id/text_main"
             style="@style/text_wide_button_bold"
-            android:layout_marginRight="@dimen/padding_m"/>
+            android:layout_marginRight="@dimen/padding_9"/>
         <TextView
             android:id="@+id/text_price"
             style="@style/text_wide_button_bold_italic"/>

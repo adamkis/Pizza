@@ -10,8 +10,8 @@
 
 
     <style name="toolbar" >
-        <item name="android:layout_height">@dimen/height_56</item>
-        <item name="android:minHeight">@dimen/height_56</item>
+        <item name="android:layout_height">@dimen/height_toolbar</item>
+        <item name="android:minHeight">@dimen/height_toolbar</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">?attr/colorPrimary</item>
         <item name="android:elevation" tools:ignore="NewApi">4dp</item>
@@ -33,7 +33,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
-        <item name="android:padding">@dimen/padding_xl</item>
+        <item name="android:padding">@dimen/padding_16</item>
     </style>
 
     <style name="text_wide_button">

@@ -1,34 +1,24 @@
 <resources>
-    <dimen name="padding_xs">2dp</dimen>
-    <dimen name="padding_s">4dp</dimen>
-    <dimen name="padding_m">8dp</dimen>
-    <dimen name="padding_l">12dp</dimen>
-    <dimen name="padding_xl">16dp</dimen>
-    <dimen name="padding_xxl">20dp</dimen>
-    <dimen name="padding_xxxl">24dp</dimen>
-
     <dimen name="padding_3">3dp</dimen>
     <dimen name="padding_9">9dp</dimen>
     <dimen name="padding_16">16dp</dimen>
     <dimen name="padding_19">19dp</dimen>
+    <dimen name="padding_24">24dp</dimen>
 
-    <dimen name="font_m">18sp</dimen>
-    <dimen name="font_l">20sp</dimen>
-
+    <dimen name="font_13">13sp</dimen>
     <dimen name="font_14">14sp</dimen>
     <dimen name="font_16">16sp</dimen>
     <dimen name="font_20">20sp</dimen>
+    <dimen name="font_24">24sp</dimen>
     <dimen name="font_46">46sp</dimen>
-
-    <dimen name="height_56">56dp</dimen>
-    <dimen name="height_xl">56dp</dimen>
 
     <dimen name="pizza_image_size">350dp</dimen>
     <dimen name="wood_bg_height">400dp</dimen>
-    <dimen name="bg_size_cart_item_count">19dp</dimen>
 
+    <dimen name="height_toolbar">56dp</dimen>
+    <dimen name="bg_size_cart_item_count">19dp</dimen>
     <dimen name="cart_icon_size">24dp</dimen>
     <dimen name="drinks_icon_size">24dp</dimen>
     <dimen name="list_action_icon_size">24dp</dimen>
-
+    <dimen name="fab_size">56dp</dimen>
 </resources>
