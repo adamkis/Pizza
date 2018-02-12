@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import org.json.JSONArray
-import org.json.JSONObject
 import java.util.*
 
 
@@ -18,9 +16,13 @@ import java.util.*
 data class Pizza(@SerializedName("name") var name: String?,
                  @SerializedName("imageUrl") var imageUrl: String?,
                  @SerializedName("ingredients") private var ingredientIds: ArrayList<Int>?,
-                 private var ingredientObjs: ArrayList<Ingredient>?,
+                 private var ingredientObjects: ArrayList<Ingredient>?,
                  var basePrice: Double? = 0.0
         ) : OrderItem, Parcelable{
+
+    companion object {
+        const val TAG = "PIZZA"
+    }
 
     override fun getItemName(): String {
         return name ?: ""
@@ -28,7 +30,7 @@ data class Pizza(@SerializedName("name") var name: String?,
 
     override fun getItemPrice(): Double {
         var price: Double = 0.0
-        ingredientObjs?.let {
+        ingredientObjects?.let {
             for (ingredient in it) {
                 price += ingredient.price ?: 0.0
             }
@@ -37,14 +39,14 @@ data class Pizza(@SerializedName("name") var name: String?,
         return price
     }
 
-    fun addIngredient(ingredient: Ingredient?){
+    fun addIngredientObject(ingredient: Ingredient?){
         // TODO change instantiation
-        if (ingredientObjs == null) ingredientObjs = ArrayList()
-        ingredient?.let { ingredientObjs?.add(it) }
+        if (ingredientObjects == null) ingredientObjects = ArrayList()
+        ingredient?.let { ingredientObjects?.add(it) }
     }
 
-    fun removeIngredient(ingredient: Ingredient?){
-        ingredient?.let { ingredientObjs?.remove(ingredient) }
+    fun removeIngredientObject(ingredient: Ingredient?){
+        ingredient?.let { ingredientObjects?.remove(ingredient) }
     }
 
     // TODO two methods are not needed!
@@ -58,21 +60,16 @@ data class Pizza(@SerializedName("name") var name: String?,
     }
 
     fun getIngredients(): ArrayList<Ingredient>?{
-        return ingredientObjs
+        return ingredientObjects
     }
 
     fun getIngredientIds(): ArrayList<Int>?{
         return ingredientIds
     }
 
-    companion object {
-        const val TAG = "PIZZA"
-    }
-
-
     fun initIngredientObjects(ingredientsHM: HashMap<Int?, Ingredient>?){
         ingredientIds?.forEach {
-            ingredientId -> addIngredient(ingredientsHM?.get(ingredientId))
+            ingredientId -> addIngredientObject(ingredientsHM?.get(ingredientId))
         }
     }
 
