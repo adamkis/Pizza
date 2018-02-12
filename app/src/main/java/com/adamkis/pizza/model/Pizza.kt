@@ -69,4 +69,12 @@ data class Pizza(@SerializedName("name") var name: String?,
         const val TAG = "PIZZA"
     }
 
+
+    fun initIngredientObjects(ingredientsHM: HashMap<Int?, Ingredient>?){
+        ingredientIds?.forEach {
+            ingredientId -> addIngredient(ingredientsHM?.get(ingredientId))
+        }
+    }
+
+
 }
