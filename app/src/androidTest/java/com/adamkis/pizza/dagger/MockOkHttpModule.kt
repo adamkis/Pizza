@@ -16,10 +16,11 @@ class MockOkHttpModule() {
             override fun intercept(chain: Interceptor.Chain): Response {
                 return Response.Builder()
                         .code(200)
-                        .message(MockResponseStrings.MOCK_RESPONSE_GETRECENT)
+                        // TODO: Customize different response for different calls
+                        .message(MockResponseStrings.MOCK_PIZZAS)
                         .request(chain.request())
                         .protocol(Protocol.HTTP_1_0)
-                        .body(ResponseBody.create(MediaType.parse("application/json"), MockResponseStrings.MOCK_RESPONSE_GETRECENT.toByteArray()))
+                        .body(ResponseBody.create(MediaType.parse("application/json"), MockResponseStrings.MOCK_PIZZAS.toByteArray()))
                         .addHeader("content-type", "application/json")
                         .build()
             }

@@ -33,10 +33,12 @@ class MainActivityMockWebServerInstrumentedTest {
         val dispatcher = object : Dispatcher() {
             @Throws(InterruptedException::class)
             override fun dispatch(request: RecordedRequest): MockResponse {
-                if (request.path.startsWith("/?method=flickr.photos.getRecent")) {
-                    return MockResponse().setResponseCode(200).setBody(MockResponseStrings.MOCK_RESPONSE_GETRECENT)
+                return when {
+                    request.path.contains("ozt3z") -> MockResponse().setResponseCode(200).setBody(MockResponseStrings.MOCK_INGREDIENTS)
+                    request.path.contains("150da7") -> MockResponse().setResponseCode(200).setBody(MockResponseStrings.MOCK_DRINKS)
+                    request.path.contains("dokm7") -> MockResponse().setResponseCode(200).setBody(MockResponseStrings.MOCK_PIZZAS)
+                    else -> MockResponse().setResponseCode(404)
                 }
-                return MockResponse().setResponseCode(404)
             }
         }
         server.setDispatcher(dispatcher)
@@ -50,8 +52,9 @@ class MainActivityMockWebServerInstrumentedTest {
     }
 
     @Test
-    fun homeActivity_firstPhotoTitleFound() {
-        onView(withText("Pukaskwa Coastal Trail Aug-Sept 2017")).check(matches(isDisplayed()))
+    fun mainActivity_isDisplayed() {
+        onView(withText("Margherita")).check(matches(isDisplayed()))
+        onView(withText("Ricci")).check(matches(isDisplayed()))
     }
 
 }

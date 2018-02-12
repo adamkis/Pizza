@@ -7,6 +7,7 @@ import org.junit.runner.RunWith
 
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
@@ -27,16 +28,7 @@ class MainActivityInstrumentedTest {
 
     @Test
     fun homeActivity_Displayed() {
-        onView(allOf(instanceOf(TextView::class.java), withParent(withId(R.id.action_bar)))).check(matches(withText(TestUtils.getString(R.string.title_home))))
-    }
-
-    @Test
-    fun homeActivity_BottomNavigationClicks(){
-//        onView(allOf(instanceOf(TextView::class.java), withParent(withId(R.id.action_bar)))).check(matches(withText(TestUtils.getString(R.string.title_home))))
-//        onView(withId(R.id.navigation_search)).perform(click())
-//        onView(allOf(instanceOf(TextView::class.java), withParent(withId(R.id.action_bar)))).check(matches(withText(TestUtils.getString(R.string.title_search))))
-//        onView(withId(R.id.navigation_home)).perform(click())
-//        onView(allOf(instanceOf(TextView::class.java), withParent(withId(R.id.action_bar)))).check(matches(withText(TestUtils.getString(R.string.title_home))))
+        onView(withText(TestUtils.getString(R.string.main_title))).check(matches(ViewMatchers.isDisplayed()))
     }
 
 }
