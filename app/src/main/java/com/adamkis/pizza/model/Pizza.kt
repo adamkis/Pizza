@@ -39,7 +39,7 @@ data class Pizza(@SerializedName("name") var name: String?,
         return price
     }
 
-    fun addIngredientObject(ingredient: Ingredient?){
+    fun addIngredient(ingredient: Ingredient?){
         if (ingredientObjects == null) ingredientObjects = ArrayList()
         ingredient?.let {
             ingredient ->
@@ -48,7 +48,7 @@ data class Pizza(@SerializedName("name") var name: String?,
         }
     }
 
-    fun removeIngredientObject(ingredient: Ingredient?){
+    fun removeIngredient(ingredient: Ingredient?){
         ingredient?.let {
             ingredient ->
                 ingredientObjects?.remove(ingredient)
@@ -56,7 +56,7 @@ data class Pizza(@SerializedName("name") var name: String?,
         }
     }
 
-    fun getIngredients(): ArrayList<Ingredient>?{
+    fun getIngredientObjects(): ArrayList<Ingredient>?{
         return ingredientObjects
     }
 
@@ -73,6 +73,5 @@ data class Pizza(@SerializedName("name") var name: String?,
             }
         }
     }
-
 
 }

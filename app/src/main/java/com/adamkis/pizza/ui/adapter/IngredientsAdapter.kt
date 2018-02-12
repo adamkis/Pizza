@@ -36,10 +36,10 @@ class IngredientsAdapter(val pizza: Pizza?, val ingredientsAvailable: List<Ingre
             itemView.ingredient_selected.isChecked = pizza?.getIngredientIds()?.contains(ingredient?.id) ?: false
             itemView.ingredient_selected.setOnClickListener {
                 if( itemView.ingredient_selected.isChecked ){
-                    pizza?.addIngredientObject(ingredient)
+                    pizza?.addIngredient(ingredient)
                 }
                 else{
-                    pizza?.removeIngredientObject(ingredient)
+                    pizza?.removeIngredient(ingredient)
                 }
                 clickSubject.onNext(pizza?.getItemPrice() ?: 0.0)
             }

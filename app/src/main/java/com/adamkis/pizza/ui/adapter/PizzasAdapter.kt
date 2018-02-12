@@ -48,7 +48,7 @@ class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerV
 
         fun bind(pizza: Pizza?){
             itemView.pizza_name.text = pizza?.name
-            itemView.pizza_ingredients.text = pizza?.getIngredients()?.
+            itemView.pizza_ingredients.text = pizza?.getIngredientObjects()?.
                     map { it.name }?.
                     joinToString(", ")
             itemView.price.text = context.getString(R.string.price_with_currency, pizza?.getItemPrice())
