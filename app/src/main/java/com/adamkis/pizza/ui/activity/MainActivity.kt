@@ -56,11 +56,7 @@ class MainActivity : BaseActivity() {
 
 }
 
-// TODO check why app size is big
-// TODO refactor toolbars
 // TODO make drink and ingredient inherit from new abstract class Product
-// TODO remove all interceptors
-
 // TODO Put Paper into RXJava
 // TODO modify created by...
 // TODO Purge ingredientsHashMap wherever it's possible - rename to IngredientsAvailable

@@ -29,8 +29,7 @@ data class Cart(var orderItems: MutableList<OrderItem> = ArrayList()){
         for ( orderItem in orderItems ){
             when( orderItem ){
                 is Pizza -> pizzas.add(orderItem)
-            // TODO null check
-                is Drink -> drinkIds.add(orderItem.id!!)
+                is Drink -> orderItem.id?.let { drinkIds.add(it) }
             }
         }
         return Order(pizzas, drinkIds)
