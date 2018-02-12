@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.adamkis.pizza.R
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
+import com.adamkis.pizza.model.PizzasResponse
 import com.adamkis.pizza.ui.fragment.PizzaDetailFragment
 import kotlinx.android.synthetic.main.activity_pizza_detail.*
 
@@ -17,6 +18,7 @@ class PizzaDetailActivity : BaseActivity(){
         setContentView(R.layout.activity_pizza_detail)
 
         val pizza: Pizza? = intent.getParcelableExtra(ARG_PIZZA)
+        val pizzasResponse: PizzasResponse? = intent.getParcelableExtra(ARG_PIZZAS_RESPONSE)
         val ingredientsHM: HashMap<Int?, Ingredient>? = intent.getSerializableExtra(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
 
         setupToolbar(R.id.toolbar)
@@ -24,7 +26,7 @@ class PizzaDetailActivity : BaseActivity(){
 
         pizza_name.text = if (pizza?.name.isNullOrBlank()) getString(R.string.custom_pizza) else pizza?.name
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza, ingredientsHM)).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, PizzaDetailFragment.newInstance(pizza, ingredientsHM, pizzasResponse)).commit()
         }
     }
 
@@ -32,6 +34,7 @@ class PizzaDetailActivity : BaseActivity(){
 
         private val ARG_INGREDIENTS = "ARG_INGREDIENTS"
         private val ARG_PIZZA = "ARG_PIZZA"
+        private val ARG_PIZZAS_RESPONSE = "ARG_PIZZAS_RESPONSE"
 
         fun getStartIntent(context: Context, pizza: Pizza, ingredientsHM: HashMap<Int?, Ingredient>?): Intent {
             return Intent(context, PizzaDetailActivity::class.java)
@@ -41,9 +44,12 @@ class PizzaDetailActivity : BaseActivity(){
                     }
         }
 
-        fun getStartIntentNewPizza(context: Context, ingredientsHM: HashMap<Int?, Ingredient>?): Intent {
+        fun getStartIntentNewPizza(context: Context, ingredientsHM: HashMap<Int?, Ingredient>?, pizzasResponse: PizzasResponse?): Intent {
             return Intent(context, PizzaDetailActivity::class.java)
-                    .apply { putExtra(ARG_INGREDIENTS, ingredientsHM) }
+                    .apply {
+                        putExtra(ARG_INGREDIENTS, ingredientsHM)
+                        putExtra(ARG_PIZZAS_RESPONSE, pizzasResponse)
+                    }
         }
 
     }

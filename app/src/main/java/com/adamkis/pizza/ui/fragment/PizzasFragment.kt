@@ -148,7 +148,7 @@ class PizzasFragment : BaseFragment() {
 
     private fun setupNewPizzaFab() {
         new_pizza.setOnClickListener {
-            startActivity(PizzaDetailActivity.getStartIntentNewPizza(activity as Context, ingredientsHM))
+            startActivity(PizzaDetailActivity.getStartIntentNewPizza(activity as Context, ingredientsHM, pizzasResponse))
         }
     }
 

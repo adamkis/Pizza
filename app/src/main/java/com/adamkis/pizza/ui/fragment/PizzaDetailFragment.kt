@@ -14,6 +14,7 @@ import com.adamkis.pizza.helper.FilePersistenceHelper
 import com.adamkis.pizza.model.Cart
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.Pizza
+import com.adamkis.pizza.model.PizzasResponse
 import com.adamkis.pizza.ui.adapter.IngredientsAdapter
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
 import io.paperdb.Paper
@@ -28,12 +29,14 @@ class PizzaDetailFragment : Fragment() {
     private var pizza: Pizza? = null
     private var originalIngredientIds: ArrayList<Int>? = ArrayList()
     private var ingredientsHM: HashMap<Int?, Ingredient>? = null
+    private var pizzasResponse: PizzasResponse? = null
     private var clickDisposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if( savedInstanceState != null ){
             pizza = savedInstanceState.getParcelable(ARG_PIZZA)
+            pizzasResponse = savedInstanceState.getParcelable(ARG_PIZZAS_RESPONSE)
             ingredientsHM = savedInstanceState.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
             originalIngredientIds = savedInstanceState.getSerializable(ARG_ORIGINAL_INGREDIENTS) as ArrayList<Int>?
         }
@@ -41,6 +44,7 @@ class PizzaDetailFragment : Fragment() {
             arguments?.let {
                 arguments ->
                     pizza = arguments.getParcelable(ARG_PIZZA)
+                    pizzasResponse = arguments.getParcelable(ARG_PIZZAS_RESPONSE)
                     pizza?.let { pizza -> originalIngredientIds = ArrayList(pizza?.getIngredientIds()) }
                     ingredientsHM = arguments.getSerializable(ARG_INGREDIENTS) as HashMap<Int?, Ingredient>?
             }
@@ -62,7 +66,7 @@ class PizzaDetailFragment : Fragment() {
 
         if( pizza == null ){
             Paper.book().delete(FilePersistenceHelper.HEADER_IMAGE_KEY)
-            pizza = Pizza("", null, ArrayList(), ArrayList())
+            pizza = Pizza("", null, ArrayList(), ArrayList(), pizzasResponse?.basePrice)
         }
         else{
             header_image.setImageBitmap(Paper.book().read(FilePersistenceHelper.HEADER_IMAGE_KEY))
@@ -103,6 +107,7 @@ class PizzaDetailFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelable(ARG_PIZZA, pizza)
+        outState.putParcelable(ARG_PIZZAS_RESPONSE, pizzasResponse)
         outState.putSerializable(ARG_INGREDIENTS, ingredientsHM)
         outState.putSerializable(ARG_ORIGINAL_INGREDIENTS, originalIngredientIds)
         super.onSaveInstanceState(outState)
@@ -118,11 +123,13 @@ class PizzaDetailFragment : Fragment() {
         private val ARG_PIZZA = "ARG_PIZZA"
         private val ARG_INGREDIENTS = "ARG_INGREDIENTS"
         private val ARG_ORIGINAL_INGREDIENTS = "ARG_ORIGINAL_INGREDIENTS"
+        private val ARG_PIZZAS_RESPONSE = "ARG_PIZZAS_RESPONSE"
 
-        fun newInstance(pizza: Pizza?, ingredientsHM: HashMap<Int?, Ingredient>?): PizzaDetailFragment {
+        fun newInstance(pizza: Pizza?, ingredientsHM: HashMap<Int?, Ingredient>?, pizzasResponse: PizzasResponse?): PizzaDetailFragment {
             val fragment = PizzaDetailFragment()
             val args = Bundle()
             args.putParcelable(ARG_PIZZA, pizza)
+            args.putParcelable(ARG_PIZZAS_RESPONSE, pizzasResponse)
             args.putSerializable(ARG_INGREDIENTS, ingredientsHM)
             fragment.arguments = args
             return fragment
