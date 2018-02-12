@@ -60,13 +60,13 @@ class MainActivity : BaseActivity() {
 
 }
 
-// TODO refactor all progressbars
 // TODO chack for savedInstancestate in every activity before replacing fragment
 // TODO Item layout names should start with item
 // TODO Purge ingredientsHashMap wherever it's possible - rename to IngredientsAvailable
 // TODO check why app size is big
 // TODO refactor toolbars
 // TODO make drink and ingredient inherit from new abstract class Product
+// TODO remove all interceptors
 // TODO Put Paper into RXJava
 // TODO reuse bottom bar button
 // TODO reuse iingredient, pizza, drinks elements - layout or adapter too
