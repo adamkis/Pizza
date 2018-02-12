@@ -6,7 +6,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
@@ -19,10 +18,6 @@ import android.widget.TextView
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.instanceOf
 
-
-/**
- * Created by adam on 2017. 12. 31..
- */
 @RunWith(AndroidJUnit4::class)
 class MainActivityInstrumentedTest {
 

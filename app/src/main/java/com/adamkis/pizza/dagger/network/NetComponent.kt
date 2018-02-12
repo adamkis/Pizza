@@ -7,9 +7,6 @@ import com.adamkis.pizza.ui.fragment.PizzasFragment
 import dagger.Component
 import javax.inject.Singleton
 
-/**
- * Created by adam on 2018. 01. 05..
- */
 @Singleton
 @Component(modules = arrayOf(
         OkHttpModule::class,

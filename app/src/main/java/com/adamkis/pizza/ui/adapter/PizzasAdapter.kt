@@ -14,9 +14,6 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_pizza.view.*
 import javax.inject.Inject
 
-/**
- * Created by adam on 2018. 01. 09..
- */
 class PizzasAdapter(val pizzas: Array<Pizza>?, val context: Context) : RecyclerView.Adapter<PizzasAdapter.PizzasViewHolder>(){
 
     @Inject lateinit var glideReqManager: RequestManager

@@ -5,15 +5,9 @@ import com.adamkis.pizza.model.Drink
 import com.adamkis.pizza.model.Ingredient
 import com.adamkis.pizza.model.PizzasResponse
 import io.reactivex.Observable
-import okhttp3.Response
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.http.*
 
-
-/**
- * Created by adam on 2018. 01. 05..
- */
 interface RestApi {
 
     companion object {

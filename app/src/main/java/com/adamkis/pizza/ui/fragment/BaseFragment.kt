@@ -6,10 +6,6 @@ import android.support.v4.app.Fragment
 import android.view.View
 import com.adamkis.pizza.R
 
-
-/**
- * Created by adam on 2018. 01. 16..
- */
 abstract class BaseFragment : Fragment(){
 
     private var loadingView: View? = null

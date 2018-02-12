@@ -7,9 +7,6 @@ import android.support.annotation.IdRes
 import android.support.v4.util.Pair
 import android.view.View
 
-/**
- * Created by adam on 2018. 01. 12..
- */
 object TransitionHelper{
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

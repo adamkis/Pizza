@@ -9,10 +9,6 @@ import com.adamkis.pizza.model.Pizza
 import com.adamkis.pizza.ui.fragment.PizzaDetailFragment
 import kotlinx.android.synthetic.main.activity_pizza_detail.*
 
-
-/**
- * Created by adam on 2018. 01. 11..
- */
 class PizzaDetailActivity : BaseActivity(){
 
 

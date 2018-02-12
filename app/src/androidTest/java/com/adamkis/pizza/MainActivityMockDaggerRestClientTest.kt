@@ -18,9 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 
 
-/**
- * Created by adam on 2017. 12. 31..
- */
 class MainActivityMockDaggerRestClientTest {
 
 

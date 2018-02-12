@@ -4,9 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import com.adamkis.pizza.R
 
-/**
- * Created by adam on 2018. 02. 07..
- */
 class CheckoutView : WideButtonView {
 
 

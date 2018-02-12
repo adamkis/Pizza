@@ -5,9 +5,6 @@ import dagger.Provides
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
-/**
- * Created by adam on 2018. 01. 07..
- */
 @Module
 class LoggingInterceptorModule() {
     @Provides

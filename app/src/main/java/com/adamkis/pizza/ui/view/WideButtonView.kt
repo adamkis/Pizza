@@ -10,9 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.adamkis.pizza.R
 
-/**
- * Created by adam on 2018. 02. 07..
- */
 open class WideButtonView : FrameLayout {
 
     lateinit private var icon: ImageView

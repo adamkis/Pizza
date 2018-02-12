@@ -55,13 +55,3 @@ class MainActivity : BaseActivity() {
 
 
 }
-
-// TODO consolidate ARGS
-// TODO put newInstance on top of fragments
-
-// TODO make drink and ingredient inherit from new abstract class Product
-// TODO Put Paper into RXJava
-// TODO modify created by...
-// TODO Purge ingredientsHashMap wherever it's possible - rename to IngredientsAvailable
-// TODO MVVM
-// TODO make drinksActivity not download when orientation changes

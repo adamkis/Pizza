@@ -18,9 +18,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-/**
- * Created by adam on 2017. 12. 31..
- */
 class MainActivityMockWebServerInstrumentedTest {
 
     @Suppress("unused") // actually used by Espresso

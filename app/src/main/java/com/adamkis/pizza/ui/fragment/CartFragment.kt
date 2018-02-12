@@ -30,10 +30,6 @@ import kotlinx.android.synthetic.main.toolbar_cart.*
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-
-/**
- * Created by adam on 2018. 01. 11..
- */
 class CartFragment : BaseFragment() {
 
     private var cart: Cart? = null

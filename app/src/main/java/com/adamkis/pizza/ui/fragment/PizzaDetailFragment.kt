@@ -23,10 +23,6 @@ import kotlinx.android.synthetic.main.header_pizza_detail.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-
-/**
- * Created by adam on 2018. 01. 11..
- */
 class PizzaDetailFragment : Fragment() {
 
     private var pizza: Pizza? = null

@@ -4,9 +4,6 @@ import android.os.Bundle
 import com.adamkis.pizza.R
 import com.adamkis.pizza.ui.fragment.DrinksFragment
 
-/**
- * Created by adam on 2018. 01. 11..
- */
 class DrinksActivity : BaseActivity(){
 
 

@@ -12,10 +12,6 @@ import com.squareup.leakcanary.LeakCanary
 import io.paperdb.Paper
 import timber.log.Timber
 
-
-/**
- * Created by adam on 2018. 01. 05..
- */
 class App : Application() {
 
     @VisibleForTesting

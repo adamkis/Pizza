@@ -5,9 +5,6 @@ import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
 
-/**
- * Created by adam on 2018. 02. 07..
- */
 class AddedToCartView : WideButtonView {
 
 

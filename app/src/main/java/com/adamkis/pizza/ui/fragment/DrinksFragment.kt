@@ -24,9 +24,6 @@ import kotlinx.android.synthetic.main.fragment_drinks.*
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-/**
- * Created by adam on 2018. 01. 11..
- */
 class DrinksFragment : BaseFragment() {
 
     private var cart: Cart? = null
