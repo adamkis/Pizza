@@ -3,10 +3,13 @@ package com.adamkis.pizza
 import android.content.Intent
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.ViewAction
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
-import android.support.test.espresso.matcher.ViewMatchers.withText
+import android.support.test.espresso.contrib.RecyclerViewActions
+import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
+import android.support.v7.widget.RecyclerView
 import com.adamkis.pizza.helper.MockResponseStrings
 import com.adamkis.pizza.ui.activity.MainActivity
 import com.squareup.okhttp.mockwebserver.Dispatcher
@@ -55,6 +58,9 @@ class MainActivityMockWebServerInstrumentedTest {
     fun mainActivity_isDisplayed() {
         onView(withText("Margherita")).check(matches(isDisplayed()))
         onView(withText("Ricci")).check(matches(isDisplayed()))
+        onView(withId(R.id.pizzas_recycler_view))
+                .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withText("Salami")).check(matches(isDisplayed()))
     }
 
 }
