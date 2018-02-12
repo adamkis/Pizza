@@ -90,8 +90,10 @@ class PizzaDetailFragment : Fragment() {
     private fun addPizzaToCart(pizza: Pizza?) {
         Collections.sort(pizza?.getIngredientIds())
         Collections.sort(originalIngredientIds)
-        if( pizza?.getIngredientIds()?.equals(originalIngredientIds) != true &&
-                pizza?.name?.contains(activity?.getString(R.string.custom) ?: "") != true ){
+        if( pizza?.name?.contains(activity?.getString(R.string.custom) ?: "") != true &&
+                ( pizza?.getIngredientIds()?.equals(originalIngredientIds) != true ||
+                        pizza?.getIngredientIds()?.isEmpty() == true  )
+            ){
             pizza?.name = activity?.getString(R.string.custom_pizza_name, pizza?.name)
         }
         var cart: Cart = Paper.book().read(FilePersistenceHelper.PAPER_CART_KEY, Cart())
