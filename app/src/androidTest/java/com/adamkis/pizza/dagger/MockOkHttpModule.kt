@@ -1,6 +1,6 @@
 package com.adamkis.pizza.dagger
 
-import com.adamkis.pizza.helper.MockResponseStrings
+import com.adamkis.pizza.helper.MockResources
 import dagger.Module
 import dagger.Provides
 import okhttp3.*
@@ -16,11 +16,10 @@ class MockOkHttpModule() {
             override fun intercept(chain: Interceptor.Chain): Response {
                 return Response.Builder()
                         .code(200)
-                        // TODO: Customize different response for different calls
-                        .message(MockResponseStrings.MOCK_PIZZAS)
+                        .message(MockResources.MOCK_PIZZAS)
                         .request(chain.request())
                         .protocol(Protocol.HTTP_1_0)
-                        .body(ResponseBody.create(MediaType.parse("application/json"), MockResponseStrings.MOCK_PIZZAS.toByteArray()))
+                        .body(ResponseBody.create(MediaType.parse("application/json"), MockResources.MOCK_PIZZAS.toByteArray()))
                         .addHeader("content-type", "application/json")
                         .build()
             }

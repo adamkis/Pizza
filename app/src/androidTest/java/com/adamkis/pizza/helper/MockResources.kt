@@ -1,6 +1,21 @@
 package com.adamkis.pizza.helper
 
-object MockResponseStrings {
+object MockResources {
+
+
+    val pizzas: ArrayList<String> = arrayListOf(
+            "Margherita",
+            "Ricci",
+            "Boscaiola",
+            "Primavera",
+            "Hawaii",
+            "Mare Bianco",
+            "Mari e monti",
+            "Bottarga",
+            "Boottarga e Asparagi",
+            "Ricci e Asparagi"
+    )
+
 
     // https://api.myjson.com/bins/ozt3z
     val MOCK_INGREDIENTS = """[{"price":1,"name":"Mozzarella","id":1},{"price":0.5,"name":"Tomato Sauce","id":2},{"price":1.5,"name":"Salami","id":3},{"price":2,"name":"Mushrooms","id":4},{"price":4,"name":"Ricci","id":5},{"price":2,"name":"Asparagus","id":6},{"price":1,"name":"Pineapple","id":7},{"price":3,"name":"Speck","id":8},{"price":2.5,"name":"Bottarga","id":9},{"price":2.2,"name":"Tuna","id":10}]"""

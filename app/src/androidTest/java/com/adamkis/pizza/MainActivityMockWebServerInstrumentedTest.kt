@@ -3,14 +3,15 @@ package com.adamkis.pizza
 import android.content.Intent
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.ViewAction
+import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
+import android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.v7.widget.RecyclerView
-import com.adamkis.pizza.helper.MockResponseStrings
+import com.adamkis.pizza.helper.MockResources
 import com.adamkis.pizza.ui.activity.MainActivity
 import com.squareup.okhttp.mockwebserver.Dispatcher
 import com.squareup.okhttp.mockwebserver.MockResponse
@@ -37,9 +38,9 @@ class MainActivityMockWebServerInstrumentedTest {
             @Throws(InterruptedException::class)
             override fun dispatch(request: RecordedRequest): MockResponse {
                 return when {
-                    request.path.contains("ozt3z") -> MockResponse().setResponseCode(200).setBody(MockResponseStrings.MOCK_INGREDIENTS)
-                    request.path.contains("150da7") -> MockResponse().setResponseCode(200).setBody(MockResponseStrings.MOCK_DRINKS)
-                    request.path.contains("dokm7") -> MockResponse().setResponseCode(200).setBody(MockResponseStrings.MOCK_PIZZAS)
+                    request.path.contains("ozt3z") -> MockResponse().setResponseCode(200).setBody(MockResources.MOCK_INGREDIENTS)
+                    request.path.contains("150da7") -> MockResponse().setResponseCode(200).setBody(MockResources.MOCK_DRINKS)
+                    request.path.contains("dokm7") -> MockResponse().setResponseCode(200).setBody(MockResources.MOCK_PIZZAS)
                     else -> MockResponse().setResponseCode(404)
                 }
             }
@@ -55,12 +56,21 @@ class MainActivityMockWebServerInstrumentedTest {
     }
 
     @Test
-    fun mainActivity_isDisplayed() {
-        onView(withText("Margherita")).check(matches(isDisplayed()))
-        onView(withText("Ricci")).check(matches(isDisplayed()))
-        onView(withId(R.id.pizzas_recycler_view))
-                .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-        onView(withText("Salami")).check(matches(isDisplayed()))
+    fun mainActivity_isPizzasListFilled() {
+        for ((i, pizza) in MockResources.pizzas.withIndex()){
+            onView(withId(R.id.pizzas_recycler_view)).perform(scrollToPosition<RecyclerView.ViewHolder>(i))
+            onView(withText(pizza)).check(matches(isDisplayed()))
+        }
+    }
+
+    @Test
+    fun mainActivity_clickElements() {
+        for ((i, pizza) in MockResources.pizzas.withIndex()){
+            onView(withId(R.id.pizzas_recycler_view))
+                    .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(i, click()))
+            onView(withText(pizza)).check(matches(isDisplayed()))
+            pressBack()
+        }
     }
 
 }
