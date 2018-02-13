@@ -11,7 +11,7 @@
 
         <TextView
             style="@style/title_toolbar"
-            android:text="@string/main_title"
+            android:text="@string/cart"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
